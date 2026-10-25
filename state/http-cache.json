@@ -1,0 +1,27 @@
+{
+  "https://www.nature.com/nchem.rss": {
+    "etag": "\"79a0bb59a5909dac71a679cfc48fdfd0\"",
+    "savedAt": "2026-10-31T10:29:52.253Z"
+  },
+  "https://www.nature.com/nmat.rss": {
+    "etag": "\"f6b7280b704125a2a3eb82b6de1735d1\"",
+    "savedAt": "2026-10-31T10:29:53.753Z"
+  },
+  "https://www.nature.com/natcomputsci.rss": {
+    "etag": "\"458ab32e6b29480186ab6ca9f4fcdf6e\"",
+    "savedAt": "2026-10-27T09:56:17.549Z"
+  },
+  "https://www.nature.com/npjcompumats.rss": {
+    "etag": "\"9d7d95c0343e1d2f330f143d6986ec1f\"",
+    "savedAt": "2026-10-31T10:29:56.755Z"
+  },
+  "https://cen.acs.org/feeds/rss/latestnews.xml": {
+    "etag": "\"0x8DF3735BB457B57\"",
+    "lastModified": "Sat, 31 Oct 2026 10:00:02 GMT",
+    "savedAt": "2026-10-31T10:29:58.281Z"
+  },
+  "https://www.sciencedaily.com/rss/matter_energy/chemistry.xml": {
+    "lastModified": "Fri, 30 Oct 2026 12:28:57 GMT",
+    "savedAt": "2026-10-31T10:30:01.509Z"
+  }
+}

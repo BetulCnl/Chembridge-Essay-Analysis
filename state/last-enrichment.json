@@ -1,0 +1,22 @@
+{
+  "openalex": {
+    "lookups": 34,
+    "hits": 11
+  },
+  "semanticscholar": {
+    "lookups": 1167,
+    "hits": 818
+  },
+  "pubchem": {
+    "lookups": 1,
+    "hits": 0
+  },
+  "github": {
+    "lookups": 60,
+    "hits": 60
+  },
+  "hn": {
+    "lookups": 120,
+    "hits": 56
+  }
+}
