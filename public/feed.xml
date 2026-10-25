@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ChemBridge — Chemistry × Computer Science</title>
+    <link>https://betulcnl.github.io/chembridge-essay-analysis</link>
+    <description>Recent chemistry developments that are ripe for computer-science approaches, scored and mapped daily.</description>
+    <language>en</language>
+    <lastBuildDate>Sat, 14 Nov 2026 11:38:37 GMT</lastBuildDate>
+    <atom:link href="https://betulcnl.github.io/chembridge-essay-analysis/data/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>HyInv Technical Report</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/2rv4muhyasxtc</link>
+      <guid isPermaLink="false">chembridge:2rv4muhyasxtc</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Catalysis</category>
+      <category>Reinforcement Learning</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>HPC &amp; GPU Acceleration</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 84/100&lt;/strong&gt; · Biochem. × RL, Biochem. × Transformer, Biochem. × HPC, Catalysis × RL&lt;/p&gt;&lt;p&gt;Inverse folding designs amino-acid sequences for a given protein backbone, and screening needs many candidates that are both diverse and well folded. We present HyInv, a 1.96-million-parameter backbone-conditioned graph network with an encoder-decoder architecture, trained by Hyra 2.0, the research …&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.11997&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Out-of-the-Box Tabular Foundation Models for Bayesian Optimization in Materials Discovery</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/15pjywz287txi</link>
+      <guid isPermaLink="false">chembridge:15pjywz287txi</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>Bayesian Optimization</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Active Learning &amp; Uncertainty</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 79/100&lt;/strong&gt; · Solid state × Bayes. opt., Solid state × Transformer, Solid state × Active learn.&lt;/p&gt;&lt;p&gt;Bayesian optimization is widely used in active learning loops for materials science. Gaussian processes serve as the de-facto surrogate model family, but require task-dependent kernel choices and can lack the modeling capacity for complex relationships. Tabular foundation models (TFMs) have recently…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.12491&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>HyPLM Technical Report</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/1ohuxwhtrf7qc</link>
+      <guid isPermaLink="false">chembridge:1ohuxwhtrf7qc</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Bayesian Optimization</category>
+      <category>HPC &amp; GPU Acceleration</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 71/100&lt;/strong&gt; · Biochem. × Transformer, Biochem. × Bayes. opt., Biochem. × HPC&lt;/p&gt;&lt;p&gt;Protein language models (PLMs) are standard tools for variant-effect prediction, protein annotation and design, but the compute needed to train and serve them keeps growing. We present HyPLM-Flash, an efficient and open PLM trained by Hyra 2.0, the research agent developed by our team. HyPLM-Flash i…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.12000&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Closed-Loop Bayesian Optimization for the Synthesis of Amine-Grafted Resins for Direct Air Capture</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/3cc8y275kambe</link>
+      <guid isPermaLink="false">chembridge:3cc8y275kambe</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Polymers &amp; Soft Matter</category>
+      <category>Green &amp; Sustainable Chemistry</category>
+      <category>Environmental &amp; Atmospheric Chemistry</category>
+      <category>Bayesian Optimization</category>
+      <category>Robotics &amp; Self-Driving Labs</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 70/100&lt;/strong&gt; · Polymers × Bayes. opt., Green × Bayes. opt., Polymers × Robotics/SDL, Green × Robotics/SDL&lt;/p&gt;&lt;p&gt;Direct air capture (DAC) of CO 2 requires adsorbents that combine high uptake with fast adsorption kinetics, yet whether these properties can be co-optimized remains unresolved. Here we couple automated high-throughput synthesis and characterization of amine-grafted porous polymers with multi-object…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.26434/chemrxiv.15000640/v2&quot;&gt;ChemRxiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ProTEUS: A mutation-resolved world model for closed-loop protein evolution</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/5i574pq52ibs</link>
+      <guid isPermaLink="false">chembridge:5i574pq52ibs</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Active Learning &amp; Uncertainty</category>
+      <category>Robotics &amp; Self-Driving Labs</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 70/100&lt;/strong&gt; · Biochem. × Transformer, Biochem. × Active learn., Biochem. × Robotics/SDL&lt;/p&gt;&lt;p&gt;Protein engineering requires navigating rugged fitness landscapes, where small sequence changes can produce large functional differences, but experimental screening can only sample a small fraction of sequence space. Thus, a central challenge is to efficiently traverse the large combinatorial space …&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.13348&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ORCHID-SAGE: Fully Reproducible CALPHAD Assessment from Evidence to Phase Diagram</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/4xbzz8en7j49</link>
+      <guid isPermaLink="false">chembridge:4xbzz8en7j49</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>LLMs &amp; Agents</category>
+      <category>Robotics &amp; Self-Driving Labs</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 68/100&lt;/strong&gt; · Solid state × LLM/Agent, Solid state × Robotics/SDL, Solid state × Simulation&lt;/p&gt;&lt;p&gt;Knowledge of phase stability is the first requirement for materials design, and predicting the conditions under which new materials can be synthesized has become a key capability of self-driving laboratories (SDLs). For inorganic materials, notably alloys, these predictions come from thermodynamic d…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.16308&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Scalable Bayesian Optimization for Efficient Exploration of Moire Patterns</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/1oi4pg9ugdmy5</link>
+      <guid isPermaLink="false">chembridge:1oi4pg9ugdmy5</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>Bayesian Optimization</category>
+      <category>Machine Learning (general)</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 68/100&lt;/strong&gt; · Solid state × Bayes. opt., Solid state × ML, Solid state × Simulation&lt;/p&gt;&lt;p&gt;Large materials design spaces often contain rare high-performing configurations that are difficult to identify through trial-and-error exploration or purely representative machine-learning (ML) sampling. In this work, we present FruBO, a flexible Bayesian Optimization framework for accelerating the …&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.12010&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MOOD: Benchmarking Post-Hoc OOD Detection for Materials Property Prediction</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/2vtlvj5xdagcv</link>
+      <guid isPermaLink="false">chembridge:2vtlvj5xdagcv</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>Graph Neural Networks</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Imaging &amp; Spectral Analysis</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 68/100&lt;/strong&gt; · Solid state × GNN, Solid state × Transformer, Solid state × Vision/Spectra&lt;/p&gt;&lt;p&gt;Out-of-distribution (OOD) detection is essential for deploying machine learning models in high stakes scientific applications, yet methods that flag OOD inputs without retraining the model have been validated almost exclusively on image classification. We introduce MOOD (Materials Out-of-Distributio…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.11839&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CadreAI: Agentic AI for Semantically Decoupled Protein–Drug Design and Optimization</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/3d5f0ikusrpnp</link>
+      <guid isPermaLink="false">chembridge:3d5f0ikusrpnp</guid>
+      <pubDate>Fri, 13 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>LLMs &amp; Agents</category>
+      <category>Generative Models &amp; Inverse Design</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 67/100&lt;/strong&gt; · Drug disc. × LLM/Agent, Drug disc. × Generative, Drug disc. × ML, Biochem. × LLM/Agent&lt;/p&gt;&lt;p&gt;De novo drug design must balance global drug properties with local structural determinants of target specificity. However, existing methods often reduce both objectives to local geometric optimization, relying on blind, reward-driven perturbations that can disrupt essential scaffolds and compromise …&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.1021/acs.jcim.6c02788&quot;&gt;Journal of Chemical Information and Modeling&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Edge-scaling softening of a universal machine-learned potential: point-defect formation energies in a coronene graphene quantum dot</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/dxift0xtcv6l</link>
+      <guid isPermaLink="false">chembridge:dxift0xtcv6l</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Nanomaterials</category>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <category>Graph Neural Networks</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 67/100&lt;/strong&gt; · Nano × Simulation, Nano × GNN, Nano × ML, Solid state × Simulation&lt;/p&gt;&lt;p&gt;Universal machine-learning interatomic potentials (MLIPs) are increasingly used as computationally efficient surrogates for density functional theory (DFT) in high-throughput nanomaterials screening. Systematic softening has been reported for several universal MLIPs when high-energy and far-from-equ…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.16528&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MCSA: Multi-Cutoff Spectral Aggregation in SO(3) Equivariant GNNs for Interatomic Potentials</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/243pi6ij1u4ex</link>
+      <guid isPermaLink="false">chembridge:243pi6ij1u4ex</guid>
+      <pubDate>Sun, 08 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Analytical Chemistry &amp; Spectroscopy</category>
+      <category>Graph Neural Networks</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 67/100&lt;/strong&gt; · Analytical × GNN, Analytical × Simulation, Analytical × ML&lt;/p&gt;&lt;p&gt;Machine Learning Interatomic Potentials (MLIPs) based on Equivariant Graph Neural Networks (EGNNs) have achieved remarkable progress in atomistic modeling. However, accurately representing atomic interactions across different spatial scales remains challenging. In this work, we investigate the radia…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.11226&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Adaptive catalyst discovery emerges from composable scientific intelligence</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/3ryj25ojcr3gj</link>
+      <guid isPermaLink="false">chembridge:3ryj25ojcr3gj</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Catalysis</category>
+      <category>Active Learning &amp; Uncertainty</category>
+      <category>Machine Learning (general)</category>
+      <category>Robotics &amp; Self-Driving Labs</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 65/100&lt;/strong&gt; · Catalysis × Active learn., Catalysis × ML, Catalysis × Robotics/SDL&lt;/p&gt;&lt;p&gt;Catalysis underpins chemical manufacturing, yet knowledge for catalyst design remains dispersed across experimental observations, computational data and catalysis subdisciplines. To overcome this challenge, we present Composable Catalytic Intelligence (CatAI), a physics-grounded modular AI framework…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.13536&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Machine-accelerated extraction of experimental superconducting parameters for physical insight and prediction across thousands of materials</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/10n2odl41rjta</link>
+      <guid isPermaLink="false">chembridge:10n2odl41rjta</guid>
+      <pubDate>Wed, 11 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>LLMs &amp; Agents</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 64/100&lt;/strong&gt; · Solid state × LLM/Agent, Solid state × Transformer, Solid state × ML&lt;/p&gt;&lt;p&gt;New superconductors could unlock next-generation technologies from nuclear fusion to lossless electronics. Machine learning can predict candidate superconductors but lacks validated experimental training data beyond the critical temperature. Here we present AutoSuperCon, a database of eight supercon…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.15627&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Materials research with a general-purpose agent</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/qn22psipgrlx</link>
+      <guid isPermaLink="false">chembridge:qn22psipgrlx</guid>
+      <pubDate>Wed, 11 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>Graph Neural Networks</category>
+      <category>Generative Models &amp; Inverse Design</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 63/100&lt;/strong&gt; · Solid state × GNN, Solid state × Generative, Solid state × Simulation&lt;/p&gt;&lt;p&gt;Over the last decade we have built Alexandria, an open database of about 15 million density-functional calculations of crystals. It includes PBE, PBEsol, SCAN and TB-mBJ results, structures relaxed at pressures up to 150 GPa, dielectric tensors and about 145,000 electron-phonon calculations, togethe…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.15451&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Toward universal excited-state machine-learned potentials: a local excitation Hamiltonian for size consistency and transferability</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/1ud4kqyf435xl</link>
+      <guid isPermaLink="false">chembridge:1ud4kqyf435xl</guid>
+      <pubDate>Sat, 07 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <category>Graph Neural Networks</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 62/100&lt;/strong&gt; · Computational × Simulation, Computational × GNN, Computational × ML&lt;/p&gt;&lt;p&gt;Universal machine-learned interatomic potentials could make excited-state simulations across chemical space routine, but excitation energies, unlike ground-state energies, are not sums of atomic contributions. The excited states of noninteracting molecules are the union of their states, which pooled…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.11019&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>A Staged Reaction Optimisation Workflow for Fragment-to-Lead Elaboration</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/376lodh2h25rt</link>
+      <guid isPermaLink="false">chembridge:376lodh2h25rt</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Synthesis &amp; Reactions</category>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Bayesian Optimization</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Robotics &amp; Self-Driving Labs</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 61/100&lt;/strong&gt; · Drug disc. × Bayes. opt., Drug disc. × Transformer, Synthesis × Bayes. opt., Synthesis × Transformer&lt;/p&gt;&lt;p&gt;Here, we present a reaction optimisation workflow that integrates data mining to generate unbiased, data-led starting points, high-throughput experimentation (HTE) to narrow the reaction parameter space, and closed-loop flow experiments guided by multi-objective Bayesian optimisation for fine-tuning…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.26434/chemrxiv.15011913/v1&quot;&gt;ChemRxiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Automated classification of Echinococcus multilocularis protoscolex viability using machine learning for high-throughput drug screening.</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/huk31qxci0bv</link>
+      <guid isPermaLink="false">chembridge:huk31qxci0bv</guid>
+      <pubDate>Wed, 11 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Machine Learning (general)</category>
+      <category>Imaging &amp; Spectral Analysis</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 60/100&lt;/strong&gt; · Drug disc. × ML, Drug disc. × Vision/Spectra&lt;/p&gt;&lt;p&gt;Alveolar echinococcosis, caused by the parasite Echinococcus multilocularis, is a potentially lethal disease that requires the development of new medical treatments. Current drug screening methods depend on manual microscopy to count stained and unstained protoscoleces to determine viability, a proc…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.1016/j.actatropica.2026.108400&quot;&gt;Acta tropica&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Autonomous Optimization of Numerical Algorithms by an AI Agent: Application to Atomistic Simulation</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/ekxwgnfrgjyz</link>
+      <guid isPermaLink="false">chembridge:ekxwgnfrgjyz</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>General Chemistry</category>
+      <category>LLMs &amp; Agents</category>
+      <category>Machine Learning (general)</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 60/100&lt;/strong&gt; · General × LLM/Agent, General × ML, General × Simulation&lt;/p&gt;&lt;p&gt;Coding agents built on large language models, run in automated improvement loops, can discover more efficient algorithms. We present AIOA, a framework that brings this approach to the numerical algorithms of atomistic simulation: an agent improves an algorithm against a pre-specified metric in a loo…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.13143&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Can AI Agents Reliably Optimize Computational Chemistry Codes?</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/2udgfm31g0aj0</link>
+      <guid isPermaLink="false">chembridge:2udgfm31g0aj0</guid>
+      <pubDate>Sat, 07 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>LLMs &amp; Agents</category>
+      <category>Machine Learning (general)</category>
+      <category>HPC &amp; GPU Acceleration</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 60/100&lt;/strong&gt; · Computational × LLM/Agent, Computational × ML, Computational × HPC&lt;/p&gt;&lt;p&gt;Artificial intelligence (AI) approaches have opened new possibilities in computational and theoretical chemistry. AI agents can now execute computational workflows autonomously, and their use in scientific software development represents another promising direction. Herein, we present a general stra…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.10378&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Assessing the predictive limits of machine learning on cyclic peptides</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/32eu6duxdt8da</link>
+      <guid isPermaLink="false">chembridge:32eu6duxdt8da</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Machine Learning (general)</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 59/100&lt;/strong&gt; · Biochem. × ML, Biochem. × Transformer&lt;/p&gt;&lt;p&gt;Machine learning (ML) has become a key tool in molecule discovery and optimization. Yet cyclic peptides, which occupy an intermediate chemical space between small molecules and proteins, have received limited attention in ML research, leaving the predictive value of current methods and future resear…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.26434/chemrxiv.15011871/v1&quot;&gt;ChemRxiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>AI for Biologists: The Knowledge Boundaries of Foundation Models in the Age of Agentic Systems</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/2i3s8y261tocn</link>
+      <guid isPermaLink="false">chembridge:2i3s8y261tocn</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>LLMs &amp; Agents</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 58/100&lt;/strong&gt; · Biochem. × LLM/Agent, Biochem. × Transformer, Biochem. × ML&lt;/p&gt;&lt;p&gt;Artificial intelligence (AI) is changing how biological research is done. Biological foundation models trained on millions of nucleotides, protein, and single-cell measurements predict protein structures, mutation effects, and cellular responses to genetic perturbations. Agentic systems, AI assistan…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.17015&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Uncertainty Aware AFM-IR Hyperspectral Cube Reconstruction via Convolutional-Attentive Conditional Neural Processes</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/3r4aeym0lvgu2</link>
+      <guid isPermaLink="false">chembridge:3r4aeym0lvgu2</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Analytical Chemistry &amp; Spectroscopy</category>
+      <category>Nanomaterials</category>
+      <category>Active Learning &amp; Uncertainty</category>
+      <category>Imaging &amp; Spectral Analysis</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 57/100&lt;/strong&gt; · Analytical × Active learn., Analytical × Vision/Spectra, Nano × Active learn., Nano × Vision/Spectra&lt;/p&gt;&lt;p&gt;Atomic force microscopy-infrared spectroscopy (AFM-IR) maps chemical composition at nanoscale spatial resolution, but the time required to acquire individual spectra limits hyperspectral imaging. Here, we introduce a convolutional-attentive conditional neural process (CACNP), a neural process archit…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.16118&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ANTIOCH-VS: From Sequence to Hits with Modular, Open-Source Ensemble Virtual Screening</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/134uz7phjk84x</link>
+      <guid isPermaLink="false">chembridge:134uz7phjk84x</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <category>HPC &amp; GPU Acceleration</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 57/100&lt;/strong&gt; · Biochem. × Simulation, Biochem. × HPC, Drug disc. × Simulation, Drug disc. × HPC&lt;/p&gt;&lt;p&gt;Structure-based virtual screening needs a receptor conformation that fits the ligand class, but for most targets no ligand-bound crystal is available -- and a single predicted model or an apo structure often misses the binding-competent state. We present ANTIOCH-VS, an open-source framework that run…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.14287&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>JAI: Physically Constrained Prediction of Conformer-Averaged Proton–Proton Coupling Constants in Solution</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/376lp5jaaq9sv</link>
+      <guid isPermaLink="false">chembridge:376lp5jaaq9sv</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>Graph Neural Networks</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 57/100&lt;/strong&gt; · Computational × GNN, Computational × Transformer, Computational × Simulation&lt;/p&gt;&lt;p&gt;Machine-learning predictors of proton–proton coupling constants are usually trained on, and evaluated against, couplings computed for single geometries rather than the conformer-averaged values measured in solution. We describe JAI (J-coupling prediction with Artificial Intelligence), a graph transf…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.26434/chemrxiv.15011915/v1&quot;&gt;ChemRxiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ceci n ’ est pas le benzène : The Treachery of Chemical Representations in Machine Learning for Drug Discovery</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/16hxxfp5myn7v</link>
+      <guid isPermaLink="false">chembridge:16hxxfp5myn7v</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Machine Learning (general)</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Active Learning &amp; Uncertainty</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 56/100&lt;/strong&gt; · Drug disc. × ML, Drug disc. × Transformer, Drug disc. × Active learn.&lt;/p&gt;&lt;p&gt;Chemists do not draw molecules; they draw agreements about molecules. A hexagon with three alternating lines is not benzene, and, read literally, it is not even an adequate model, since it localizes bonds that experiment treats as equivalent. Chemists repair this discrepancy automatically and never …&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.1021/acs.jcim.6c03172&quot;&gt;Journal of Chemical Information and Modeling&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Pepti-DrugPhAI: Multimodal AI-evaluator for functional pharmacokinetics and toxicity of peptides</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/hmrdlbwk3y8</link>
+      <guid isPermaLink="false">chembridge:hmrdlbwk3y8</guid>
+      <pubDate>Wed, 11 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 56/100&lt;/strong&gt; · Drug disc. × Transformer, Drug disc. × ML, Biochem. × Transformer, Biochem. × ML&lt;/p&gt;&lt;p&gt;Peptide drugs exhibit exceptional selectivity for biological targets and high functional activity making them among the most promising therapeutic agents. However, unsatisfactory pharmacokinetic characteristics remain a critical barrier to their implementation. They often become the primary reason f…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.1371/journal.pcbi.1014956&quot;&gt;PLoS computational biology&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Inverse Design of Inorganic Compounds with Generative AI</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/3vnrnb5duhc6r</link>
+      <guid isPermaLink="false">chembridge:3vnrnb5duhc6r</guid>
+      <pubDate>Fri, 13 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>Synthesis &amp; Reactions</category>
+      <category>Generative Models &amp; Inverse Design</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 55/100&lt;/strong&gt; · Drug disc. × Generative, Drug disc. × ML, Computational × Generative, Computational × ML&lt;/p&gt;&lt;p&gt;Machine learning is revolutionizing chemistry. Beyond the value of predictive models accelerating virtual screening, generative AI aims at enabling inverse design, reversing the compound-to-property prediction paradigm into property-to-compound generation. Chemists now have access to a rich AI toolb…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.1021/jacs.6c18007&quot;&gt;Journal of the American Chemical Society&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Expanding the Decision Space of Pretrained Models through Structured Re-Decoding</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/2ysiuw51ydxf</link>
+      <guid isPermaLink="false">chembridge:2ysiuw51ydxf</guid>
+      <pubDate>Wed, 11 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Generative Models &amp; Inverse Design</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 55/100&lt;/strong&gt; · Biochem. × Transformer, Biochem. × Generative&lt;/p&gt;&lt;p&gt;Native decoders limit how pretrained models combine local predictions under new structural constraints. We introduce Structured Re-Decoding (SRD), a training-free framework that constructs local candidates from model scores, samples, or external specifications, jointly optimizes their selection, and…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.15109&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Automated Construction of Data-Efficient Machine-Learned Force Fields for Polymers</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/3h33yvhyauwff</link>
+      <guid isPermaLink="false">chembridge:3h33yvhyauwff</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>Polymers &amp; Soft Matter</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <category>Machine Learning (general)</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 54/100&lt;/strong&gt; · Computational × Simulation, Computational × ML, Polymers × Simulation, Computational × Transformer&lt;/p&gt;&lt;p&gt;General-purpose machine-learned force fields (GP-MLFFs) provide near-first-principles accuracy across broad chemical spaces, but their reliability is limited by training coverage and reference level of quantum mechanics. We present an automated active-learning workflow using the open-source package …&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.26434/chemrxiv.15012033/v1&quot;&gt;ChemRxiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Quantitative Assessment of Crystal Structure Prediction</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/2ufasqv6h2ycj</link>
+      <guid isPermaLink="false">chembridge:2ufasqv6h2ycj</guid>
+      <pubDate>Sat, 07 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>Batteries &amp; Energy Materials</category>
+      <category>Graph Neural Networks</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 54/100&lt;/strong&gt; · Solid state × GNN, Energy × GNN&lt;/p&gt;&lt;p&gt;Crystal Structure Prediction (CSP) aims to predict a material&amp;apos;s 3D structure from its chemical composition, with applications from energy storage to biomedical devices. Despite its importance, existing evaluation frameworks suffer from key limitations: they rely on threshold-sensitive or incomparabl…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.10380&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CPPainter: Painting Cell-Penetrating Peptides for Identification and Generation through Reinforcement Learning</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/346up84rkgi9i</link>
+      <guid isPermaLink="false">chembridge:346up84rkgi9i</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Reinforcement Learning</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 53/100&lt;/strong&gt; · Biochem. × RL, Biochem. × Transformer&lt;/p&gt;&lt;p&gt;Cell-penetrating peptides (CPPs) are promising intracellular delivery vectors, but computational CPP identification, sequence optimization, and candidate generation are often studied as separate tasks. This study aimed to develop an integrated framework for CPP prediction and reward-guided sequence …&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.1021/acs.jcim.6c02507&quot;&gt;Journal of Chemical Information and Modeling&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Orchestr.AI: A Unified Workflow for Training and Benchmarking of Machine-Learned Interatomic Potentials</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/3e0umcv456mic</link>
+      <guid isPermaLink="false">chembridge:3e0umcv456mic</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <category>Graph Neural Networks</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 53/100&lt;/strong&gt; · Computational × Simulation, Solid state × Simulation, Computational × GNN, Computational × ML&lt;/p&gt;&lt;p&gt;Machine-learning force fields enable atomistic simulations at near-reference accuracy and substantially reduced computational cost, but their development remains fragmented across software frameworks with incompatible data formats, configuration schemes, dependencies, and execution procedures. Orche…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.13898&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Pyrite: Building and Benchmarking Protein-Ligand Pose Ranking Agents</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/y7mfvlknpy23</link>
+      <guid isPermaLink="false">chembridge:y7mfvlknpy23</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>LLMs &amp; Agents</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 53/100&lt;/strong&gt; · Drug disc. × LLM/Agent, Biochem. × LLM/Agent&lt;/p&gt;&lt;p&gt;Predicting how a ligand binds to its target is central to small-molecule drug discovery. Modern cofolding models can generate diverse candidate poses, but reliably ranking these candidates remains challenging. We introduce Pyrite, a pairwise pose-ranking benchmark comprising 1,500 pose pairs across …&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.14511&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emergent Biological Capabilities in a Foundation Model for Molecular Interactions</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/y7w8lgx36jbh</link>
+      <guid isPermaLink="false">chembridge:y7w8lgx36jbh</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 53/100&lt;/strong&gt; · Biochem. × Transformer&lt;/p&gt;&lt;p&gt;Foundation models trained on large unlabeled corpora develop emergent capabilities, tasks that go beyond the training objective. We extend this paradigm to multimodal biology with Bonbon, a foundation model for molecular interactions trained on approximately 3.2 trillion tokens of paired protein-lig…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.14504&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Fully automated solid-phase extraction and edge-deployed spectroscopy-based machine learning platform for on-site detection of PFOS/PFOA in industrial wastewater</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/2zsbujy4uqbct</link>
+      <guid isPermaLink="false">chembridge:2zsbujy4uqbct</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Environmental &amp; Atmospheric Chemistry</category>
+      <category>Analytical Chemistry &amp; Spectroscopy</category>
+      <category>Machine Learning (general)</category>
+      <category>Imaging &amp; Spectral Analysis</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 53/100&lt;/strong&gt; · Environment × ML, Environment × Vision/Spectra, Analytical × ML, Analytical × Vision/Spectra&lt;/p&gt;&lt;p&gt;Rapid on-site screening of perfluorooctane sulfonate (PFOS) and perfluorooctanoic acid (PFOA) in industrial wastewater is hindered by matrix interference, laborious pretreatment, and reliance on laboratory instrumentation. Here, we developed a portable device integrating automated solid-phase extrac…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.1016/j.bios.2026.119422&quot;&gt;Biosensors &amp;amp; bioelectronics&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>LearnM8: A Simple and Modular Molecular Active Learning Framework for any Oracle</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/32ealq6gck5vk</link>
+      <guid isPermaLink="false">chembridge:32ealq6gck5vk</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Active Learning &amp; Uncertainty</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 53/100&lt;/strong&gt; · Drug disc. × Active learn., Drug disc. × Simulation&lt;/p&gt;&lt;p&gt;Make-on-demand chemical spaces contain more than 10 11 compounds, which makes exhaustive virtual screening by docking or another costly scoring method (the oracle) impractical. Active learning reduces this cost by training a surrogate model (learner) on labeled compounds and using an acquisition str…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.26434/chemrxiv.15011895/v1&quot;&gt;ChemRxiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Learning Electronic Band Structures Across the s, p, d Blocks with an Empirical Pseudopotential Network</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/1ubjsjfg9rz2w</link>
+      <guid isPermaLink="false">chembridge:1ubjsjfg9rz2w</guid>
+      <pubDate>Sun, 08 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Crystalline &amp; Solid-State Materials</category>
+      <category>Computational &amp; Quantum Chemistry</category>
+      <category>Graph Neural Networks</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 53/100&lt;/strong&gt; · Solid state × GNN, Solid state × ML, Computational × GNN, Computational × ML&lt;/p&gt;&lt;p&gt;Electronic band structures govern how crystals conduct electrons and absorb light. Density-functional theory (DFT) computes them through costly self-consistent iterations, while existing machine-learning models either predict isolated scalar properties or output Hamiltonians that still require DFT s…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://arxiv.org/abs/2611.11070&quot;&gt;arXiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Cross-state representation learning enables prospective discovery of dynamic protein allosteric sites</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/aj9aocndbzu</link>
+      <guid isPermaLink="false">chembridge:aj9aocndbzu</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Biochemistry &amp; Proteins</category>
+      <category>Transformers &amp; Foundation Models</category>
+      <category>Machine Learning (general)</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 52/100&lt;/strong&gt; · Drug disc. × Transformer, Biochem. × Transformer, Drug disc. × ML, Biochem. × ML&lt;/p&gt;&lt;p&gt;Allosteric regulation offers multifunctional induction in therapeutic interventions, yet conformational plasticity hinders computational identification of allosteric sites. Machine learning models rely on static holo (ligand-bound) structures, generalizing poorly to apo or substrate-bound states whe…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.64898/2026.11.09.765238&quot;&gt;bioRxiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Characterizing ligand-mediated conformational dynamics and state transitions of KRAS-G12C through machine learning and molecular dynamics simulations</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/2jfhxpl8eipun</link>
+      <guid isPermaLink="false">chembridge:2jfhxpl8eipun</guid>
+      <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Machine Learning (general)</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 51/100&lt;/strong&gt; · Drug disc. × ML, Drug disc. × Simulation&lt;/p&gt;&lt;p&gt;KRAS mutations are major drivers of cancer initiation and progression, with KRAS G12C representing an important therapeutic target. In the present study, an integrated computational approach comprising machine learning-based virtual screening, molecular docking, molecular dynamics simulations, and M…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.1039/d6cp03730e&quot;&gt;Physical chemistry chemical physics : PCCP&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Beyond the Algorithm: Artificial Intelligence in Drug Discovery from Code to Clinic</title>
+      <link>https://betulcnl.github.io/chembridge-essay-analysis/#/item/3h0rj9bg0ky5j</link>
+      <guid isPermaLink="false">chembridge:3h0rj9bg0ky5j</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+      <category>Drug Discovery &amp; Medicinal Chemistry</category>
+      <category>Machine Learning (general)</category>
+      <category>Simulation &amp; ML Potentials</category>
+      <description>&lt;p&gt;&lt;strong&gt;Suitability 50/100&lt;/strong&gt; · Drug disc. × ML, Drug disc. × Simulation&lt;/p&gt;&lt;p&gt;Machine learning (ML) and artificial intelligence (AI) are revolutionizing drug discovery, transforming an inefficient system of trial and error into one based on predictive modeling and data analysis. This comprehensive review on the growing role of computational techniques and tools considers ever…&lt;/p&gt;&lt;p&gt;Source: &lt;a href=&quot;https://doi.org/10.26434/chemrxiv.15012082/v1&quot;&gt;ChemRxiv&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
