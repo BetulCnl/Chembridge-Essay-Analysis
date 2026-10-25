@@ -1,0 +1,211 @@
+{
+  "title": "Trends",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "generatedAt": {
+      "type": "string"
+    },
+    "weeks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "months": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recentWeeks": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "cells": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "chem": {
+            "type": "string"
+          },
+          "cs": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "countExisting": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "countInferred": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "avgScore": {
+            "type": "number"
+          },
+          "maxScore": {
+            "type": "number"
+          },
+          "recent": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "previous": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "growth": {
+            "type": "number"
+          },
+          "weekly": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "rising": {
+            "type": "boolean"
+          },
+          "quietPromising": {
+            "type": "boolean"
+          },
+          "topIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "chem",
+          "cs",
+          "count",
+          "countExisting",
+          "countInferred",
+          "avgScore",
+          "maxScore",
+          "recent",
+          "previous",
+          "growth",
+          "weekly",
+          "rising",
+          "quietPromising",
+          "topIds"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "chemTotals": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "csTotals": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "monthly": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "size": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "avgScore": {
+            "type": "number"
+          },
+          "recent": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "topIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "size",
+          "avgScore",
+          "recent",
+          "topIds"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "generatedAt",
+    "weeks",
+    "months",
+    "recentWeeks",
+    "cells",
+    "chemTotals",
+    "csTotals",
+    "monthly",
+    "clusters"
+  ],
+  "additionalProperties": false
+}

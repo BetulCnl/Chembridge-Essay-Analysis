@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ChemBridge: kimyadaki yeni gelişmelerden bilgisayar bilimleriyle birleşmeye müsait olanları bulur, skorlar ve araştırma fikirleri üretir."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="ChemBridge" href="./data/feed.xml" />
+    <title>ChemBridge</title>
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      try {
+        var t = localStorage.getItem('chembridge.theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+        var l = localStorage.getItem('chembridge.lang');
+        if (l === 'tr' || l === 'en') document.documentElement.lang = l;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>ChemBridge requires JavaScript. / ChemBridge JavaScript gerektirir.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

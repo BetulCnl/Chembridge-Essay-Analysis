@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+pnpm-lock.yaml
+.data
+data
+apps/web/public/data
+packages/pipeline/test/fixtures
+packages/core/schema

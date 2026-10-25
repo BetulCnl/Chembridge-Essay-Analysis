@@ -1,0 +1,110 @@
+name: Update data & deploy
+
+# Daily: collect → analyze → publish, keep the working data on the `data` branch (a single
+# amended commit, so the repository does not grow), then build and deploy the site to Pages.
+# A push to main only rebuilds and redeploys the site with the existing data.
+
+on:
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Re-fetch the last N days for every source (empty = incremental from cursors)'
+        required: false
+        default: ''
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/**'
+      - 'packages/core/**'
+      - '.github/workflows/update-data.yml'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      CHEMBRIDGE_DATA_DIR: ${{ github.workspace }}/data
+      CHEMBRIDGE_PUBLIC_DATA: ${{ github.workspace }}/data/public
+      TRANSFORMERS_CACHE: ${{ github.workspace }}/.cache/transformers
+      # Repository variables (Settings → Secrets and variables → Actions → Variables):
+      CONTACT_EMAIL: ${{ vars.CONTACT_EMAIL }}
+      SITE_URL: ${{ vars.SITE_URL }}
+      # Optional free keys (Settings → Secrets): raise OpenAlex / Semantic Scholar limits.
+      OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+      S2_API_KEY: ${{ secrets.S2_API_KEY }}
+      # Authenticated GitHub search: 30 requests/min instead of 10.
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - name: Check out the data branch
+        run: |
+          if git ls-remote --exit-code --heads origin data >/dev/null 2>&1; then
+            git fetch --depth=1 origin data:refs/remotes/origin/data
+            git worktree add -B data data origin/data
+          else
+            git worktree add --orphan -b data data
+          fi
+
+      - uses: pnpm/action-setup@v6.1.0
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Cache the embedding model
+        uses: actions/cache@v6.1.0
+        with:
+          path: .cache/transformers
+          key: transformers-${{ hashFiles('packages/pipeline/config/pipeline.json') }}
+
+      - name: Run pipeline
+        if: github.event_name != 'push'
+        run: pnpm pipeline run ${{ inputs.days && format('--days={0}', inputs.days) || '' }}
+
+      - name: Save working data to the data branch
+        if: github.event_name != 'push'
+        working-directory: data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git rev-parse --verify -q HEAD >/dev/null; then
+            git commit -q --amend -m "data: $(date -u +%F)"
+          else
+            git commit -q -m "data: $(date -u +%F)"
+          fi
+          git push --force origin data
+
+      - name: Keep raw API responses for 14 days
+        if: github.event_name != 'push'
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: raw-${{ github.run_id }}
+          path: data/raw
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - run: pnpm build
+
+      - uses: actions/configure-pages@v6.0.0
+      - uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: apps/web/dist
+      - id: deployment
+        uses: actions/deploy-pages@v5.0.1

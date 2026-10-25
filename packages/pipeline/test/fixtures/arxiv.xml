@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/nTPZhaJZeVZ1+89paJaS8OdG8Os</id>
+  <title>arXiv Query: search_query=(cat:physics.chem-ph OR cat:cond-mat.mtrl-sci OR cat:q-bio.BM) AND (cat:cs.LG OR cat:cs.AI) AND submittedDate:"202609240000 TO 202610242359"&amp;id_list=&amp;start=0&amp;max_results=5</title>
+  <updated>2026-10-24T22:12:43Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=(cat:physics.chem-ph+OR+(cat:cond-mat.mtrl-sci+OR+cat:q-bio.BM))+AND+((cat:cs.LG+OR+cat:cs.AI)+AND+submittedDate:%22202609240000+TO+202610242359%22)&amp;start=0&amp;max_results=5&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>5</opensearch:itemsPerPage>
+  <opensearch:totalResults>114</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2610.30746v1</id>
+    <title>Wavenumber-Aware Deep Learning for Robust Analysis of Raman Spectra</title>
+    <updated>2026-10-22T05:16:31Z</updated>
+    <link href="https://arxiv.org/abs/2610.30746v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.30746v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Machine-learning models for spectroscopy usually treat a spectrum as a fixed-grid intensity vector, leaving the physical coordinate implicit in the array index. Such models are tied to a single sampling grid, spectral range and resolution, which limits their use when measurement conditions change. Here we represent each spectral point as a pair of intensity and wavenumber and compute Transformer positional encodings from the wavenumber itself. On Raman spectra of three bacterial species and their synthetic mixtures, this representation remained robust to noise, sparser sampling and partial spectral coverage across convolutional, residual and Transformer networks. In controlled comparisons, wavenumber-based encoding outperformed index-based and learned encodings under partial observation and retained its performance on sampling grids never seen during training, where index-based encoding degraded. These findings were reproduced on a public 30-isolate bacterial benchmark. Explicit physical coordinates offer a simple route to robust spectral analysis under variable measurement conditions.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.chem-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.optics" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-22T05:16:31Z</published>
+    <arxiv:comment>29 pages, 5 figures, 6 tables; Supplementary Information (15 pages) included</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Jihwan Kim</name>
+    </author>
+    <author>
+      <name>Jaeseong Heo</name>
+    </author>
+    <author>
+      <name>Yujin Kim</name>
+    </author>
+    <author>
+      <name>Sang Bin Yoon</name>
+    </author>
+    <author>
+      <name>Chanjoong Kim</name>
+    </author>
+    <author>
+      <name>Kwang-Im Oh</name>
+    </author>
+    <author>
+      <name>Hyon Bin Na</name>
+    </author>
+    <author>
+      <name>Kyungwon Kwak</name>
+    </author>
+    <author>
+      <name>Myeongkee Park</name>
+    </author>
+    <author>
+      <name>Joonyoung F. Joung</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.30668v1</id>
+    <title>RiboBridge: protein-conditioned de novo RNA binder structure design</title>
+    <updated>2026-10-22T03:32:07Z</updated>
+    <link href="https://arxiv.org/abs/2610.30668v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.30668v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Designing RNA molecules that bind to target protein structures requires generating both an RNA conformation and its bound complex geometry, without assuming a predefined binding site. Existing approaches generally model these coupled processes within a unified representation, entangling RNA conformation generation with protein-relative placement. In this work, we introduce RiboBridge, a structure-first framework that separates RNA conformational generation from protein--RNA assembly through cross-frame interaction geometry. RiboBridge first proposes multiple candidate RNA-binding interfaces on the protein surface, generates canonical RNA conformations within a pretrained RNA structural latent space (RiboSphere), and then predicts protein--RNA interaction constraints to bridge the independently defined RNA and protein coordinate frames. The resulting interaction geometry is converted into a geometrically consistent protein-relative pose through rigid placement. We evaluate RiboBridge on a temporally split, sequence-filtered, and redundancy-controlled benchmark of 124 protein--RNA complexes. Under post-hoc interface-correspondence evaluation, where native information is used only after generation to select among already generated predicted-pocket candidates, RiboBridge achieves the highest fNAT and DockQ and the lowest interface and ligand RMSDs among compared methods. Component ablations and stage-wise diagnostics further characterize the contributions of RNA conformational generation, interaction prediction, and rigid placement, identifying the main sources of complex-recovery error.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="q-bio.BM" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-22T03:32:07Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Zhou Zhang</name>
+    </author>
+    <author>
+      <name>Hanqun Cao</name>
+    </author>
+    <author>
+      <name>Minghao Sun</name>
+    </author>
+    <author>
+      <name>Odin Zhang</name>
+    </author>
+    <author>
+      <name>Yang Zhang</name>
+    </author>
+    <author>
+      <name>Pheng Ann Heng</name>
+    </author>
+    <author>
+      <name>Wujun Li</name>
+    </author>
+    <author>
+      <name>Tianfan Fu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.30394v1</id>
+    <title>Escaping the Phylogenetic Trap: Persistent Homology Enables Cross-Species Ion Channel Classification via Multimodal Graph Neural Networks</title>
+    <updated>2026-10-21T19:59:07Z</updated>
+    <link href="https://arxiv.org/abs/2610.30394v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.30394v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Protein classifiers are highly sensitive to evaluation protocol: random train/test splits induce phylogenetic leakage, allowing models to exploit taxon-specific correlations and substantially overestimate out-of-distribution performance. This issue is particularly acute for venom compound classification by ion-channel target (Ca2+, K+, Na+), where reported accuracies of 80-90% do not reflect generalization to unseen taxa. We formulate cross-species prediction as a structured distribution shift in which taxonomic identity acts as a confounder, requiring representations that capture structural features invariant across phylogeny. Using a shared multimodal backbone that fuses ESM-2 sequence embeddings with a disulfide-aware graph attention network, we systematically compare five structural inductive biases (spectral, Riemannian, SE(3)-invariant, statistical-manifold, and persistent-homology representations) under a leave-one-taxon-out evaluation protocol on a benchmark of 1,373 ColabFold-predicted venom compounds spanning five taxa. The persistent-homology representation summarizes backbone geometry through topological descriptors that are robust to local structural perturbations, providing an inductive bias toward phylogenetically invariant learning. Under conventional i.i.d. splits, all models achieve similar accuracy (81-86%), masking differences in inductive bias. Under taxonomic shift, this parity collapses: a sequence-only baseline drops to approximately 30%, the remaining geometric priors cluster at 54-55%, while our persistent-homology model (PH-GNN) achieves 63.4%, outperforming the next-best method by over 8 percentage points. These results demonstrate that random-split evaluation obscures meaningful differences in representation quality and identify topological representations as an effective inductive bias for learning under structured biological distribution shift.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="q-bio.BM" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-21T19:59:07Z</published>
+    <arxiv:comment>9 pages, 3 figures, 2 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Arezoo Bybordi</name>
+    </author>
+    <author>
+      <name>Favour Achimba</name>
+    </author>
+    <author>
+      <name>Mariam Gelashvili</name>
+    </author>
+    <author>
+      <name>Jessy Ramirez</name>
+    </author>
+    <author>
+      <name>Weigang Qiu</name>
+    </author>
+    <author>
+      <name>Mandë Holford</name>
+    </author>
+    <author>
+      <name>Anita Raja</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.30022v1</id>
+    <title>Stationarity Constraints Improve Both Energies and Densities of Machine-Learned Exchange-Correlation Functionals</title>
+    <updated>2026-10-21T16:49:03Z</updated>
+    <link href="https://arxiv.org/abs/2610.30022v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.30022v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Empirical exchange-correlation functionals are fitted on fixed orbitals but used self-consistently, so better energies often come with worse densities. We show that the Brillouin residual of a trained functional on the Kohn-Sham orbitals of an accurate density controls, to first order, both the self-consistent density shift and the gap between fitted and self-consistent energies. Penalizing it requires no self-consistent-field solution during training. Trained on 6 energies and 11 CCSD densities, a neural meta-GGA surpasses SCAN in both atomization energies and densities of unseen molecules.</summary>
+    <category term="physics.chem-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-21T16:49:03Z</published>
+    <arxiv:primary_category term="physics.chem-ph"/>
+    <author>
+      <name>Yuhao Chen</name>
+    </author>
+    <author>
+      <name>Donald G. Truhlar</name>
+    </author>
+    <author>
+      <name>Xiao He</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.30215v1</id>
+    <title>AI Mindmeld: A Latent Interconnect Protocol</title>
+    <updated>2026-10-21T15:47:56Z</updated>
+    <link href="https://arxiv.org/abs/2610.30215v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.30215v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>LLMs can act as scientific agents using tools to consult specialists and run experiments. Yet specialist information must enter their context, generally as text, images, audio or video: a bottleneck between models with rich, high-dimensional representations. We advocate direct representation exchange: a mindmeld conveying many properties, including information an LLM would not think to request. It should be extensible to new specialists, flexible across questions and tasks, and compositional across independently connected specialists without joint training.
+  The Latent Interconnect Protocol (LIP) learns connectors mapping specialist representations into LLM internal states. Training only connectors keeps this practical as LLMs grow and evolve. We connect three protein and three small molecule specialists to Gemma 3 (4B and 12B parameters) and Kimi K2.6 (1T total, 32B active), freezing all pretrained models. Independently trained connectors provide useful information without changing the LLM or existing connectors, supporting familiar and new question types about unseen objects. We demonstrate zero-shot transfer to cross-domain tasks without joint training. Task performance and compositionality generally improve with LLM capability, with especially strong gains in zero-shot task transfer. Limitations remain: current LLMs were not trained for specialist representations as native inputs; access does not ensure reliable interpretation, integration or use in reasoning. We call on specialist developers to provide consistent representation interfaces and, especially, on LLM developers to train models to receive, combine and reason with these inputs. These efforts could expand scientific agents' information while preserving conventional tools' flexibility.
+  Data, pretrained connectors, and code for training, evaluation and interactive inference: https://github.com/PolymathicAI/AI-Mindmeld</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="q-bio.BM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="stat.ML" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-21T15:47:56Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Siavash Golkar</name>
+    </author>
+    <author>
+      <name>Jake Kovalic</name>
+    </author>
+    <author>
+      <name>Shirley Ho</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,214 @@
+{
+  "$comment": "Explainable chemistry × CS suitability score (0-100). Every point comes from one rule below (or a CS sub-field in taxonomy.json) and is shown to the user with the matched text. Patterns are case-insensitive unless \"cs\": true.",
+  "version": 1,
+  "titleMultiplier": 1.5,
+  "components": {
+    "csTechniques": {
+      "max": 40,
+      "label": { "tr": "CS tekniği sinyalleri", "en": "CS technique signals" },
+      "crossListBonus": 6,
+      "crossListLabel": {
+        "tr": "arXiv'de kimya + CS kategorilerinde çapraz listelenmiş",
+        "en": "Cross-listed in chemistry and CS on arXiv"
+      }
+    },
+    "dataIntensity": {
+      "max": 20,
+      "label": { "tr": "Veri yoğunluğu", "en": "Data intensity" },
+      "rules": [
+        {
+          "id": "data.highThroughput",
+          "label": {
+            "tr": "Yüksek verimli deney/tarama",
+            "en": "High-throughput experimentation/screening"
+          },
+          "re": "high[- ]throughput",
+          "points": 8
+        },
+        {
+          "id": "data.largeCount",
+          "label": {
+            "tr": "Büyük sayıda örnek (≥1.000)",
+            "en": "Large number of samples (≥1,000)"
+          },
+          "re": "\\b(?:\\d{1,3}(?:,\\d{3})+|\\d{4,}|\\d+(?:\\.\\d+)?\\s*(?:k|thousand|million|billion|M))\\+?\\s+(?:[a-z-]+\\s+){0,2}(?:molecules|compounds|structures|materials|reactions|spectra|samples|candidates|crystals|proteins|polymers|calculations|simulations|data ?points|entries|images|experiments|conformers|complexes|sequences|catalysts|alloys|electrolytes|ligands|peptides|antibodies|enzymes|variants|mutants|formulations|conditions|cells|devices|frameworks|MOFs|surfaces|configurations|trajectories|papers|articles|patents)",
+          "points": 7
+        },
+        {
+          "id": "data.million",
+          "label": { "tr": "Milyon ölçekli veri", "en": "Million-scale data" },
+          "re": "\\b(?:millions|billions|trillions) of\\b|\\b\\d+(?:\\.\\d+)?\\s*(?:million|billion|trillion)\\b|\\b(?:million|billion|trillion)[- ](?:atom|molecule|compound|scale)",
+          "points": 8
+        },
+        {
+          "id": "data.newDataset",
+          "label": {
+            "tr": "Yeni veri seti / veritabanı / benchmark üretimi",
+            "en": "Releases a new dataset / database / benchmark"
+          },
+          "re": "\\b(?:we|here we|this work)\\s+(?:release|present|introduce|curate|construct|build|compile|create|provide)[^.]{0,80}\\b(?:datasets?|databases?|benchmarks?|data sets?|libraries)\\b|\\bnew (?:datasets?|databases?|benchmarks?)\\b",
+          "points": 8
+        },
+        {
+          "id": "data.automation",
+          "label": { "tr": "Otomasyon / robotik deney", "en": "Automation / robotic experiments" },
+          "re": "automat(?:ed|ion|ically)|robotic|self[- ]driving|autonomous (?:lab|platform|experiment)",
+          "points": 6
+        },
+        {
+          "id": "data.screening",
+          "label": { "tr": "Tarama (screening) çalışması", "en": "Screening study" },
+          "re": "\\bscreen(?:ing|ed|s)\\b",
+          "points": 5
+        },
+        {
+          "id": "data.benchmark",
+          "label": {
+            "tr": "Benchmark / karşılaştırmalı değerlendirme",
+            "en": "Benchmark / comparative evaluation"
+          },
+          "re": "\\bbenchmark",
+          "points": 4
+        },
+        {
+          "id": "data.combinatorial",
+          "label": {
+            "tr": "Kombinatoryal / paralel deney",
+            "en": "Combinatorial / parallel experiments"
+          },
+          "re": "combinatorial|parallel (?:synthesis|experimentation|reactors?)|microfluidic|droplet",
+          "points": 4
+        },
+        {
+          "id": "data.computationalScale",
+          "label": { "tr": "Geniş ölçekli hesaplama", "en": "Large-scale computation" },
+          "re": "(?:thousands|hundreds|tens of thousands) of (?:DFT|ab initio|simulations|calculations|structures|molecules|candidates)|large[- ]scale (?:screening|simulations?|dataset|calculations)",
+          "points": 6
+        },
+        {
+          "id": "data.timeSeries",
+          "label": {
+            "tr": "Zaman serisi / in situ ölçüm verisi",
+            "en": "Time-series / in situ measurement data"
+          },
+          "re": "\\boperando\\b|\\bin situ\\b|real[- ]time monitoring|time[- ]resolved|cycling data|sensor data",
+          "points": 3
+        },
+        {
+          "id": "data.imaging",
+          "label": { "tr": "Görüntü / spektrum verisi", "en": "Imaging / spectral data" },
+          "re": "microscopy|tomography|hyperspectral|spectroscop|spectra\\b",
+          "points": 3
+        }
+      ]
+    },
+    "openArtifacts": {
+      "max": 20,
+      "label": { "tr": "Açık kod / veri", "en": "Open code / data" },
+      "linkPoints": { "code": 12, "data": 8, "model": 6 },
+      "linkLabels": {
+        "code": { "tr": "Kod deposu bağlantısı", "en": "Code repository link" },
+        "data": { "tr": "Veri deposu bağlantısı", "en": "Data repository link" },
+        "model": { "tr": "Model deposu bağlantısı", "en": "Model repository link" }
+      },
+      "githubSignalPoints": 3,
+      "githubSignalLabel": {
+        "tr": "GitHub'da ilgili açık kaynak projeler var",
+        "en": "Related open-source projects exist on GitHub"
+      },
+      "rules": [
+        {
+          "id": "artifact.codeAvailable",
+          "label": { "tr": "Kodun açık olduğu belirtilmiş", "en": "States that code is available" },
+          "re": "(?:code|software|implementation|scripts?|source code)\\s+(?:is|are|will be|has been|have been)?\\s*(?:made )?(?:publicly |freely |openly )?(?:available|released|accessible)|open[- ]source(?:d)?\\b|we (?:release|open[- ]source) (?:our|the) (?:code|implementation|software)",
+          "points": 6
+        },
+        {
+          "id": "artifact.dataAvailable",
+          "label": {
+            "tr": "Verinin açık olduğu belirtilmiş",
+            "en": "States that data is available"
+          },
+          "re": "(?:data|dataset|data set|database)s?\\s+(?:is|are|will be|has been|have been)?\\s*(?:made )?(?:publicly |freely |openly )?(?:available|released|accessible)|publicly available (?:data|datasets?)|open[- ]access (?:data|dataset)",
+          "points": 4
+        }
+      ]
+    },
+    "problemType": {
+      "max": 20,
+      "label": { "tr": "Problem tipi", "en": "Problem type" },
+      "rules": [
+        {
+          "id": "prediction",
+          "label": { "tr": "Tahmin", "en": "Prediction" },
+          "re": "\\bpredict(?:s|ed|ing|ion|ions|ive|ivity|or|ors)?\\b|forecast|\\bregression\\b|property estimation",
+          "points": 7
+        },
+        {
+          "id": "optimization",
+          "label": { "tr": "Optimizasyon", "en": "Optimization" },
+          "re": "optimi[sz](?:e|ed|es|ing|ation|ations)\\b|maximi[sz]|minimi[sz]|tun(?:e|ing) (?:the )?(?:reaction )?conditions|yield improvement|process window",
+          "points": 7
+        },
+        {
+          "id": "classification",
+          "label": { "tr": "Sınıflandırma / tanımlama", "en": "Classification / identification" },
+          "re": "classif(?:y|ied|ies|ying|ication|ier|iers)|categori[sz]|\\bidentif(?:y|ied|ies|ying|ication) (?:of )?(?:the )?(?:compounds?|species|phases?|materials?|molecules|structures)|discriminat|anomaly detection",
+          "points": 6
+        },
+        {
+          "id": "control",
+          "label": { "tr": "Kontrol", "en": "Control" },
+          "re": "closed[- ]loop|feedback control|process control|model predictive control|real[- ]time control|adaptive control|\\bcontroller\\b",
+          "points": 6
+        },
+        {
+          "id": "discovery",
+          "label": { "tr": "Keşif / tasarım", "en": "Discovery / design" },
+          "re": "\\bdiscover(?:y|ed|ing|ies)?\\b|de novo|inverse design|rational design|design of (?:new|novel)|novel (?:materials|catalysts|molecules|compounds|inhibitors)|candidate (?:materials|molecules|compounds)|\\bscreen(?:ing|ed)\\b",
+          "points": 7
+        }
+      ]
+    }
+  },
+  "penalties": [
+    {
+      "id": "penalty.notice",
+      "label": { "tr": "Düzeltme / geri çekme / duyuru", "en": "Correction / retraction / notice" },
+      "re": "^(?:correction|retraction|erratum|corrigendum|expression of concern|withdrawn|editorial|in memoriam|obituary|book review)\\b",
+      "field": "title",
+      "points": -40
+    },
+    {
+      "id": "penalty.review",
+      "label": {
+        "tr": "Derleme makalesi (yeni sonuç değil)",
+        "en": "Review article (no new result)"
+      },
+      "re": "^(?:a )?(?:review|perspective|tutorial|mini[- ]review)\\b|:\\s*a (?:review|perspective|tutorial)\\b|\\b(?:review|perspective) (?:of|on) (?:recent|the)\\b",
+      "field": "title",
+      "points": -5
+    }
+  ],
+  "inference": {
+    "$comment": "When a development uses no CS technique yet, these rules propose the CS sub-fields it is a good fit for ('potential' cells). Signals are rule ids above; the first CS gets weight w (default 1), the others 0.6·w; taxonomy defaultCs add 0.9 / 0.5.",
+    "maxInferred": 2,
+    "rules": [
+      { "when": "data.highThroughput", "cs": ["active-learning", "ml"] },
+      { "when": "data.largeCount", "cs": ["ml", "gnn"] },
+      { "when": "data.million", "cs": ["transformer", "hpc"] },
+      { "when": "data.newDataset", "cs": ["ml", "data-standards"] },
+      { "when": "data.automation", "cs": ["robotics", "bayesian-opt"] },
+      { "when": "data.screening", "cs": ["active-learning", "gnn"] },
+      { "when": "data.combinatorial", "cs": ["bayesian-opt", "robotics"] },
+      { "when": "data.computationalScale", "cs": ["simulation", "hpc"] },
+      { "when": "data.timeSeries", "cs": ["digital-twin", "ml"] },
+      { "when": "data.imaging", "cs": ["vision-spectra"] },
+      { "when": "optimization", "cs": ["bayesian-opt"], "w": 1.6 },
+      { "when": "discovery", "cs": ["generative", "active-learning"] },
+      { "when": "prediction", "cs": ["ml", "gnn"] },
+      { "when": "classification", "cs": ["ml", "vision-spectra"] },
+      { "when": "control", "cs": ["digital-twin", "rl"], "w": 1.2 }
+    ]
+  }
+}

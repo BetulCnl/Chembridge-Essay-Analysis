@@ -1,0 +1,145 @@
+{
+  "$comment": "ChemBridge pipeline configuration. Endpoints were verified on 2026-10-24, see docs/SOURCES.md.",
+  "backfillDays": 180,
+  "retentionDays": 180,
+  "overlapDays": 3,
+  "rawRetentionDays": 7,
+  "publish": {
+    "minScore": 20,
+    "minScoreNews": 8,
+    "maxItems": 12000,
+    "buckets": 64,
+    "excerptChars": 600,
+    "feedItems": 40,
+    "feedDays": 7,
+    "weeklyTop": 15
+  },
+  "sources": {
+    "arxiv": {
+      "enabled": true,
+      "pageSize": 500,
+      "chemCategories": ["physics.chem-ph", "cond-mat.mtrl-sci", "q-bio.BM", "cond-mat.soft"],
+      "csCategories": ["cs.LG", "cs.AI", "cs.CE"],
+      "queries": [
+        {
+          "id": "chem",
+          "search": "(cat:physics.chem-ph OR cat:cond-mat.mtrl-sci OR cat:q-bio.BM)"
+        },
+        {
+          "id": "cs-chem",
+          "search": "(cat:cs.LG OR cat:cs.AI OR cat:cs.CE) AND (abs:molecular OR abs:molecule OR abs:molecules OR abs:chemistry OR abs:chemical OR abs:catalyst OR abs:catalysis OR abs:materials OR abs:protein OR abs:drug OR abs:polymer OR abs:battery OR abs:crystal OR abs:reaction)"
+        }
+      ]
+    },
+    "chemrxiv": {
+      "enabled": true,
+      "pageSize": 500,
+      "doiPrefix": "10.26434"
+    },
+    "biorxiv": {
+      "enabled": true,
+      "server": "biorxiv",
+      "categories": [
+        "biochemistry",
+        "biophysics",
+        "synthetic biology",
+        "pharmacology and toxicology"
+      ]
+    },
+    "medrxiv": {
+      "enabled": false,
+      "server": "medrxiv",
+      "categories": ["pharmacology and therapeutics"]
+    },
+    "europepmc": {
+      "enabled": true,
+      "pageSize": 1000,
+      "query": "(ABSTRACT:\"machine learning\" OR ABSTRACT:\"deep learning\" OR ABSTRACT:\"neural network\" OR ABSTRACT:\"bayesian optimization\" OR ABSTRACT:\"active learning\" OR ABSTRACT:\"reinforcement learning\" OR ABSTRACT:\"large language model\" OR ABSTRACT:\"generative model\" OR ABSTRACT:\"self-driving\" OR ABSTRACT:\"autonomous laboratory\") AND (ABSTRACT:catalyst OR ABSTRACT:catalysis OR ABSTRACT:molecular OR ABSTRACT:chemistry OR ABSTRACT:chemical OR ABSTRACT:polymer OR ABSTRACT:battery OR ABSTRACT:electrolyte OR ABSTRACT:\"drug discovery\" OR ABSTRACT:spectroscopy OR ABSTRACT:synthesis)"
+    },
+    "crossref-journals": {
+      "enabled": true,
+      "pageSize": 500,
+      "journals": [
+        { "issn": "0002-7863", "name": "Journal of the American Chemical Society" },
+        { "issn": "1549-9596", "name": "Journal of Chemical Information and Modeling" },
+        { "issn": "1549-9618", "name": "Journal of Chemical Theory and Computation" },
+        { "issn": "2155-5435", "name": "ACS Catalysis" },
+        { "issn": "0897-4756", "name": "Chemistry of Materials" },
+        { "issn": "2374-7943", "name": "ACS Central Science" },
+        { "issn": "2635-098X", "name": "Digital Discovery" },
+        { "issn": "2041-6539", "name": "Chemical Science" },
+        { "issn": "1755-4330", "name": "Nature Chemistry" },
+        { "issn": "1476-1122", "name": "Nature Materials" },
+        { "issn": "2057-3960", "name": "npj Computational Materials" },
+        { "issn": "2662-8457", "name": "Nature Computational Science", "chemistry": false }
+      ]
+    },
+    "rss": {
+      "enabled": true,
+      "feeds": [
+        {
+          "id": "nchem",
+          "name": "Nature Chemistry",
+          "url": "https://www.nature.com/nchem.rss",
+          "type": "article",
+          "chemistry": true
+        },
+        {
+          "id": "nmat",
+          "name": "Nature Materials",
+          "url": "https://www.nature.com/nmat.rss",
+          "type": "article",
+          "chemistry": true
+        },
+        {
+          "id": "natcomputsci",
+          "name": "Nature Computational Science",
+          "url": "https://www.nature.com/natcomputsci.rss",
+          "type": "article",
+          "chemistry": false
+        },
+        {
+          "id": "npjcompumats",
+          "name": "npj Computational Materials",
+          "url": "https://www.nature.com/npjcompumats.rss",
+          "type": "article",
+          "chemistry": true
+        },
+        {
+          "id": "cen",
+          "name": "C&EN",
+          "url": "https://cen.acs.org/feeds/rss/latestnews.xml",
+          "type": "news",
+          "chemistry": true
+        },
+        {
+          "id": "physorg-chem",
+          "name": "Phys.org Chemistry",
+          "url": "https://phys.org/rss-feed/chemistry-news/",
+          "type": "news",
+          "chemistry": true
+        },
+        {
+          "id": "sciencedaily-chem",
+          "name": "ScienceDaily Chemistry",
+          "url": "https://www.sciencedaily.com/rss/matter_energy/chemistry.xml",
+          "type": "news",
+          "chemistry": true
+        }
+      ]
+    }
+  },
+  "enrich": {
+    "openalex": { "enabled": true, "maxPerRun": 1500 },
+    "semanticscholar": { "enabled": true, "maxPerRun": 2000 },
+    "pubchem": { "enabled": true, "maxLookupsPerRun": 300 },
+    "github": { "enabled": true, "maxPerRun": 60 },
+    "hn": { "enabled": true, "maxPerRun": 120 }
+  },
+  "embeddings": {
+    "provider": "minilm",
+    "model": "Xenova/all-MiniLM-L6-v2",
+    "relatedK": 6,
+    "clusterThreshold": 0.62
+  }
+}

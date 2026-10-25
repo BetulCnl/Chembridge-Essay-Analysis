@@ -1,0 +1,701 @@
+{
+  "$comment": "Layer A idea templates (academic research direction). Slots: {title} {shortTitle} {chem} {chemShort} {cs} {csShort} {dataset} {datasets} {baselines} {metric} {problem} {signals} {stack}. Each template is matched against a development's matrix cells; see src/ideas.ts.",
+  "version": 1,
+  "direction": "academic",
+  "metrics": {
+    "prediction": {
+      "tr": "dağılım dışı (OOD) bölmede MAE/RMSE ve R²",
+      "en": "MAE/RMSE and R² on an out-of-distribution split"
+    },
+    "optimization": {
+      "tr": "hedefe ulaşmak için gereken deney sayısı ve hypervolume",
+      "en": "experiments-to-target and hypervolume"
+    },
+    "classification": {
+      "tr": "ROC-AUC, F1 ve kalibrasyon hatası (ECE)",
+      "en": "ROC-AUC, F1 and expected calibration error"
+    },
+    "control": {
+      "tr": "ayar noktası takip hatası ve kısıt ihlalleri",
+      "en": "set-point tracking error and constraint violations"
+    },
+    "discovery": {
+      "tr": "isabet oranı, yenilik ve sentezlenebilirlik",
+      "en": "hit rate, novelty and synthesizability"
+    }
+  },
+  "whyNow": {
+    "recent": {
+      "tr": "Kaynak {days} gün önce yayımlandı; üzerine henüz inşa edilmiş çalışma yok denecek kadar az.",
+      "en": "Published {days} days ago; very little has been built on it yet."
+    },
+    "rising": {
+      "tr": "{cell} hücresi yükselişte: son {weeks} haftada {recent} yayın (önceki döneme göre ×{growth}).",
+      "en": "The {cell} cell is rising: {recent} items in the last {weeks} weeks (×{growth} vs. the previous period)."
+    },
+    "quiet": {
+      "tr": "{cell} az çalışılmış ama umut vaat ediyor: {count} yayın, ortalama uygunluk skoru {avg}.",
+      "en": "{cell} is under-explored but promising: {count} items with an average suitability score of {avg}."
+    },
+    "code": {
+      "tr": "Açık kod yayımlanmış; yeniden üretim için hazır bir başlangıç noktası var.",
+      "en": "Code is public, so there is a ready starting point for reproduction."
+    },
+    "data": {
+      "tr": "Açık veri yayımlanmış; yeni model doğrudan bu veri üzerinde denenebilir.",
+      "en": "Data is public, so a new model can be tested on it directly."
+    },
+    "github": {
+      "tr": "GitHub'da {n} ilgili açık kaynak proje var; temel bileşenler hazır.",
+      "en": "{n} related open-source projects exist on GitHub; building blocks are available."
+    },
+    "gap": {
+      "tr": "Kimya tarafında güçlü bir sonuç var ama CS tarafı henüz boş: erken giriş fırsatı.",
+      "en": "Strong chemistry result with no CS treatment yet: an early-mover opportunity."
+    },
+    "crossList": {
+      "tr": "Çalışma zaten kimya ve CS topluluklarına birlikte sunulmuş; iki tarafın da ilgisini çekecek.",
+      "en": "The work is already cross-listed to chemistry and CS audiences."
+    }
+  },
+  "joiners": { "and": { "tr": " ve ", "en": " and " } },
+  "templates": [
+    {
+      "id": "ood-generalization",
+      "priority": 5,
+      "difficulty": 2,
+      "appliesTo": { "cs": ["ml", "gnn", "transformer", "simulation"], "mode": "existing" },
+      "title": {
+        "tr": "{csShort} modeli ne kadar genelleşiyor? {chemShort} için dağılım dışı benchmark",
+        "en": "How far does the {csShort} model generalize? An out-of-distribution benchmark for {chemShort}"
+      },
+      "summary": {
+        "tr": "“{title}” bir {cs} yaklaşımı sunuyor. Yaklaşımı {datasets} üzerinde iskelet/bileşim, zaman ve küme bazlı bölmelerle yeniden değerlendirerek raporlanan doğruluğun eğitim dağılımı dışında ne kadar korunduğunu ölç.",
+        "en": "“{title}” reports a {cs} approach. Re-evaluate it under scaffold/composition, temporal and cluster splits on {datasets} to measure how much of the reported accuracy survives outside the training distribution."
+      },
+      "researchQuestion": {
+        "tr": "Raporlanan başarım dağılım dışı bölmelerde korunuyor mu ve hangi kimyasal özellikler başarısızlığı öngörüyor?",
+        "en": "Does the reported performance hold under out-of-distribution splits, and which chemical features predict failure?"
+      },
+      "method": [
+        {
+          "tr": "Yayımlanan modeli (ya da sadık bir yeniden uygulamasını) referans olarak yeniden üret.",
+          "en": "Reproduce the published model (or a faithful re-implementation) as the reference."
+        },
+        {
+          "tr": "{dataset} için rastgele, iskelet/bileşim, zamansal ve küme bölmeleri oluştur.",
+          "en": "Build random, scaffold/composition, temporal and cluster splits of {dataset}."
+        },
+        {
+          "tr": "{baselines} ile karşılaştır; hataları kimyasal alt sınıflara göre analiz et.",
+          "en": "Compare with {baselines} and analyse errors by chemical subclass."
+        }
+      ],
+      "evaluation": {
+        "tr": "{metric}; rastgele ve OOD bölmeler arasındaki başarım farkı.",
+        "en": "{metric}; performance gap between random and OOD splits."
+      }
+    },
+    {
+      "id": "uncertainty-calibration",
+      "priority": 4,
+      "difficulty": 3,
+      "appliesTo": {
+        "cs": ["ml", "gnn", "transformer", "simulation", "generative"],
+        "mode": "existing"
+      },
+      "title": {
+        "tr": "{chemShort} alanında {csShort} tahminleri için kalibre belirsizlik",
+        "en": "Calibrated uncertainty for {csShort} predictions in {chemShort}"
+      },
+      "summary": {
+        "tr": "“{title}” çalışmasındaki model sınıfına belirsizlik tahmini (derin topluluklar, kanıtsal öğrenme veya konformal tahmin) ekle; belirsizliğin bir sonraki deneyi ya da hesabı seçecek kadar güvenilir olup olmadığını test et.",
+        "en": "Add uncertainty quantification (deep ensembles, evidential learning or conformal prediction) to the model class used in “{title}” and test whether the uncertainty is reliable enough to choose the next experiment or calculation."
+      },
+      "researchQuestion": {
+        "tr": "Bu kimya için hangi belirsizlik yöntemi en iyi kalibre oluyor ve sabit bütçede karar vermeyi iyileştiriyor mu?",
+        "en": "Which uncertainty method is best calibrated for this chemistry, and does it improve decisions under a fixed budget?"
+      },
+      "method": [
+        {
+          "tr": "{dataset} üzerinde topluluk, MC-dropout/kanıtsal ve konformal varyantları eğit.",
+          "en": "Train ensemble, MC-dropout/evidential and conformal variants on {dataset}."
+        },
+        {
+          "tr": "Kalibrasyonu dağılım içi ve dağılım dışı ölç.",
+          "en": "Measure calibration in- and out-of-distribution."
+        },
+        {
+          "tr": "Belirsizliğe göre verinin sıradaki %5'ini seç ve rastgele seçimle karşılaştır.",
+          "en": "Use the uncertainty to pick the next 5% of data and compare with random selection."
+        }
+      ],
+      "evaluation": {
+        "tr": "Beklenen kalibrasyon hatası, NLL, tahmin aralığı kapsaması ve {metric}.",
+        "en": "Expected calibration error, NLL, prediction-interval coverage, plus {metric}."
+      }
+    },
+    {
+      "id": "retrospective-campaign",
+      "priority": 6,
+      "difficulty": 2,
+      "appliesTo": {
+        "cs": ["bayesian-opt", "active-learning", "robotics"],
+        "mode": "any",
+        "signalsAny": [
+          "optimization",
+          "data.highThroughput",
+          "data.automation",
+          "data.combinatorial"
+        ]
+      },
+      "title": {
+        "tr": "Geriye dönük kapalı döngü kampanyası: {csShort} sonuca daha az deneyle ulaşabilir miydi?",
+        "en": "Retrospective closed-loop campaign: could {csShort} have reached the result with fewer experiments?"
+      },
+      "summary": {
+        "tr": "“{title}” çalışmasında raporlanan ölçümleri (veya {dataset} verisini) kâhin (oracle) olarak kullanıp farklı edinim stratejileriyle optimizasyon kampanyaları simüle et; kapalı döngünün kaç deney tasarruf ettireceğini ölç.",
+        "en": "Use the measurements reported in “{title}” (or {dataset}) as an oracle and simulate optimisation campaigns with different acquisition strategies, quantifying how many experiments a closed loop would have saved."
+      },
+      "researchQuestion": {
+        "tr": "BO/AL stratejileri bu tasarım uzayında, gerçekte kullanılan stratejiye göre ne kadar örnek verimli?",
+        "en": "How sample-efficient are BO/AL strategies on this design space compared with the strategy actually used?"
+      },
+      "method": [
+        {
+          "tr": "Tasarım uzayını ve sonuçları sayısallaştır; veri seyrekse bir vekil modeli emülatör olarak kullan.",
+          "en": "Digitise the design space and outcomes; fit a surrogate as an emulator if data are sparse."
+        },
+        {
+          "tr": "{baselines} ile GP-EI, toplu (batch) ve çok amaçlı edinim stratejilerini karşılaştır.",
+          "en": "Run campaigns with {baselines} versus GP-EI, batch and multi-objective acquisition."
+        },
+        {
+          "tr": "Çok sayıda rastgele tohumda medyan ve en kötü durum başarımını raporla.",
+          "en": "Report median and worst-case performance over many random seeds."
+        }
+      ],
+      "evaluation": {
+        "tr": "{metric}; rastgele aramaya göre iyileşme çarpanı.",
+        "en": "{metric}; enhancement factor over random search."
+      }
+    },
+    {
+      "id": "apply-inferred",
+      "priority": 5,
+      "difficulty": 3,
+      "appliesTo": { "mode": "inferred" },
+      "title": {
+        "tr": "{chemShort} için {cs}: “{shortTitle}” üzerine ilk uygulama",
+        "en": "{cs} for {chemShort}: a first application to “{shortTitle}”"
+      },
+      "summary": {
+        "tr": "Çalışma henüz {cs} kullanmıyor; ancak {signals} onu iyi bir aday yapıyor. Problemi {problem} olarak formüle et ve {csShort} yaklaşımının raporlanan sonuçlara daha düşük deney veya hesap maliyetiyle ulaşıp ulaşamayacağını test et.",
+        "en": "The work does not use {cs} yet, but its {signals} make it a good candidate. Formulate the problem as {problem} and test whether a {csShort} approach can reach the reported results at lower experimental or computational cost."
+      },
+      "researchQuestion": {
+        "tr": "{csShort}, makalenin temel bulgusunu orijinal iş akışından daha az veri veya hesapla yeniden üretebilir mi?",
+        "en": "Can {csShort} reproduce the paper's key finding with less data or compute than the original workflow?"
+      },
+      "method": [
+        {
+          "tr": "Raporlanan deneysel/hesaplamalı veriyi (tablolar, ek bilgiler) düzenli bir veri setine dönüştür.",
+          "en": "Extract the reported experimental/computational data (tables, SI) into a tidy dataset."
+        },
+        {
+          "tr": "{stack} ile bir {csShort} hattı kur ve uygula.",
+          "en": "Build and apply a {csShort} pipeline with {stack}."
+        },
+        {
+          "tr": "Sonuca ulaşma maliyetini orijinal yaklaşım ve {baselines} ile karşılaştır.",
+          "en": "Compare cost-to-result with the original approach and with {baselines}."
+        }
+      ],
+      "evaluation": {
+        "tr": "{metric}; birim iyileşme başına maliyet (deney sayısı, GPU-saat).",
+        "en": "{metric}; cost per unit of improvement (experiments, GPU-hours)."
+      }
+    },
+    {
+      "id": "benchmark-dataset",
+      "priority": 4,
+      "difficulty": 2,
+      "appliesTo": {
+        "cs": ["data-standards", "ml", "gnn", "transformer", "active-learning"],
+        "mode": "any",
+        "signalsAny": [
+          "data.newDataset",
+          "data.largeCount",
+          "data.million",
+          "artifact.data",
+          "artifact.dataAvailable",
+          "data.benchmark"
+        ]
+      },
+      "title": {
+        "tr": "“{shortTitle}” etrafında {chemShort} × {csShort} için açık benchmark",
+        "en": "An open {chemShort} × {csShort} benchmark built around “{shortTitle}”"
+      },
+      "summary": {
+        "tr": "Bu çalışma hattının verisini topluluk benchmark'ına dönüştür: sabit bölmeler, görev tanımları, temel sonuçlar ve bir lider tablosu; böylece yöntemler adil biçimde karşılaştırılabilsin.",
+        "en": "Turn the data of this line of work into a community benchmark — fixed splits, task definitions, baseline results and a leaderboard — so that methods can be compared fairly."
+      },
+      "researchQuestion": {
+        "tr": "Bu veride mevcut yöntemler arasındaki farkları en iyi hangi görevler ve bölmeler ortaya çıkarıyor?",
+        "en": "Which tasks and splits best expose the differences between current methods on this data?"
+      },
+      "method": [
+        {
+          "tr": "Veriyi derle ve tekilleştir; kökenini ve lisansını belgele.",
+          "en": "Curate and deduplicate the data; document provenance and licence."
+        },
+        {
+          "tr": "Sızıntısız bölmelerle 2–3 görev tanımla.",
+          "en": "Define 2–3 tasks with leakage-free splits."
+        },
+        {
+          "tr": "{baselines} ve yakın tarihli güçlü bir modelin sonuçlarını raporla; veriyi Zenodo'da, kodu GitHub'da yayımla.",
+          "en": "Report {baselines} and one strong recent model; publish data on Zenodo and code on GitHub."
+        }
+      ],
+      "evaluation": {
+        "tr": "Göreve özgü {metric}; bölmeler arasında yöntem sıralamasının kararlılığı.",
+        "en": "Task-specific {metric}; stability of method rankings across splits."
+      }
+    },
+    {
+      "id": "interpretability",
+      "priority": 3,
+      "difficulty": 3,
+      "appliesTo": { "cs": ["ml", "gnn", "transformer"], "mode": "existing" },
+      "title": {
+        "tr": "Model ne öğreniyor? {chemShort} alanında atıf analizi ve kimyasal bilgi",
+        "en": "What does the model learn? Attribution analysis versus chemical knowledge in {chemShort}"
+      },
+      "summary": {
+        "tr": "“{title}” çalışmasındaki türden {csShort} modellerine atıf yöntemleri (SHAP, integrated gradients, alt yapı maskeleme) uygula; öne çıkan özelliklerin bilinen mekanizmalarla örtüşüp örtüşmediğini ya da sahte korelasyonlara mı dayandığını test et.",
+        "en": "Apply attribution methods (SHAP, integrated gradients, substructure masking) to {csShort} models of the kind used in “{title}” and test whether the highlighted features agree with known mechanisms or reveal spurious correlations."
+      },
+      "researchQuestion": {
+        "tr": "Model atıfları bilinen yapı–özellik ilişkilerini yeniden buluyor mu ve kısayol öğrenmeyi işaretleyebiliyor mu?",
+        "en": "Do model attributions recover known structure–property relationships, and can they flag shortcut learning?"
+      },
+      "method": [
+        { "tr": "Modeli {dataset} üzerinde eğit.", "en": "Train the model on {dataset}." },
+        {
+          "tr": "Atıfları hesapla ve fonksiyonel grup/motif düzeyinde topla.",
+          "en": "Compute attributions and aggregate them by functional group or motif."
+        },
+        {
+          "tr": "Kontrollü pertürbasyon testleri (karşı-olgusal molekül/yapılar) tasarla.",
+          "en": "Design controlled perturbation tests (counterfactual molecules/structures)."
+        }
+      ],
+      "evaluation": {
+        "tr": "Uzman açıklamalarıyla uyum; karşı-olgusal testlerde doğruluk düşüşü.",
+        "en": "Agreement with expert annotations; accuracy drop under counterfactual tests."
+      }
+    },
+    {
+      "id": "literature-extraction",
+      "priority": 6,
+      "difficulty": 3,
+      "appliesTo": { "cs": ["llm-agent", "knowledge-graph"], "mode": "any" },
+      "title": {
+        "tr": "{chemShort} verisinin LLM'lerle literatür ölçeğinde çıkarımı",
+        "en": "Literature-scale extraction of {chemShort} data with LLMs"
+      },
+      "summary": {
+        "tr": "“{title}” gibi makaleleri yapılandırılmış kayıtlara dönüştüren bir çıkarım hattı kur (açık ağırlıklı LLM + şemaya bağlı çıktı); ardından oluşan veritabanının ne kadar güvenilir olduğunu ölç.",
+        "en": "Build an extraction pipeline (open-weight LLM + schema-constrained output) that turns papers like “{title}” into structured records, then measure how reliable the resulting database is."
+      },
+      "researchQuestion": {
+        "tr": "Açık LLM'ler {chemShort} varlıklarını ve koşullarını kural tabanlı araçlara göre ne doğrulukla çıkarabilir?",
+        "en": "How accurately can open LLMs extract {chemShort} entities and conditions compared with rule-based tools?"
+      },
+      "method": [
+        {
+          "tr": "Hedef kayıtlar için bir JSON şeması tanımla (malzeme/molekül, koşullar, sonuçlar).",
+          "en": "Define a JSON schema for the target records (materials/molecules, conditions, outcomes)."
+        },
+        {
+          "tr": "Altın standart olarak 100–200 özet veya ek tabloyu etiketle.",
+          "en": "Annotate 100–200 abstracts or SI tables as a gold set."
+        },
+        {
+          "tr": "{baselines} ile şemaya bağlı açık LLM'leri {stack} üzerinden karşılaştır.",
+          "en": "Compare {baselines} with schema-constrained open LLMs via {stack}."
+        }
+      ],
+      "evaluation": {
+        "tr": "Alan düzeyinde kesinlik/duyarlılık/F1; elde edilen verinin bir özellik modeline katkısı.",
+        "en": "Field-level precision/recall/F1; downstream value for a property model."
+      }
+    },
+    {
+      "id": "tool-agent",
+      "priority": 5,
+      "difficulty": 4,
+      "appliesTo": { "cs": ["llm-agent", "robotics"], "mode": "any" },
+      "title": {
+        "tr": "Bu çalışmanın yöntemini araç olarak kullanan, {chemShort} deneylerini planlayan ajan",
+        "en": "A tool-using agent that plans {chemShort} experiments with this work's method"
+      },
+      "summary": {
+        "tr": "“{title}” çalışmasının yöntemini çağrılabilir bir araç olarak paketle; bir LLM ajanının bunu veritabanları ve hesaplayıcılarla birleştirerek deney önerip sıralamasını sağla ve cevapları bilinen bir görev setinde değerlendir.",
+        "en": "Wrap the method of “{title}” as a callable tool and let an LLM agent combine it with databases and calculators to propose and rank experiments; evaluate on a task suite with known answers."
+      },
+      "researchQuestion": {
+        "tr": "Araçlarla güçlendirilmiş ajanlar, tek başına araçtan veya tek başına LLM'den daha iyi deney kararları veriyor mu?",
+        "en": "Do tool-augmented agents make better experimental decisions than the tool alone or the LLM alone?"
+      },
+      "method": [
+        {
+          "tr": "Yöntemi, {dataset} sorgularını ve ucuz bir simülatörü araç olarak sun.",
+          "en": "Expose the method, {dataset} lookups and a cheap simulator as tools."
+        },
+        {
+          "tr": "Doğrulanabilir cevapları olan 30–50 görev hazırla.",
+          "en": "Build 30–50 tasks with verifiable answers."
+        },
+        {
+          "tr": "Ajanı, yalnız aracı ve yalnız LLM'i {baselines} ile birlikte karşılaştır.",
+          "en": "Compare agent, tool-only and LLM-only together with {baselines}."
+        }
+      ],
+      "evaluation": {
+        "tr": "Görev başarı oranı, görev başına maliyet, güvensiz/geçersiz öneri oranı.",
+        "en": "Task success rate, cost per task, rate of unsafe or invalid suggestions."
+      }
+    },
+    {
+      "id": "inverse-design",
+      "priority": 6,
+      "difficulty": 4,
+      "appliesTo": { "cs": ["generative", "rl"], "mode": "any" },
+      "title": {
+        "tr": "{chemShort} adayları için özellik koşullu üretken tasarım",
+        "en": "Property-conditioned generative design of {chemShort} candidates"
+      },
+      "summary": {
+        "tr": "“{title}” etrafındaki yapı–özellik verisini kullanarak yeni adaylar öneren koşullu bir üretici (difüzyon/akış veya RL yönlendirmeli) eğit; adayları fizik tabanlı puanlama ve sentezlenebilirlikle filtrele.",
+        "en": "Use the structure–property data around “{title}” to train a conditional generator (diffusion/flow or RL-guided) that proposes new candidates, filtered by physics-based scoring and synthesizability."
+      },
+      "researchQuestion": {
+        "tr": "Koşullu bir üretici, hedef özellikte bilinen en iyileri geçen geçerli ve yeni adaylar önerebilir mi?",
+        "en": "Can a conditional generator propose valid, novel candidates that beat the best known ones on the target property?"
+      },
+      "method": [
+        {
+          "tr": "Eğitim verisini {datasets} kaynaklarından derle.",
+          "en": "Assemble training data from {datasets}."
+        },
+        {
+          "tr": "{stack} ile koşullu modeli eğit; geçerlilik ve sentezlenebilirlik filtreleri ekle.",
+          "en": "Train a conditional model with {stack}; add validity and synthesizability filters."
+        },
+        {
+          "tr": "En iyi adayları DFT/docking ya da ayrılmış bir kâhinle doğrula.",
+          "en": "Validate the top candidates with DFT/docking or a held-out oracle."
+        }
+      ],
+      "evaluation": {
+        "tr": "{metric}; geçerlilik, benzersizlik, yenilik; isabet başına kâhin çağrısı.",
+        "en": "{metric}; validity, uniqueness, novelty; oracle calls per hit."
+      }
+    },
+    {
+      "id": "mlip-surrogate",
+      "priority": 6,
+      "difficulty": 4,
+      "appliesTo": {
+        "cs": ["simulation", "hpc"],
+        "mode": "any",
+        "chemBonus": ["computational", "solidstate", "catalysis", "energy", "electrochem"]
+      },
+      "title": {
+        "tr": "“{shortTitle}” iş akışında DFT'yi ince ayarlı bir ML potansiyeliyle değiştirmek",
+        "en": "Replacing DFT in the workflow of “{shortTitle}” with a fine-tuned ML potential"
+      },
+      "summary": {
+        "tr": "Bu sistem için küçük bir referans hesap kümesiyle evrensel bir atomlar arası potansiyele ince ayar yap; makalenin önemsediği özellikler için hız–doğruluk ödünleşimini ölç.",
+        "en": "Fine-tune a universal interatomic potential on a small set of reference calculations for this system and quantify the speed–accuracy trade-off for the properties the paper cares about."
+      },
+      "researchQuestion": {
+        "tr": "Bir MLIP'nin temel gözlemlenebilirleri kimyasal doğrulukla üretmesi için kaç referans hesap gerekir?",
+        "en": "How many reference calculations does an MLIP need to reproduce the key observables within chemical accuracy?"
+      },
+      "method": [
+        {
+          "tr": "Evrensel bir potansiyelle yapılan MD'den aktif öğrenmeyle konfigürasyon seç.",
+          "en": "Select configurations by active learning from MD with a universal potential."
+        },
+        {
+          "tr": "50–500 DFT noktasıyla ince ayar yap (ör. MACE).",
+          "en": "Fine-tune (e.g. MACE) on 50–500 DFT points."
+        },
+        {
+          "tr": "Enerji, kuvvet ve türetilmiş özellikleri {baselines} ile karşılaştır.",
+          "en": "Compare energies, forces and derived properties with {baselines}."
+        }
+      ],
+      "evaluation": {
+        "tr": "Enerji/kuvvet MAE, türetilmiş gözlemlenebilirlerde hata, duvar saati hızlanması.",
+        "en": "Energy/force MAE, error on derived observables, wall-clock speed-up."
+      }
+    },
+    {
+      "id": "spectra-ml",
+      "priority": 6,
+      "difficulty": 3,
+      "appliesTo": { "cs": ["vision-spectra"], "mode": "any", "chemBonus": ["analytical", "nano"] },
+      "title": {
+        "tr": "{chemShort} için otomatik spektrum ve görüntü yorumlama",
+        "en": "Automated spectral and image interpretation for {chemShort}"
+      },
+      "summary": {
+        "tr": "“{title}” çalışmasında üretilen türden ham spektrum veya görüntüleri yapılara, bileşimlere ya da kalite etiketlerine eşleyen bir model eğit; döngüdeki manuel yorumlamanın yerini alsın.",
+        "en": "Train a model that maps raw spectra or images of the type produced in “{title}” to structures, compositions or quality labels, replacing manual interpretation in the loop."
+      },
+      "researchQuestion": {
+        "tr": "Öğrenilmiş bir model uzman yorumlama doğruluğuna ulaşabilir mi ve ne kadar etiketli veri gerektirir?",
+        "en": "Can a learned model match expert interpretation accuracy, and how much labelled data does it need?"
+      },
+      "method": [
+        {
+          "tr": "{datasets} kaynaklarından spektrum/görüntü topla; artırma için simüle spektrumlar ekle.",
+          "en": "Collect spectra/images from {datasets}, plus simulated spectra for augmentation."
+        },
+        {
+          "tr": "{stack} ile 1B-CNN/transformer (spektrum) veya U-Net (görüntü) eğit.",
+          "en": "Train a 1D-CNN/transformer (spectra) or U-Net (images) with {stack}."
+        },
+        {
+          "tr": "Uzman yorumlarıyla kör bir karşılaştırma yap.",
+          "en": "Run a blinded comparison with expert interpretations."
+        }
+      ],
+      "evaluation": {
+        "tr": "Top-k yapı doğruluğu veya segmentasyon IoU; veri verimliliği eğrisi.",
+        "en": "Top-k structure accuracy or segmentation IoU; data-efficiency curve."
+      }
+    },
+    {
+      "id": "quantum-resource",
+      "priority": 7,
+      "difficulty": 5,
+      "appliesTo": { "cs": ["quantum-computing"], "mode": "any" },
+      "title": {
+        "tr": "“{shortTitle}” kimyası için kuantum kaynak tahmini",
+        "en": "Quantum-resource estimate for the chemistry of “{shortTitle}”"
+      },
+      "summary": {
+        "tr": "Bu çalışmadaki elektronik yapı alt problemini belirle, aktif uzay Hamiltonyenleri kur ve VQE/QPE için kübit, kapı sayısı ve çalışma süresini klasik çözücülerle kıyaslayarak tahmin et.",
+        "en": "Identify the electronic-structure subproblem in this work, build active-space Hamiltonians and estimate qubits, gate counts and run-times for VQE/QPE versus classical solvers."
+      },
+      "researchQuestion": {
+        "tr": "Bu kimya için kuantum algoritması hangi sistem boyutunda avantaj sağlar?",
+        "en": "At what system size would a quantum algorithm offer an advantage for this chemistry?"
+      },
+      "method": [
+        {
+          "tr": "{stack} ile büyüyen aktif uzaylar kur.",
+          "en": "Construct active spaces of increasing size with {stack}."
+        },
+        {
+          "tr": "Klasik referansları ({baselines}) çalıştır.",
+          "en": "Run classical references ({baselines})."
+        },
+        {
+          "tr": "Hata toleranslı kaynakları ve NISQ uygulanabilirliğini tahmin et.",
+          "en": "Estimate fault-tolerant resources and NISQ feasibility."
+        }
+      ],
+      "evaluation": {
+        "tr": "Aktif uzay boyutuna göre enerji hatası; mantıksal kübit ve T-kapısı tahminleri.",
+        "en": "Energy error versus active-space size; logical-qubit and T-count estimates."
+      }
+    },
+    {
+      "id": "hybrid-twin",
+      "priority": 6,
+      "difficulty": 4,
+      "appliesTo": {
+        "cs": ["digital-twin"],
+        "mode": "any",
+        "chemBonus": ["energy", "electrochem", "green"]
+      },
+      "title": {
+        "tr": "“{shortTitle}” içindeki {chemShort} sistemi için hibrit fizik–ML dijital ikiz",
+        "en": "Hybrid physics–ML digital twin for the {chemShort} system in “{shortTitle}”"
+      },
+      "summary": {
+        "tr": "Sistemin gelişimini (bozunma, dönüşüm, seçicilik) tahmin etmek için mekanistik bir modeli veri güdümlü bir artık (residual) modelle birleştir; tahmin ve kontrol için test et.",
+        "en": "Combine a mechanistic model with a data-driven residual model to predict how the system evolves (degradation, conversion, selectivity), and test it for forecasting and control."
+      },
+      "researchQuestion": {
+        "tr": "Hibrit bir model, saf mekanistik ya da saf veri güdümlü modellerden daha iyi ekstrapolasyon yapıyor mu?",
+        "en": "Does a hybrid model extrapolate better than purely mechanistic or purely data-driven models?"
+      },
+      "method": [
+        {
+          "tr": "Mekanistik temel modeli {stack} ile uygula.",
+          "en": "Implement the mechanistic baseline with {stack}."
+        },
+        {
+          "tr": "Artık modeli {dataset} zaman serilerinden öğren.",
+          "en": "Learn the residual from time-series data in {dataset}."
+        },
+        {
+          "tr": "Çok adımlı tahminleri ve basit bir model öngörülü denetleyiciyi değerlendir.",
+          "en": "Evaluate multi-step forecasts and a simple model-predictive controller."
+        }
+      ],
+      "evaluation": {
+        "tr": "Ufka göre tahmin hatası; {baselines} karşısında kontrol başarımı.",
+        "en": "Forecast error versus horizon; control performance versus {baselines}."
+      }
+    },
+    {
+      "id": "fair-schema",
+      "priority": 6,
+      "difficulty": 2,
+      "appliesTo": { "cs": ["data-standards"], "mode": "any" },
+      "title": {
+        "tr": "“{shortTitle}” benzeri {chemShort} deneyleri için FAIR veri şeması",
+        "en": "A FAIR data schema for {chemShort} experiments like “{shortTitle}”"
+      },
+      "summary": {
+        "tr": "Bu deney türü için makinece işlenebilir bir şema/ontoloji tanımla, mevcut veri setlerini buna eşle ve çalışmalar arası ML'yi mümkün kıldığını göster.",
+        "en": "Define a machine-actionable schema/ontology for this experiment type, map existing datasets onto it and show that it enables cross-study machine learning."
+      },
+      "researchQuestion": {
+        "tr": "Hangi asgari meta veri, {chemShort} sonuçlarını laboratuvarlar arası ML için yeniden kullanılabilir kılar?",
+        "en": "Which minimal metadata makes {chemShort} results reusable for ML across labs?"
+      },
+      "method": [
+        {
+          "tr": "Yakın tarihli 20–30 makalede raporlama pratiğini incele.",
+          "en": "Survey reporting practice in 20–30 recent papers."
+        },
+        {
+          "tr": "Şemayı {stack} ile yaz ve mevcut iki veri setini dönüştür.",
+          "en": "Write the schema in {stack} and convert two existing datasets."
+        },
+        {
+          "tr": "Birleştirilmiş veride bir model eğiterek kazancı göster.",
+          "en": "Train one model on the merged data to demonstrate the gain."
+        }
+      ],
+      "evaluation": {
+        "tr": "Zorunlu alanların kapsamı, dönüştürme eforu, çalışmalar arası model doğruluğu.",
+        "en": "Coverage of required fields, conversion effort, cross-study model accuracy."
+      }
+    },
+    {
+      "id": "hpc-scaling",
+      "priority": 5,
+      "difficulty": 4,
+      "appliesTo": { "cs": ["hpc"], "mode": "any" },
+      "title": {
+        "tr": "“{shortTitle}” iş akışının GPU hızlandırmalı, ölçeklenebilir uygulaması",
+        "en": "A GPU-accelerated, scalable implementation of the workflow in “{shortTitle}”"
+      },
+      "summary": {
+        "tr": "Bu iş akışının hesaplama darboğazını profille, GPU çekirdekleri veya JAX ile yeniden uygula; güçlü/zayıf ölçekleme sonuçlarını ve açık bir benchmark'ı yayımla.",
+        "en": "Profile the computational bottleneck of this workflow and re-implement it with GPU kernels or JAX, publishing strong/weak scaling results and an open benchmark."
+      },
+      "researchQuestion": {
+        "tr": "İş akışının hangi kısımları maliyete hâkim ve doğruluk kaybı olmadan ne kadar hızlanma mümkün?",
+        "en": "Which parts of the workflow dominate cost, and what speed-up is achievable without loss of accuracy?"
+      },
+      "method": [
+        {
+          "tr": "Referans uygulamayı temsilî bir sistemde profille.",
+          "en": "Profile the reference implementation on a representative system."
+        },
+        {
+          "tr": "Sıcak noktaları {stack} ile yeniden yaz.",
+          "en": "Port the hotspots with {stack}."
+        },
+        {
+          "tr": "Ücretsiz kaynaklarda (Colab/Kaggle GPU, üniversite kümeleri) güçlü/zayıf ölçeklemeyi ölç.",
+          "en": "Measure strong/weak scaling on free resources (Colab/Kaggle GPUs, university clusters)."
+        }
+      ],
+      "evaluation": {
+        "tr": "Hızlanma, paralel verimlilik, referansla sayısal uyum.",
+        "en": "Speed-up, parallel efficiency, numerical agreement with the reference."
+      }
+    },
+    {
+      "id": "rl-policy",
+      "priority": 6,
+      "difficulty": 4,
+      "appliesTo": { "cs": ["rl"], "mode": "any" },
+      "title": {
+        "tr": "{chemShort} için ardışık karar politikası öğrenmek",
+        "en": "Learning a sequential decision policy for {chemShort}"
+      },
+      "summary": {
+        "tr": "“{title}” içindeki çok adımlı süreci (sentez rotası, reaksiyon dizisi veya süreç işletimi) bir MDP olarak modelle ve arama ile BO tabanlı planlayıcılara karşı değerlendirilen bir politika öğren.",
+        "en": "Frame the multi-step process in “{title}” (synthesis route, reaction sequence or process operation) as an MDP and learn a policy, evaluated against search- and BO-based planners."
+      },
+      "researchQuestion": {
+        "tr": "Bir RL politikası hedefler arasında, hedef başına aramadan daha iyi genelleşiyor mu?",
+        "en": "Does an RL policy generalise across targets better than per-target search?"
+      },
+      "method": [
+        {
+          "tr": "Durumları, eylemleri ve ödülleri ucuz bir simülatör veya vekil modelle tanımla.",
+          "en": "Define states, actions and rewards with a cheap simulator or surrogate."
+        },
+        { "tr": "Politikayı {stack} ile eğit.", "en": "Train the policy with {stack}." },
+        {
+          "tr": "Görülmemiş hedeflerde {baselines} ile karşılaştır.",
+          "en": "Compare with {baselines} on unseen targets."
+        }
+      ],
+      "evaluation": {
+        "tr": "{metric}; örnek verimliliği; görülmemiş hedeflerde başarı.",
+        "en": "{metric}; sample efficiency; success on unseen targets."
+      }
+    },
+    {
+      "id": "reproduce-extend",
+      "priority": 2,
+      "difficulty": 2,
+      "appliesTo": { "mode": "existing" },
+      "title": {
+        "tr": "Önce yeniden üret, sonra genişlet: yeni {chemShort} verisinde {csShort}",
+        "en": "Reproduce, then extend: {csShort} on new {chemShort} data"
+      },
+      "summary": {
+        "tr": "“{title}” çalışmasının temel sonucunu açık araçlarla yeniden üret; ardından yaklaşımın genelliğini test etmek için onu ilgili açık bir veri setine ({dataset}) aktar.",
+        "en": "Reproduce the core result of “{title}” with open tools, then transfer the approach to a related public dataset ({dataset}) to test its generality."
+      },
+      "researchQuestion": {
+        "tr": "Sonuç yayımlanan bilgilerden yeniden üretilebiliyor mu ve komşu bir veri setine aktarılabiliyor mu?",
+        "en": "Is the result reproducible from the published information, and does it transfer to a neighbouring dataset?"
+      },
+      "method": [
+        {
+          "tr": "Makaledeki tarifi izleyerek {stack} ile yeniden uygula.",
+          "en": "Re-implement with {stack}, following the paper's description."
+        },
+        {
+          "tr": "Yeniden üretim için eksik kalan her ayrıntıyı belgele.",
+          "en": "Document every detail missing for reproduction."
+        },
+        {
+          "tr": "{dataset} verisine aktar ve {baselines} ile karşılaştır.",
+          "en": "Transfer to {dataset} and compare with {baselines}."
+        }
+      ],
+      "evaluation": {
+        "tr": "Yeniden üretim farkı; yeni veri setinde {metric}.",
+        "en": "Reproduction gap; {metric} on the new dataset."
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "total_count": 2,
+  "incomplete_results": false,
+  "items": [
+    {
+      "id": 1,
+      "full_name": "example-org/retro-planner",
+      "html_url": "https://github.com/example-org/retro-planner",
+      "description": "Retrosynthesis planning with Monte Carlo tree search",
+      "stargazers_count": 512,
+      "pushed_at": "2026-09-30T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "full_name": "example-org/rxn-tools",
+      "html_url": "https://github.com/example-org/rxn-tools",
+      "description": null,
+      "stargazers_count": 40,
+      "pushed_at": "2026-08-01T10:00:00Z"
+    }
+  ]
+}

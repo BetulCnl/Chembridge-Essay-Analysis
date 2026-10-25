@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Pipeline working data (in CI this lives on the `data` branch)
+.data/
+data/
+
+# Published data copied into the web app for local dev
+apps/web/public/data/
+
+# Model caches
+.cache/

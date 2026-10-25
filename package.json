@@ -1,0 +1,37 @@
+{
+  "name": "chembridge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chemistry × Computer Science idea discovery platform (zero-cost, static, open data).",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @chembridge/web dev",
+    "build": "pnpm --filter @chembridge/web build",
+    "preview": "pnpm --filter @chembridge/web preview",
+    "pipeline": "pnpm --filter @chembridge/pipeline cli",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "schema:export": "pnpm --filter @chembridge/core schema:export",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^5.0.5"
+  }
+}

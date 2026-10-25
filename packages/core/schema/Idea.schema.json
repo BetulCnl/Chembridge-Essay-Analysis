@@ -1,0 +1,238 @@
+{
+  "title": "Idea",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "itemId": {
+      "type": "string"
+    },
+    "templateId": {
+      "type": "string"
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "academic",
+        "portfolio",
+        "startup"
+      ]
+    },
+    "layer": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "cell": {
+      "type": "object",
+      "properties": {
+        "chem": {
+          "type": "string"
+        },
+        "cs": {
+          "type": "string"
+        },
+        "inferred": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "chem",
+        "cs",
+        "inferred"
+      ],
+      "additionalProperties": false
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "tr": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tr",
+        "en"
+      ],
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "tr": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tr",
+        "en"
+      ],
+      "additionalProperties": false
+    },
+    "researchQuestion": {
+      "type": "object",
+      "properties": {
+        "tr": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tr",
+        "en"
+      ],
+      "additionalProperties": false
+    },
+    "method": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tr": {
+            "type": "string"
+          },
+          "en": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tr",
+          "en"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "tr": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tr",
+        "en"
+      ],
+      "additionalProperties": false
+    },
+    "difficulty": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "requiredData": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "stack": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "whyNow": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tr": {
+            "type": "string"
+          },
+          "en": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tr",
+          "en"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "venues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "similar": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "corpus",
+              "github",
+              "hn",
+              "source"
+            ]
+          }
+        },
+        "required": [
+          "title",
+          "url",
+          "kind"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "itemId",
+    "templateId",
+    "direction",
+    "layer",
+    "cell",
+    "title",
+    "summary",
+    "researchQuestion",
+    "method",
+    "evaluation",
+    "difficulty",
+    "requiredData",
+    "stack",
+    "whyNow",
+    "venues",
+    "similar"
+  ],
+  "additionalProperties": false
+}

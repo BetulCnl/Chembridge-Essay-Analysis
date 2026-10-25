@@ -1,0 +1,114 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns="http://purl.org/rss/1.0/" xmlns:admin="http://webns.net/mvcb/">
+    <channel rdf:about="http://feeds.nature.com/nmat/rss/current">
+        <title>Nature Materials</title>
+        <description>Nature Materials is a multidisciplinary journal aimed at bringing together cutting-edge research across the entire spectrum of materials science and technology. Nature Materials covers all applied and fundamental aspects of the synthesis/processing, structure/composition, properties and performance of materials. Nature Materials provides a forum for the development of a common identity among materials scientists while encouraging researchers to cross established subdisciplinary lines. To achieve this, Nature Materials takes an interdisciplinary, integrated and balanced approach to all areas of materials research while fostering the exchange of ideas between scientists involved in different communities.</description>
+        <link>http://feeds.nature.com/nmat/rss/current</link>
+        <admin:generatorAgent rdf:resource="https://www.nature.com/"/>
+        <admin:errorReportsTo rdf:resource="mailto:feedback@nature.com"/>
+        <dc:publisher>Nature Publishing Group</dc:publisher>
+        <dc:language>en</dc:language>
+        <dc:rights>© 2026 Macmillan Publishers Limited, part of Springer Nature. All rights reserved.</dc:rights>
+        <prism:publicationName>Nature Materials</prism:publicationName>
+        
+        
+        <prism:copyright>© 2026 Macmillan Publishers Limited, part of Springer Nature. All rights reserved.</prism:copyright>
+        <prism:rightsAgent>permissions@nature.com</prism:rightsAgent>
+        <image rdf:resource="https://www.nature.com/uploads/product/nmat/rss.gif"/>
+        <items>
+            <rdf:Seq>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41563-026-02777-2"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41563-026-02778-1"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41563-026-02773-6"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41563-026-02763-8"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41563-026-02759-4"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41563-026-02770-9"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41563-026-02766-5"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41563-026-02751-y"/>
+                
+            </rdf:Seq>
+        </items>
+    </channel>
+    <image rdf:about="https://www.nature.com/uploads/product/nmat/rss.gif">
+        <title>Nature Materials</title>
+        <url>https://www.nature.com/uploads/product/nmat/rss.gif</url>
+        <link>http://feeds.nature.com/nmat/rss/current</link>
+    </image>
+    
+        <item rdf:about="https://www.nature.com/articles/s41563-026-02777-2">
+            <title><![CDATA[Strain turns carbon dioxide into circular polyesters]]></title>
+            <link>https://www.nature.com/articles/s41563-026-02777-2</link>
+            <content:encoded>
+                <![CDATA[<p>Nature Materials, Published online: 22 October 2026; <a href="https://www.nature.com/articles/s41563-026-02777-2">doi:10.1038/s41563-026-02777-2</a></p>The high ring strain of cyclic hydrocarbons enables alternating copolymerization with carbon dioxide to produce polyesters amenable to closed-loop recycling.]]></content:encoded>
+            <dc:title><![CDATA[Strain turns carbon dioxide into circular polyesters]]></dc:title>
+            <dc:creator>Kyoko Nozaki</dc:creator>
+            <dc:identifier>doi:10.1038/s41563-026-02777-2</dc:identifier>
+            <dc:source>Nature Materials, Published online: 2026-10-22; | doi:10.1038/s41563-026-02777-2</dc:source>
+            <dc:date>2026-10-22</dc:date>
+            <prism:publicationName>Nature Materials</prism:publicationName>
+            <prism:doi>10.1038/s41563-026-02777-2</prism:doi>
+            <prism:url>https://www.nature.com/articles/s41563-026-02777-2</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s41563-026-02778-1">
+            <title><![CDATA[Zero-field spin-wave networks with integrated non-volatile memory]]></title>
+            <link>https://www.nature.com/articles/s41563-026-02778-1</link>
+            <content:encoded>
+                <![CDATA[<p>Nature Materials, Published online: 22 October 2026; <a href="https://www.nature.com/articles/s41563-026-02778-1">doi:10.1038/s41563-026-02778-1</a></p>Ferrimagnetic nanostructures with low spin-wave damping are used to demonstrate the reprogrammable routing of spin-wave signals across a wide range of frequencies.]]></content:encoded>
+            <dc:title><![CDATA[Zero-field spin-wave networks with integrated non-volatile memory]]></dc:title>
+            <dc:creator>K. O. Nikolaev</dc:creator><dc:creator>D. Raskhodchikov</dc:creator><dc:creator>J. Bensmann</dc:creator><dc:creator>S. Niehues</dc:creator><dc:creator>V. D. Bessonov</dc:creator><dc:creator>E. Lomonte</dc:creator><dc:creator>L. Jin</dc:creator><dc:creator>R. Schmidt</dc:creator><dc:creator>J. Kern</dc:creator><dc:creator>S. Michaelis de Vasconcellos</dc:creator><dc:creator>R. Bratschitsch</dc:creator><dc:creator>S. O. Demokritov</dc:creator><dc:creator>W. H. P. Pernice</dc:creator><dc:creator>V. E. Demidov</dc:creator>
+            <dc:identifier>doi:10.1038/s41563-026-02778-1</dc:identifier>
+            <dc:source>Nature Materials, Published online: 2026-10-22; | doi:10.1038/s41563-026-02778-1</dc:source>
+            <dc:date>2026-10-22</dc:date>
+            <prism:publicationName>Nature Materials</prism:publicationName>
+            <prism:doi>10.1038/s41563-026-02778-1</prism:doi>
+            <prism:url>https://www.nature.com/articles/s41563-026-02778-1</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s41563-026-02773-6">
+            <title><![CDATA[Genes take control of active matter]]></title>
+            <link>https://www.nature.com/articles/s41563-026-02773-6</link>
+            <content:encoded>
+                <![CDATA[<p>Nature Materials, Published online: 20 October 2026; <a href="https://www.nature.com/articles/s41563-026-02773-6">doi:10.1038/s41563-026-02773-6</a></p>Gene expression reconstituted outside the cell controls the composition and dynamics of cytoskeletal networks, bringing the tools of synthetic biology to active matter and opening a route to genetically programmed biomaterials.]]></content:encoded>
+            <dc:title><![CDATA[Genes take control of active matter]]></dc:title>
+            <dc:creator>Fan Yang</dc:creator><dc:creator>Matt Thomson</dc:creator>
+            <dc:identifier>doi:10.1038/s41563-026-02773-6</dc:identifier>
+            <dc:source>Nature Materials, Published online: 2026-10-20; | doi:10.1038/s41563-026-02773-6</dc:source>
+            <dc:date>2026-10-20</dc:date>
+            <prism:publicationName>Nature Materials</prism:publicationName>
+            <prism:doi>10.1038/s41563-026-02773-6</prism:doi>
+            <prism:url>https://www.nature.com/articles/s41563-026-02773-6</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s41563-026-02763-8">
+            <title><![CDATA[Bridging microwaves and light]]></title>
+            <link>https://www.nature.com/articles/s41563-026-02763-8</link>
+            <content:encoded>
+                <![CDATA[<p>Nature Materials, Published online: 19 October 2026; <a href="https://www.nature.com/articles/s41563-026-02763-8">doi:10.1038/s41563-026-02763-8</a></p>Strong coupling between magnons and excitons in CrSBr enables microwave-to-optical transduction, offering a route towards efficient conversion between otherwise disparate frequency regimes.]]></content:encoded>
+            <dc:title><![CDATA[Bridging microwaves and light]]></dc:title>
+            <dc:creator>Paulina Plochocka</dc:creator>
+            <dc:identifier>doi:10.1038/s41563-026-02763-8</dc:identifier>
+            <dc:source>Nature Materials, Published online: 2026-10-19; | doi:10.1038/s41563-026-02763-8</dc:source>
+            <dc:date>2026-10-19</dc:date>
+            <prism:publicationName>Nature Materials</prism:publicationName>
+            <prism:doi>10.1038/s41563-026-02763-8</prism:doi>
+            <prism:url>https://www.nature.com/articles/s41563-026-02763-8</prism:url>
+        </item>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+</rdf:RDF>

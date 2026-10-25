@@ -1,0 +1,175 @@
+{
+  "title": "Meta",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "generatedAt": {
+      "type": "string"
+    },
+    "rulesVersion": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "window": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
+      },
+      "required": [
+        "from",
+        "to"
+      ],
+      "additionalProperties": false
+    },
+    "counts": {
+      "type": "object",
+      "properties": {
+        "corpus": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "published": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "corpus",
+        "published"
+      ],
+      "additionalProperties": false
+    },
+    "buckets": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "ok": {
+            "type": "boolean"
+          },
+          "fetched": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "normalized": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "notModified": {
+            "type": "boolean"
+          },
+          "requests": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "durationMs": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "error": {
+            "type": "string"
+          },
+          "window": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              },
+              "to": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "additionalProperties": false
+          },
+          "finishedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "ok",
+          "fetched",
+          "normalized",
+          "notModified",
+          "requests",
+          "durationMs",
+          "finishedAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "enrichment": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "lookups": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "hits": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "skipped": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "lookups",
+          "hits"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "embeddings": {
+      "type": "string"
+    },
+    "siteUrl": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "generatedAt",
+    "rulesVersion",
+    "window",
+    "counts",
+    "buckets",
+    "sources",
+    "embeddings"
+  ],
+  "additionalProperties": false
+}

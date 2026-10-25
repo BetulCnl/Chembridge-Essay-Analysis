@@ -1,0 +1,114 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns="http://purl.org/rss/1.0/" xmlns:admin="http://webns.net/mvcb/">
+    <channel rdf:about="http://feeds.nature.com/natcomputsci/rss/current">
+        <title>Nature Computational Science</title>
+        <description>&lt;i&gt;Nature Computational Science&lt;/i&gt; is a multidisciplinary journal that focuses on the development and use of computational techniques and mathematical models, as well as their application to address complex problems across a range of scientific disciplines. The journal publishes both fundamental and applied research, from groundbreaking algorithms, tools and frameworks that notably help to advance scientific research, to methodologies that use computing capabilities in novel ways to find new insights and solve challenging real-world problems. By doing so, the journal creates a unique environment to bring together different disciplines to discuss the latest advances in computational science.   Disciplines covered by &lt;i&gt;Nature Computational Science&lt;/i&gt; include, but are not limited to: &lt;ul&gt;&lt;li&gt;Bioinformatics&lt;/li&gt;&lt;li&gt;Cheminformatics&lt;/li&gt;&lt;li&gt;Geoinformatics&lt;/li&gt;&lt;li&gt;Climate Modeling and Simulation&lt;/li&gt;&lt;li&gt;Computational Physics and Cosmology&lt;/li&gt;&lt;li&gt;Applied Math&lt;/li&gt;&lt;li&gt;Materials Science&lt;/li&gt;&lt;li&gt;Urban Science and Technology&lt;/li&gt;&lt;li&gt;Scientific Computing&lt;/li&gt;&lt;li&gt;Methods, Tools and Platforms for Computational Science&lt;/li&gt;&lt;li&gt;Visualization and Virtual Reality for Computational Science&lt;/li&gt;&lt;/ul&gt;&lt;i&gt;Nature Computational Science&lt;/i&gt; is committed to publishing significant, high-quality research through a fair and rigorous peer-review process that is overseen by a team of full-time professional editors.</description>
+        <link>http://feeds.nature.com/natcomputsci/rss/current</link>
+        <admin:generatorAgent rdf:resource="https://www.nature.com/"/>
+        <admin:errorReportsTo rdf:resource="mailto:feedback@nature.com"/>
+        <dc:publisher>Nature Publishing Group</dc:publisher>
+        <dc:language>en</dc:language>
+        <dc:rights>© 2026 Macmillan Publishers Limited, part of Springer Nature. All rights reserved.</dc:rights>
+        <prism:publicationName>Nature Computational Science</prism:publicationName>
+        
+        
+        <prism:copyright>© 2026 Macmillan Publishers Limited, part of Springer Nature. All rights reserved.</prism:copyright>
+        <prism:rightsAgent>permissions@nature.com</prism:rightsAgent>
+        <image rdf:resource="https://www.nature.com/uploads/product/natcomputsci/rss.jpg"/>
+        <items>
+            <rdf:Seq>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s43588-026-01078-7"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s43588-026-01069-8"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s43588-026-01068-9"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s43588-026-01067-w"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s43588-026-01062-1"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s43588-026-01044-3"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s43588-026-01066-x"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s43588-026-01045-2"/>
+                
+            </rdf:Seq>
+        </items>
+    </channel>
+    <image rdf:about="https://www.nature.com/uploads/product/natcomputsci/rss.jpg">
+        <title>Nature Computational Science</title>
+        <url>https://www.nature.com/uploads/product/natcomputsci/rss.jpg</url>
+        <link>http://feeds.nature.com/natcomputsci/rss/current</link>
+    </image>
+    
+        <item rdf:about="https://www.nature.com/articles/s43588-026-01078-7">
+            <title><![CDATA[Making the case for a non-primary article]]></title>
+            <link>https://www.nature.com/articles/s43588-026-01078-7</link>
+            <content:encoded>
+                <![CDATA[<p>Nature Computational Science, Published online: 22 October 2026; <a href="https://www.nature.com/articles/s43588-026-01078-7">doi:10.1038/s43588-026-01078-7</a></p>Author-proposed non-primary articles can bring fresh and timely perspectives to the journal. Here, we discuss the factors that editors consider when assessing proposals for these contributions.]]></content:encoded>
+            <dc:title><![CDATA[Making the case for a non-primary article]]></dc:title>
+            
+            <dc:identifier>doi:10.1038/s43588-026-01078-7</dc:identifier>
+            <dc:source>Nature Computational Science, Published online: 2026-10-22; | doi:10.1038/s43588-026-01078-7</dc:source>
+            <dc:date>2026-10-22</dc:date>
+            <prism:publicationName>Nature Computational Science</prism:publicationName>
+            <prism:doi>10.1038/s43588-026-01078-7</prism:doi>
+            <prism:url>https://www.nature.com/articles/s43588-026-01078-7</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s43588-026-01069-8">
+            <title><![CDATA[Dynamic networks can promote pro-sociality]]></title>
+            <link>https://www.nature.com/articles/s43588-026-01069-8</link>
+            <content:encoded>
+                <![CDATA[<p>Nature Computational Science, Published online: 22 October 2026; <a href="https://www.nature.com/articles/s43588-026-01069-8">doi:10.1038/s43588-026-01069-8</a></p>Structure coefficients provide a unified way to identify dynamic network structures that promote cooperation, altruism, fairness and trust.]]></content:encoded>
+            <dc:title><![CDATA[Dynamic networks can promote pro-sociality]]></dc:title>
+            <dc:creator>Elias Fernández Domingos</dc:creator>
+            <dc:identifier>doi:10.1038/s43588-026-01069-8</dc:identifier>
+            <dc:source>Nature Computational Science, Published online: 2026-10-22; | doi:10.1038/s43588-026-01069-8</dc:source>
+            <dc:date>2026-10-22</dc:date>
+            <prism:publicationName>Nature Computational Science</prism:publicationName>
+            <prism:doi>10.1038/s43588-026-01069-8</prism:doi>
+            <prism:url>https://www.nature.com/articles/s43588-026-01069-8</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s43588-026-01068-9">
+            <title><![CDATA[Structure-coefficient theorem for evolutionary games on dynamic networks]]></title>
+            <link>https://www.nature.com/articles/s43588-026-01068-9</link>
+            <content:encoded>
+                <![CDATA[<p>Nature Computational Science, Published online: 22 October 2026; <a href="https://www.nature.com/articles/s43588-026-01068-9">doi:10.1038/s43588-026-01068-9</a></p>The authors establish a structure-coefficient theorem, showing that three universal coefficients capture evolutionary outcomes in changing networks, and identify dynamic core–periphery networks that promote cooperation, altruism, fairness and trust.]]></content:encoded>
+            <dc:title><![CDATA[Structure-coefficient theorem for evolutionary games on dynamic networks]]></dc:title>
+            <dc:creator>Zizhuo Zhang</dc:creator><dc:creator>Yu Xia</dc:creator><dc:creator>Bo Yang</dc:creator><dc:creator>Xinping Guan</dc:creator><dc:creator>Qi Su</dc:creator>
+            <dc:identifier>doi:10.1038/s43588-026-01068-9</dc:identifier>
+            <dc:source>Nature Computational Science, Published online: 2026-10-22; | doi:10.1038/s43588-026-01068-9</dc:source>
+            <dc:date>2026-10-22</dc:date>
+            <prism:publicationName>Nature Computational Science</prism:publicationName>
+            <prism:doi>10.1038/s43588-026-01068-9</prism:doi>
+            <prism:url>https://www.nature.com/articles/s43588-026-01068-9</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s43588-026-01067-w">
+            <title><![CDATA[Hybrid modeling for improved structure prediction of large protein complexes]]></title>
+            <link>https://www.nature.com/articles/s43588-026-01067-w</link>
+            <content:encoded>
+                <![CDATA[<p>Nature Computational Science, Published online: 15 October 2026; <a href="https://www.nature.com/articles/s43588-026-01067-w">doi:10.1038/s43588-026-01067-w</a></p>An automated framework, HDOCK-Multimer (HDM), is developed that integrates ab initio docking and combinatorial assembly for the structure prediction of large protein complexes. Across three benchmarks, HDM demonstrates increased accuracy and robustness in modeling large protein assemblies, compared with state-of-the-art assembly and deep learning-based methods.]]></content:encoded>
+            <dc:title><![CDATA[Hybrid modeling for improved structure prediction of large protein complexes]]></dc:title>
+            
+            <dc:identifier>doi:10.1038/s43588-026-01067-w</dc:identifier>
+            <dc:source>Nature Computational Science, Published online: 2026-10-15; | doi:10.1038/s43588-026-01067-w</dc:source>
+            <dc:date>2026-10-15</dc:date>
+            <prism:publicationName>Nature Computational Science</prism:publicationName>
+            <prism:doi>10.1038/s43588-026-01067-w</prism:doi>
+            <prism:url>https://www.nature.com/articles/s43588-026-01067-w</prism:url>
+        </item>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+</rdf:RDF>

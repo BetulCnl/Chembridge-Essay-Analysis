@@ -1,0 +1,634 @@
+{
+  "title": "AnalyzedDevelopment",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doi": {
+      "type": "string"
+    },
+    "arxivId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "abstract": {
+      "type": "string"
+    },
+    "abstractIsExcerpt": {
+      "type": "boolean"
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "publishedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "preprint",
+        "article",
+        "news"
+      ]
+    },
+    "venue": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "license": {
+      "type": "string"
+    },
+    "primarySource": {
+      "type": "string"
+    },
+    "sources": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "nativeId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fetchedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "nativeId",
+          "url",
+          "fetchedAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "code",
+              "data",
+              "model"
+            ]
+          },
+          "host": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "kind",
+          "host"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "chemistrySource": {
+      "type": "boolean"
+    },
+    "ingestedAt": {
+      "type": "string"
+    },
+    "score": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "components": {
+          "type": "object",
+          "properties": {
+            "csTechniques": {
+              "type": "object",
+              "properties": {
+                "score": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "score",
+                "max"
+              ],
+              "additionalProperties": false
+            },
+            "dataIntensity": {
+              "type": "object",
+              "properties": {
+                "score": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "score",
+                "max"
+              ],
+              "additionalProperties": false
+            },
+            "openArtifacts": {
+              "type": "object",
+              "properties": {
+                "score": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "score",
+                "max"
+              ],
+              "additionalProperties": false
+            },
+            "problemType": {
+              "type": "object",
+              "properties": {
+                "score": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "score",
+                "max"
+              ],
+              "additionalProperties": false
+            },
+            "penalty": {
+              "type": "object",
+              "properties": {
+                "score": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "score",
+                "max"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "csTechniques",
+            "dataIntensity",
+            "openArtifacts",
+            "problemType",
+            "penalty"
+          ],
+          "additionalProperties": false
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "component": {
+                "type": "string",
+                "enum": [
+                  "csTechniques",
+                  "dataIntensity",
+                  "openArtifacts",
+                  "problemType",
+                  "penalty"
+                ]
+              },
+              "rule": {
+                "type": "string"
+              },
+              "match": {
+                "type": "string"
+              },
+              "field": {
+                "type": "string",
+                "enum": [
+                  "title",
+                  "abstract",
+                  "meta",
+                  "enrichment"
+                ]
+              },
+              "points": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "component",
+              "rule",
+              "match",
+              "field",
+              "points"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "rulesVersion": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "total",
+        "components",
+        "reasons",
+        "rulesVersion"
+      ],
+      "additionalProperties": false
+    },
+    "chem": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inferred": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "confidence",
+          "evidence",
+          "inferred"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "cs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inferred": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "confidence",
+          "evidence",
+          "inferred"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "cells": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "chem": {
+            "type": "string"
+          },
+          "cs": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "number"
+          },
+          "inferred": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "chem",
+          "cs",
+          "weight",
+          "inferred"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "problemTypes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "prediction",
+          "optimization",
+          "classification",
+          "control",
+          "discovery"
+        ]
+      }
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "enrichment": {
+      "type": "object",
+      "properties": {
+        "compounds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "cid": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "formula": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "cid",
+              "url"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "github": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "total": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "repos": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "stars": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "pushedAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "url",
+                  "stars"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "checkedAt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "query",
+            "total",
+            "repos",
+            "checkedAt"
+          ],
+          "additionalProperties": false
+        },
+        "hn": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "stories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "hnUrl": {
+                    "type": "string"
+                  },
+                  "points": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "comments": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "hnUrl",
+                  "points",
+                  "comments",
+                  "createdAt"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "checkedAt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "query",
+            "stories",
+            "checkedAt"
+          ],
+          "additionalProperties": false
+        },
+        "openalex": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "topic": {
+              "type": "string"
+            },
+            "subfield": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "keywords"
+          ],
+          "additionalProperties": false
+        },
+        "s2": {
+          "type": "object",
+          "properties": {
+            "paperId": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "tldr": {
+              "type": "string"
+            },
+            "citationCount": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "paperId",
+            "url"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "related": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cluster": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "abstract",
+    "abstractIsExcerpt",
+    "authors",
+    "publishedAt",
+    "type",
+    "venue",
+    "url",
+    "primarySource",
+    "sources",
+    "topics",
+    "keywords",
+    "links",
+    "chemistrySource",
+    "ingestedAt",
+    "score",
+    "chem",
+    "cs",
+    "cells",
+    "problemTypes",
+    "signals",
+    "enrichment",
+    "related"
+  ],
+  "additionalProperties": false
+}

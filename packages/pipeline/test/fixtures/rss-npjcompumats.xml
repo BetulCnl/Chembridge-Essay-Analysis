@@ -1,0 +1,114 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns="http://purl.org/rss/1.0/" xmlns:admin="http://webns.net/mvcb/">
+    <channel rdf:about="http://feeds.nature.com/npjcompumats/rss/current">
+        <title>npj Computational Materials</title>
+        <description>&lt;p&gt;Open for Submissions&lt;/p&gt; &lt;p&gt;Publishing high-quality research on computational approaches for designing materials.&lt;/p&gt; &lt;p&gt;&lt;em&gt;npj Computational Materials&lt;/em&gt; is a fully open-access journal that aims to applying computational techniques for the design of new materials, and for enhancing our understanding of existing ones.&lt;/p&gt; &lt;p&gt;&lt;em&gt;npj Computational Materials&lt;/em&gt; covers topics including, but not limited to, the application and development of existing and emerging theoretical and simulation approaches for the study of materials, structure and property prediction of new materials, experimental works that serve to validate, support and extend computational findings, and high-throughput techniques for large data set generation and materials data mining.&lt;/p&gt; &lt;p&gt;In addition to original research, the journal welcomes critical Reviews,  and thought-provoking Perspectives and Comment articles.&lt;/p&gt;</description>
+        <link>http://feeds.nature.com/npjcompumats/rss/current</link>
+        <admin:generatorAgent rdf:resource="https://www.nature.com/"/>
+        <admin:errorReportsTo rdf:resource="mailto:feedback@nature.com"/>
+        <dc:publisher>Nature Publishing Group</dc:publisher>
+        <dc:language>en</dc:language>
+        <dc:rights>© 2026 Macmillan Publishers Limited, part of Springer Nature. All rights reserved.</dc:rights>
+        <prism:publicationName>npj Computational Materials</prism:publicationName>
+        
+        
+        <prism:copyright>© 2026 Macmillan Publishers Limited, part of Springer Nature. All rights reserved.</prism:copyright>
+        <prism:rightsAgent>permissions@nature.com</prism:rightsAgent>
+        <image rdf:resource="https://www.nature.com/uploads/product/npjcompumats/rss.png"/>
+        <items>
+            <rdf:Seq>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41524-026-02368-4"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41524-026-02369-3"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41524-026-02363-9"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41524-026-02370-w"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41524-026-02361-x"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41524-026-02355-9"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41524-026-02302-8"/>
+                
+                    <rdf:li rdf:resource="https://www.nature.com/articles/s41524-026-02367-5"/>
+                
+            </rdf:Seq>
+        </items>
+    </channel>
+    <image rdf:about="https://www.nature.com/uploads/product/npjcompumats/rss.png">
+        <title>npj Computational Materials</title>
+        <url>https://www.nature.com/uploads/product/npjcompumats/rss.png</url>
+        <link>http://feeds.nature.com/npjcompumats/rss/current</link>
+    </image>
+    
+        <item rdf:about="https://www.nature.com/articles/s41524-026-02368-4">
+            <title><![CDATA[When active learning fails, uncalibrated out of distribution uncertainty quantification might be the problem]]></title>
+            <link>https://www.nature.com/articles/s41524-026-02368-4</link>
+            <content:encoded>
+                <![CDATA[<p>npj Computational Materials, Published online: 24 October 2026; <a href="https://www.nature.com/articles/s41524-026-02368-4">doi:10.1038/s41524-026-02368-4</a></p>When active learning fails, uncalibrated out of distribution uncertainty quantification might be the problem]]></content:encoded>
+            <dc:title><![CDATA[When active learning fails, uncalibrated out of distribution uncertainty quantification might be the problem]]></dc:title>
+            <dc:creator>Ashley S. Dale</dc:creator><dc:creator>Kangming Li</dc:creator><dc:creator>Brian DeCost</dc:creator><dc:creator>Hao Wan</dc:creator><dc:creator>Yuchen Han</dc:creator><dc:creator>Yao Fehlis</dc:creator><dc:creator>Jason Hattrick-Simpers</dc:creator>
+            <dc:identifier>doi:10.1038/s41524-026-02368-4</dc:identifier>
+            <dc:source>npj Computational Materials, Published online: 2026-10-24; | doi:10.1038/s41524-026-02368-4</dc:source>
+            <dc:date>2026-10-24</dc:date>
+            <prism:publicationName>npj Computational Materials</prism:publicationName>
+            <prism:doi>10.1038/s41524-026-02368-4</prism:doi>
+            <prism:url>https://www.nature.com/articles/s41524-026-02368-4</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s41524-026-02369-3">
+            <title><![CDATA[Thermal stabilization of defect charge states and finite-temperature charge transition levels]]></title>
+            <link>https://www.nature.com/articles/s41524-026-02369-3</link>
+            <content:encoded>
+                <![CDATA[<p>npj Computational Materials, Published online: 23 October 2026; <a href="https://www.nature.com/articles/s41524-026-02369-3">doi:10.1038/s41524-026-02369-3</a></p>Thermal stabilization of defect charge states and finite-temperature charge transition levels]]></content:encoded>
+            <dc:title><![CDATA[Thermal stabilization of defect charge states and finite-temperature charge transition levels]]></dc:title>
+            <dc:creator>Tobias Hainer</dc:creator><dc:creator>Ethan Berger</dc:creator><dc:creator>Esmée Berger</dc:creator><dc:creator>Olof Hildeberg</dc:creator><dc:creator>Paul Erhart</dc:creator><dc:creator>Julia Wiktor</dc:creator>
+            <dc:identifier>doi:10.1038/s41524-026-02369-3</dc:identifier>
+            <dc:source>npj Computational Materials, Published online: 2026-10-23; | doi:10.1038/s41524-026-02369-3</dc:source>
+            <dc:date>2026-10-23</dc:date>
+            <prism:publicationName>npj Computational Materials</prism:publicationName>
+            <prism:doi>10.1038/s41524-026-02369-3</prism:doi>
+            <prism:url>https://www.nature.com/articles/s41524-026-02369-3</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s41524-026-02363-9">
+            <title><![CDATA[Physics-aware neural networks enable robust and full atomic structure determination via low-dose atomic electron tomography]]></title>
+            <link>https://www.nature.com/articles/s41524-026-02363-9</link>
+            <content:encoded>
+                <![CDATA[<p>npj Computational Materials, Published online: 23 October 2026; <a href="https://www.nature.com/articles/s41524-026-02363-9">doi:10.1038/s41524-026-02363-9</a></p>Physics-aware neural networks enable robust and full atomic structure determination via low-dose atomic electron tomography]]></content:encoded>
+            <dc:title><![CDATA[Physics-aware neural networks enable robust and full atomic structure determination via low-dose atomic electron tomography]]></dc:title>
+            <dc:creator>Yao Zhang</dc:creator><dc:creator>Lanyi Cao</dc:creator><dc:creator>Zhen Sun</dc:creator><dc:creator>Jihan Zhou</dc:creator>
+            <dc:identifier>doi:10.1038/s41524-026-02363-9</dc:identifier>
+            <dc:source>npj Computational Materials, Published online: 2026-10-23; | doi:10.1038/s41524-026-02363-9</dc:source>
+            <dc:date>2026-10-23</dc:date>
+            <prism:publicationName>npj Computational Materials</prism:publicationName>
+            <prism:doi>10.1038/s41524-026-02363-9</prism:doi>
+            <prism:url>https://www.nature.com/articles/s41524-026-02363-9</prism:url>
+        </item>
+    
+        <item rdf:about="https://www.nature.com/articles/s41524-026-02370-w">
+            <title><![CDATA[High-throughput study of electrical conductivity in ordered metals]]></title>
+            <link>https://www.nature.com/articles/s41524-026-02370-w</link>
+            <content:encoded>
+                <![CDATA[<p>npj Computational Materials, Published online: 20 October 2026; <a href="https://www.nature.com/articles/s41524-026-02370-w">doi:10.1038/s41524-026-02370-w</a></p>High-throughput study of electrical conductivity in ordered metals]]></content:encoded>
+            <dc:title><![CDATA[High-throughput study of electrical conductivity in ordered metals]]></dc:title>
+            <dc:creator>Thalis H. B. da Silva</dc:creator><dc:creator>Hai-Chen Wang</dc:creator><dc:creator>Tiago F. T. Cerqueira</dc:creator><dc:creator>Simone Di Cataldo</dc:creator><dc:creator>Silvana Botti</dc:creator><dc:creator>Miguel A. L. Marques</dc:creator>
+            <dc:identifier>doi:10.1038/s41524-026-02370-w</dc:identifier>
+            <dc:source>npj Computational Materials, Published online: 2026-10-20; | doi:10.1038/s41524-026-02370-w</dc:source>
+            <dc:date>2026-10-20</dc:date>
+            <prism:publicationName>npj Computational Materials</prism:publicationName>
+            <prism:doi>10.1038/s41524-026-02370-w</prism:doi>
+            <prism:url>https://www.nature.com/articles/s41524-026-02370-w</prism:url>
+        </item>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+</rdf:RDF>

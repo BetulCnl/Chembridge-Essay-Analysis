@@ -1,0 +1,9 @@
+packages:
+  - packages/*
+  - apps/*
+
+# pnpm 10 blocks dependency lifecycle scripts by default; these need them.
+onlyBuiltDependencies:
+  - esbuild
+  - protobufjs
+  - sharp

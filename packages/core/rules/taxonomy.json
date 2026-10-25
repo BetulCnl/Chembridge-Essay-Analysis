@@ -1,0 +1,946 @@
+{
+  "$comment": "Chemistry × CS taxonomy. Patterns are JavaScript/Java-compatible regular expressions, matched case-insensitively unless \"cs\": true. Weights: chemistry terms 1-3 (summed), CS terms 0-1 (multiplier of the sub-field's points). Hints map lower-cased source topics (arxiv:, biorxiv:, rss:, subject:, venue:, openalex:) to extra confidence.",
+  "version": 1,
+  "minChemConfidence": 2,
+  "minChemConfidenceNonChemSource": 4,
+  "minChemTermsNonChemSource": 2,
+  "chem": [
+    {
+      "id": "catalysis",
+      "label": { "tr": "Kataliz", "en": "Catalysis" },
+      "short": { "tr": "Kataliz", "en": "Catalysis" },
+      "terms": [
+        { "re": "\\bcatalys(?:is|t|ts|ed|ing)\\b|\\bcatalytic", "w": 3 },
+        { "re": "electrocataly|photocataly|biocataly|organocataly", "w": 3 },
+        { "re": "single[- ]atom catalysts?|heterogeneous catalys|homogeneous catalys", "w": 3 },
+        {
+          "re": "turnover (?:frequency|number)|\\bactive sites?\\b|adsorption energ|reaction barrier",
+          "w": 2
+        },
+        {
+          "re": "hydrogen evolution|oxygen evolution|oxygen reduction|nitrogen reduction|CO2 reduction|CO₂ reduction|ammonia synthesis|hydrogenation|methanation",
+          "w": 2
+        },
+        { "re": "\\b(?:OER|HER|ORR|CO2RR|NRR)\\b", "w": 2, "cs": true }
+      ],
+      "hints": {
+        "venue:acs catalysis": 3,
+        "openalex:subfield:catalysis": 2,
+        "openalex:field:chemical engineering": 1
+      },
+      "defaultCs": ["gnn", "bayesian-opt"],
+      "datasets": [
+        { "name": "Open Catalyst Project (OC20/OC22)", "url": "https://opencatalystproject.org" },
+        { "name": "Catalysis-Hub", "url": "https://www.catalysis-hub.org" },
+        { "name": "Materials Project", "url": "https://materialsproject.org" }
+      ],
+      "venues": ["ACS Catalysis", "Nature Catalysis", "Digital Discovery"],
+      "stack": ["ASE", "pymatgen", "Catalysis-Hub API"]
+    },
+    {
+      "id": "polymers",
+      "label": { "tr": "Polimerler ve Yumuşak Madde", "en": "Polymers & Soft Matter" },
+      "short": { "tr": "Polimer", "en": "Polymers" },
+      "terms": [
+        {
+          "re": "\\bpolymer(?:s|ic|i[sz]ation|i[sz]ed)?\\b|copolymer|homopolymer|macromolecul",
+          "w": 3
+        },
+        {
+          "re": "\\bmonomers?\\b|polymeri[sz]|depolymeri[sz]|vitrimer|thermoset|thermoplastic|elastomer|hydrogels?\\b",
+          "w": 2
+        },
+        {
+          "re": "polystyrene|polyethylene|polypropylene|polyester|polyamide|polyurethane|polyimide|PEDOT|PEG\\b",
+          "w": 2
+        },
+        { "re": "glass transition|soft matter|rheolog|\\bresins?\\b", "w": 1 }
+      ],
+      "hints": {
+        "arxiv:cond-mat.soft": 2,
+        "openalex:subfield:polymers and plastics": 3,
+        "rss:polymers": 3,
+        "venue:macromolecules": 3,
+        "venue:acs macro letters": 3
+      },
+      "defaultCs": ["generative", "ml"],
+      "datasets": [
+        { "name": "PoLyInfo (NIMS)", "url": "https://polymer.nims.go.jp" },
+        { "name": "Khazana polymer data", "url": "https://khazana.gatech.edu" },
+        { "name": "PI1M polymer SMILES benchmark" }
+      ],
+      "venues": ["Macromolecules", "ACS Macro Letters", "Digital Discovery"],
+      "stack": ["RDKit", "psmiles", "LAMMPS"]
+    },
+    {
+      "id": "energy",
+      "label": { "tr": "Batarya ve Enerji Malzemeleri", "en": "Batteries & Energy Materials" },
+      "short": { "tr": "Enerji", "en": "Energy" },
+      "terms": [
+        {
+          "re": "\\bbatter(?:y|ies)\\b|lithium[- ]ion|\\bli[- ]ion\\b|sodium[- ]ion|lithium[- ]metal|solid[- ]state batter",
+          "w": 3
+        },
+        {
+          "re": "\\bcathodes?\\b|\\banodes?\\b|solid[- ]state electrolytes?|electrolyte (?:design|additive|formulation)|solvation structure",
+          "w": 2
+        },
+        {
+          "re": "photovoltaic|solar cells?|perovskite solar|organic solar|light[- ]harvesting",
+          "w": 3
+        },
+        {
+          "re": "supercapacitor|fuel cells?|hydrogen storage|energy storage|thermoelectric|electrolyz(?:er|ers)\\b",
+          "w": 3
+        },
+        { "re": "state of health|cycle life|capacity fade|degradation of (?:the )?cells?", "w": 2 }
+      ],
+      "hints": {
+        "openalex:subfield:energy engineering and power technology": 2,
+        "openalex:subfield:renewable energy, sustainability and the environment": 1,
+        "openalex:subfield:fuel technology": 1,
+        "venue:acs energy letters": 3,
+        "venue:joule": 3
+      },
+      "defaultCs": ["bayesian-opt", "digital-twin"],
+      "datasets": [
+        { "name": "Materials Project", "url": "https://materialsproject.org" },
+        { "name": "Battery Archive", "url": "https://www.batteryarchive.org" },
+        { "name": "TRI / Severson et al. cycle-life data", "url": "https://data.matr.io" }
+      ],
+      "venues": ["ACS Energy Letters", "Joule", "Energy & Environmental Science"],
+      "stack": ["PyBaMM", "pymatgen", "BoTorch"]
+    },
+    {
+      "id": "drug",
+      "label": { "tr": "İlaç Keşfi ve Tıbbi Kimya", "en": "Drug Discovery & Medicinal Chemistry" },
+      "short": { "tr": "İlaç", "en": "Drug disc." },
+      "terms": [
+        {
+          "re": "\\bdrugs?\\b|drug[- ](?:discovery|design|candidates?|development|like|target)|medicinal chemistry",
+          "w": 3
+        },
+        {
+          "re": "\\bdocking\\b|virtual screening|binding affinit|hit identification|lead optimi[sz]ation|structure[- ]activity",
+          "w": 3
+        },
+        {
+          "re": "\\binhibitors?\\b|pharmacophore|pharmacokinetic|bioactivity|\\btoxicity\\b|therapeutic",
+          "w": 2
+        },
+        { "re": "\\b(?:ADMET|ADME|QSAR|SAR|IC50)\\b", "w": 2, "cs": true },
+        { "re": "antibiotic|antiviral|anticancer|antimicrobial|kinase|GPCR|\\bligands?\\b", "w": 1 }
+      ],
+      "hints": {
+        "biorxiv:pharmacology and toxicology": 3,
+        "medrxiv:pharmacology and therapeutics": 3,
+        "openalex:subfield:drug discovery": 3,
+        "openalex:subfield:pharmaceutical science": 2,
+        "openalex:subfield:pharmacology": 2,
+        "venue:journal of medicinal chemistry": 3
+      },
+      "defaultCs": ["generative", "gnn"],
+      "datasets": [
+        { "name": "ChEMBL", "url": "https://www.ebi.ac.uk/chembl/" },
+        { "name": "Therapeutics Data Commons (TDC)", "url": "https://tdcommons.ai" },
+        { "name": "ZINC", "url": "https://zinc.docking.org" },
+        { "name": "BindingDB", "url": "https://www.bindingdb.org" }
+      ],
+      "venues": [
+        "Journal of Medicinal Chemistry",
+        "Journal of Chemical Information and Modeling",
+        "Digital Discovery"
+      ],
+      "stack": ["RDKit", "DeepChem", "AutoDock Vina"]
+    },
+    {
+      "id": "analytical",
+      "label": {
+        "tr": "Analitik Kimya ve Spektroskopi",
+        "en": "Analytical Chemistry & Spectroscopy"
+      },
+      "short": { "tr": "Analitik", "en": "Analytical" },
+      "terms": [
+        { "re": "spectroscop(?:y|ic)|spectrometr|\\bspectra\\b|\\bspectrum\\b|spectral", "w": 3 },
+        {
+          "re": "mass spec|\\bNMR\\b|infrared|Raman|UV[- ]vis|X[- ]ray (?:diffraction|absorption|photoelectron)|\\bXRD\\b|\\bXPS\\b|\\bXAS\\b|\\bFTIR\\b",
+          "w": 3
+        },
+        { "re": "chromatograph|\\bHPLC\\b|LC[- ]MS|GC[- ]MS|electrophoresis", "w": 3 },
+        {
+          "re": "\\bsensors?\\b|biosensor|limit of detection|detection limit|\\banalytes?\\b|quantification of",
+          "w": 2
+        },
+        { "re": "microscopy|imaging", "w": 1 }
+      ],
+      "hints": {
+        "rss:analytical chemistry": 3,
+        "openalex:subfield:analytical chemistry": 3,
+        "openalex:subfield:spectroscopy": 3,
+        "venue:analytical chemistry": 3
+      },
+      "defaultCs": ["vision-spectra", "ml"],
+      "datasets": [
+        { "name": "MassBank", "url": "https://massbank.eu" },
+        { "name": "NMRShiftDB2", "url": "https://nmrshiftdb.nmr.uni-koeln.de" },
+        { "name": "NIST Chemistry WebBook", "url": "https://webbook.nist.gov" }
+      ],
+      "venues": [
+        "Analytical Chemistry",
+        "Digital Discovery",
+        "Chemometrics and Intelligent Laboratory Systems"
+      ],
+      "stack": ["nmrglue", "pyOpenMS", "scikit-learn"]
+    },
+    {
+      "id": "computational",
+      "label": {
+        "tr": "Hesaplamalı ve Kuantum Kimyası",
+        "en": "Computational & Quantum Chemistry"
+      },
+      "short": { "tr": "Hesaplamalı", "en": "Computational" },
+      "terms": [
+        { "re": "density functional theory|\\bDFT\\b", "w": 3 },
+        {
+          "re": "ab initio|first[- ]principles|quantum chemi|coupled[- ]cluster|\\bCCSD|hartree|wave ?functions?|electronic structure",
+          "w": 3
+        },
+        {
+          "re": "molecular dynamics|\\bMD simulations?|monte carlo|force fields?|potential energy surfaces?|free energy (?:calculation|perturbation)",
+          "w": 2
+        },
+        {
+          "re": "computational (?:chemistry|study|screening|investigation)|in silico|theoretical (?:study|chemistry|investigation)",
+          "w": 2
+        },
+        { "re": "excited states?|TD-?DFT|semi[- ]empirical|tight[- ]binding|\\bGFN", "w": 2 }
+      ],
+      "hints": {
+        "arxiv:physics.chem-ph": 1,
+        "openalex:subfield:physical and theoretical chemistry": 2,
+        "openalex:subfield:computational theory and mathematics": 1,
+        "venue:journal of chemical theory and computation": 3,
+        "venue:the journal of chemical physics": 2
+      },
+      "defaultCs": ["simulation", "hpc"],
+      "datasets": [
+        { "name": "QM9 (via MoleculeNet)", "url": "https://moleculenet.org" },
+        { "name": "SPICE", "url": "https://github.com/openmm/spice-dataset" },
+        { "name": "rMD17 / MD22" },
+        { "name": "OMol25 (Open Molecules 2025)" }
+      ],
+      "venues": [
+        "Journal of Chemical Theory and Computation",
+        "The Journal of Chemical Physics",
+        "npj Computational Materials"
+      ],
+      "stack": ["PySCF", "xtb", "ASE", "OpenMM"]
+    },
+    {
+      "id": "green",
+      "label": { "tr": "Yeşil ve Sürdürülebilir Kimya", "en": "Green & Sustainable Chemistry" },
+      "short": { "tr": "Yeşil", "en": "Green" },
+      "terms": [
+        {
+          "re": "green chemistry|sustainab(?:le|ility)|circular (?:economy|chemistry)|life[- ]cycle assessment|\\bLCA\\b|techno[- ]economic",
+          "w": 3
+        },
+        {
+          "re": "CO2 capture|CO₂ capture|carbon capture|direct air capture|carbon dioxide (?:capture|conversion|utili[sz]ation)",
+          "w": 3
+        },
+        {
+          "re": "recycl(?:ing|ed|e|able)|upcycl|biodegrad|plastic waste|chemical recycling",
+          "w": 2
+        },
+        {
+          "re": "biomass|lignin|cellulose|bio[- ]based|renewable feedstock|valori[sz]ation",
+          "w": 2
+        },
+        {
+          "re": "green solvents?|solvent selection|solvent[- ]free|atom economy|waste reduction|e[- ]factor",
+          "w": 2
+        }
+      ],
+      "hints": {
+        "openalex:subfield:renewable energy, sustainability and the environment": 1,
+        "venue:green chemistry": 3,
+        "venue:acs sustainable chemistry & engineering": 3
+      },
+      "defaultCs": ["ml", "bayesian-opt"],
+      "datasets": [
+        { "name": "Open Reaction Database (ORD)", "url": "https://open-reaction-database.org" },
+        { "name": "CHEM21 solvent selection guide" },
+        { "name": "US EPA CompTox Dashboard", "url": "https://comptox.epa.gov/dashboard" }
+      ],
+      "venues": ["Green Chemistry", "ACS Sustainable Chemistry & Engineering", "Digital Discovery"],
+      "stack": ["RDKit", "Brightway (LCA)", "BoTorch"]
+    },
+    {
+      "id": "nano",
+      "label": { "tr": "Nanomalzemeler", "en": "Nanomaterials" },
+      "short": { "tr": "Nano", "en": "Nano" },
+      "terms": [
+        {
+          "re": "nano(?:particles?|materials?|structures?|crystals?|wires?|tubes?|sheets?|clusters?|composites?|porous|scale|medicine|zymes?)",
+          "w": 3
+        },
+        {
+          "re": "quantum dots?|carbon nanotubes?|graphene|MXenes?|two[- ]dimensional materials?|\\b2D materials?|transition[- ]metal dichalcogenides?",
+          "w": 3
+        },
+        { "re": "plasmonic|self[- ]assembl|colloid|core[- ]shell|metal clusters?", "w": 2 }
+      ],
+      "hints": {
+        "openalex:subfield:surfaces, coatings and films": 1,
+        "openalex:subfield:biomaterials": 1,
+        "venue:acs nano": 3,
+        "venue:nano letters": 3
+      },
+      "defaultCs": ["vision-spectra", "bayesian-opt"],
+      "datasets": [
+        {
+          "name": "C2DB (Computational 2D Materials Database)",
+          "url": "https://c2db.fysik.dtu.dk"
+        },
+        { "name": "Materials Cloud", "url": "https://www.materialscloud.org" }
+      ],
+      "venues": ["ACS Nano", "Nano Letters", "Digital Discovery"],
+      "stack": ["scikit-image", "ASE", "PyTorch"]
+    },
+    {
+      "id": "electrochem",
+      "label": { "tr": "Elektrokimya", "en": "Electrochemistry" },
+      "short": { "tr": "Elektrokimya", "en": "Electrochem." },
+      "terms": [
+        { "re": "electrochemi(?:cal|stry)|electrosynthes|electrocataly", "w": 3 },
+        {
+          "re": "\\belectrodes?\\b|electrolysis|electrodeposition|cyclic voltammetry|voltammetr|impedance spectroscopy|\\bEIS\\b|potentiostat",
+          "w": 2
+        },
+        {
+          "re": "corrosion|redox (?:flow|potential|chemistry)|\\belectrolytes?\\b|overpotential|faradaic",
+          "w": 2
+        }
+      ],
+      "hints": {
+        "openalex:subfield:electrochemistry": 3,
+        "venue:journal of the electrochemical society": 3
+      },
+      "defaultCs": ["bayesian-opt", "digital-twin"],
+      "datasets": [
+        { "name": "Catalysis-Hub (electrocatalysis)", "url": "https://www.catalysis-hub.org" },
+        { "name": "Battery Archive", "url": "https://www.batteryarchive.org" }
+      ],
+      "venues": [
+        "Journal of the Electrochemical Society",
+        "ACS Energy Letters",
+        "Digital Discovery"
+      ],
+      "stack": ["impedance.py", "PyBaMM", "BoTorch"]
+    },
+    {
+      "id": "synthesis",
+      "label": { "tr": "Organik Sentez ve Reaksiyonlar", "en": "Synthesis & Reactions" },
+      "short": { "tr": "Sentez", "en": "Synthesis" },
+      "terms": [
+        {
+          "re": "retrosynthe|synthesis planning|synthetic routes?|synthesi[sz]ability|total synthesis|organic synthesis",
+          "w": 3
+        },
+        {
+          "re": "reaction (?:yields?|conditions|outcomes?|prediction|optimi[sz]ation|planning|mechanisms?|discovery)|reactivity",
+          "w": 3
+        },
+        {
+          "re": "cross[- ]coupling|Suzuki|Buchwald|amidation|C[–-]H (?:activation|functionali[sz]ation)|asymmetric (?:synthesis|catalysis)|enantioselect|photoredox|click chemistry",
+          "w": 2
+        },
+        {
+          "re": "flow chemistry|continuous[- ]flow|\\breagents?\\b|\\breactants?\\b|\\bsubstrates? scope",
+          "w": 1
+        }
+      ],
+      "hints": {
+        "openalex:subfield:organic chemistry": 3,
+        "venue:organic letters": 3,
+        "venue:the journal of organic chemistry": 3
+      },
+      "defaultCs": ["llm-agent", "bayesian-opt"],
+      "datasets": [
+        { "name": "Open Reaction Database (ORD)", "url": "https://open-reaction-database.org" },
+        { "name": "USPTO reactions (Lowe) / USPTO-50k" },
+        { "name": "Buchwald–Hartwig HTE dataset (Ahneman et al. 2018)" }
+      ],
+      "venues": [
+        "Journal of the American Chemical Society",
+        "Digital Discovery",
+        "Chemical Science"
+      ],
+      "stack": ["RDKit", "AiZynthFinder", "rxnmapper"]
+    },
+    {
+      "id": "biochem",
+      "label": { "tr": "Biyokimya ve Proteinler", "en": "Biochemistry & Proteins" },
+      "short": { "tr": "Biyokimya", "en": "Biochem." },
+      "terms": [
+        {
+          "re": "\\bproteins?\\b|\\benzym(?:e|es|atic)\\b|\\bpeptides?\\b|antibod(?:y|ies)|nanobod",
+          "w": 3
+        },
+        {
+          "re": "protein (?:structure|folding|design|engineering|dynamics)|binding (?:sites?|pockets?)|amino acids?|\\bresidues\\b",
+          "w": 2
+        },
+        { "re": "\\bDNA\\b|\\bRNA\\b|nucleic acids?|aptamers?|nucleotides?", "w": 2, "cs": true },
+        {
+          "re": "metabolom|proteom|lipidom|\\blipids?\\b|glycan|metabolites?|biomolecul|cryo-?EM",
+          "w": 2
+        }
+      ],
+      "hints": {
+        "arxiv:q-bio.bm": 3,
+        "biorxiv:biochemistry": 3,
+        "biorxiv:biophysics": 2,
+        "biorxiv:synthetic biology": 2,
+        "biorxiv:bioinformatics": 1,
+        "openalex:subfield:biochemistry": 3,
+        "openalex:subfield:molecular biology": 2,
+        "rss:biochemistry": 3
+      },
+      "defaultCs": ["transformer", "generative"],
+      "datasets": [
+        { "name": "RCSB Protein Data Bank", "url": "https://www.rcsb.org" },
+        { "name": "UniProt", "url": "https://www.uniprot.org" },
+        { "name": "AlphaFold Protein Structure Database", "url": "https://alphafold.ebi.ac.uk" },
+        { "name": "BindingDB", "url": "https://www.bindingdb.org" }
+      ],
+      "venues": ["Biochemistry", "PLOS Computational Biology", "Bioinformatics"],
+      "stack": ["Biopython", "ESM", "OpenMM"]
+    },
+    {
+      "id": "solidstate",
+      "label": {
+        "tr": "Kristal, Katı Hal ve Malzeme Keşfi",
+        "en": "Crystalline & Solid-State Materials"
+      },
+      "short": { "tr": "Katı hal", "en": "Solid state" },
+      "terms": [
+        {
+          "re": "metal[- ]organic frameworks?|covalent organic frameworks?|zeolites?|porous (?:aromatic )?frameworks?",
+          "w": 3
+        },
+        { "re": "\\b(?:MOFs?|COFs?)\\b", "w": 3, "cs": true },
+        {
+          "re": "materials? (?:discovery|design|informatics|property prediction|science)|inorganic materials?|crystal(?:line)? (?:structures?|materials?)|crystal structure prediction",
+          "w": 3
+        },
+        {
+          "re": "\\balloys?\\b|high[- ]entropy|intermetallic|perovskites?|chalcogenides?|ceramics?|polymorph",
+          "w": 2
+        },
+        { "re": "\\boxides?\\b|\\blattices?\\b", "w": 1 },
+        {
+          "re": "phase (?:diagrams?|stability|transitions?)|formation energ|band ?gaps?|thermal conductivity|ionic conductivity|superconduct|ferroelectric|magnetic materials?|thin films?|solid[- ]state",
+          "w": 2
+        }
+      ],
+      "hints": {
+        "arxiv:cond-mat.mtrl-sci": 2,
+        "openalex:subfield:materials chemistry": 2,
+        "openalex:subfield:electronic, optical and magnetic materials": 2,
+        "openalex:subfield:inorganic chemistry": 2,
+        "openalex:field:materials science": 1,
+        "venue:chemistry of materials": 2,
+        "venue:nature materials": 2,
+        "venue:npj computational materials": 2,
+        "rss:materials science": 2
+      },
+      "defaultCs": ["gnn", "generative"],
+      "datasets": [
+        { "name": "Materials Project", "url": "https://materialsproject.org" },
+        { "name": "OQMD", "url": "https://oqmd.org" },
+        { "name": "JARVIS-DFT", "url": "https://jarvis.nist.gov" },
+        { "name": "CoRE MOF database" }
+      ],
+      "venues": ["Chemistry of Materials", "npj Computational Materials", "Digital Discovery"],
+      "stack": ["pymatgen", "matminer", "ASE"]
+    },
+    {
+      "id": "environmental",
+      "label": { "tr": "Çevre ve Atmosfer Kimyası", "en": "Environmental & Atmospheric Chemistry" },
+      "short": { "tr": "Çevre", "en": "Environment" },
+      "terms": [
+        {
+          "re": "pollut(?:ant|ants|ion)|contaminants?|\\bPFAS\\b|per- and polyfluoro|microplastics?|emerging contaminants|persistent organic",
+          "w": 3
+        },
+        {
+          "re": "atmospheric chemistry|aerosols?|air quality|tropospheric|ozone|particulate matter|PM2\\.5|secondary organic",
+          "w": 3
+        },
+        {
+          "re": "water treatment|wastewater|desalination|adsorbents?|heavy metals?|remediation|water harvesting",
+          "w": 2
+        },
+        {
+          "re": "environmental (?:fate|chemistry|impact|monitoring|samples?)|ecotoxic|exposure assessment|\\bsoil\\b|groundwater",
+          "w": 2
+        }
+      ],
+      "hints": {
+        "openalex:subfield:environmental chemistry": 3,
+        "openalex:subfield:pollution": 3,
+        "openalex:subfield:atmospheric science": 3,
+        "venue:environmental science & technology": 3
+      },
+      "defaultCs": ["ml", "knowledge-graph"],
+      "datasets": [
+        { "name": "US EPA CompTox Dashboard", "url": "https://comptox.epa.gov/dashboard" },
+        { "name": "PubChem", "url": "https://pubchem.ncbi.nlm.nih.gov" },
+        { "name": "NORMAN Suspect List Exchange", "url": "https://www.norman-network.com/nds/SLE/" }
+      ],
+      "venues": ["Environmental Science & Technology", "ACS ES&T Engineering", "Digital Discovery"],
+      "stack": ["RDKit", "scikit-learn", "xarray"]
+    },
+    {
+      "id": "general",
+      "label": { "tr": "Genel Kimya", "en": "General Chemistry" },
+      "short": { "tr": "Genel", "en": "General" },
+      "terms": [],
+      "hints": {},
+      "defaultCs": ["ml", "data-standards"],
+      "datasets": [
+        { "name": "PubChem", "url": "https://pubchem.ncbi.nlm.nih.gov" },
+        { "name": "ChEMBL", "url": "https://www.ebi.ac.uk/chembl/" }
+      ],
+      "venues": ["Digital Discovery", "Journal of Chemical Information and Modeling"],
+      "stack": ["RDKit", "scikit-learn"]
+    }
+  ],
+  "cs": [
+    {
+      "id": "ml",
+      "label": { "tr": "Makine Öğrenmesi (genel)", "en": "Machine Learning (general)" },
+      "short": { "tr": "ML", "en": "ML" },
+      "points": 9,
+      "terms": [
+        {
+          "re": "machine[- ]learn(?:ing|ed)|deep learning|deep neural|neural networks?|artificial intelligence",
+          "w": 1
+        },
+        { "re": "\\bAI\\b|\\bML\\b", "w": 0.8, "cs": true },
+        {
+          "re": "random forests?|gradient[- ]boost|XGBoost|LightGBM|support vector|kernel ridge|decision trees?|regression models?|multilayer perceptron",
+          "w": 1
+        },
+        { "re": "\\b(?:QSAR|QSPR|SVM|MLP|KRR)\\b", "w": 0.8, "cs": true },
+        {
+          "re": "data[- ]driven|feature (?:importance|engineering|selection)|\\bSHAP\\b|interpretab(?:le|ility) (?:model|machine)|explainab",
+          "w": 0.7
+        }
+      ],
+      "stack": ["scikit-learn", "XGBoost", "PyTorch"],
+      "venues": [
+        "Digital Discovery",
+        "Journal of Chemical Information and Modeling",
+        "Machine Learning: Science and Technology"
+      ],
+      "baselines": [
+        "random forest on fingerprints/descriptors",
+        "gradient boosting",
+        "k-nearest neighbours"
+      ]
+    },
+    {
+      "id": "gnn",
+      "label": { "tr": "Grafik Sinir Ağları", "en": "Graph Neural Networks" },
+      "short": { "tr": "GNN", "en": "GNN" },
+      "points": 14,
+      "terms": [
+        {
+          "re": "graph neural networks?|graph convolution|message[- ]passing|graph attention|graph transformer",
+          "w": 1
+        },
+        { "re": "\\bGNNs?\\b|\\bMPNNs?\\b|\\bE\\(3\\)|\\bSE\\(3\\)", "w": 1, "cs": true },
+        {
+          "re": "\\b(?:SchNet|DimeNet\\+*|PaiNN|NequIP|MACE|Allegro|CGCNN|MEGNet|ALIGNN|M3GNet|CHGNet|GemNet|Equiformer(?:V2)?|SevenNet|Orb)\\b",
+          "w": 1,
+          "cs": true
+        },
+        {
+          "re": "equivariant (?:neural|network|model|graph)|molecular graphs?|crystal graphs?",
+          "w": 0.8
+        }
+      ],
+      "stack": ["PyTorch Geometric", "DGL", "e3nn", "MACE"],
+      "venues": [
+        "Digital Discovery",
+        "npj Computational Materials",
+        "NeurIPS / ICLR AI4Science workshops"
+      ],
+      "baselines": ["SchNet", "CGCNN / ALIGNN", "fingerprint + gradient boosting"]
+    },
+    {
+      "id": "transformer",
+      "label": { "tr": "Transformer ve Temel Modeller", "en": "Transformers & Foundation Models" },
+      "short": { "tr": "Transformer", "en": "Transformer" },
+      "points": 12,
+      "terms": [
+        {
+          "re": "\\btransformers?\\b(?! (?:oil|winding|station|core))|self[- ]attention|attention mechanism",
+          "w": 1
+        },
+        {
+          "re": "foundation models?|pre[- ]?train(?:ed|ing)|fine[- ]tun(?:e|ed|ing)|self[- ]supervised|contrastive learning|representation learning|transfer learning",
+          "w": 0.9
+        },
+        {
+          "re": "chemical language models?|protein language models?|SMILES[- ](?:based|language)|molecular language",
+          "w": 1
+        },
+        {
+          "re": "\\b(?:BERT|ChemBERTa|MolFormer|ESM-?\\d*|ProtTrans|Uni-Mol|T5)\\b",
+          "w": 1,
+          "cs": true
+        }
+      ],
+      "stack": ["Hugging Face Transformers", "PyTorch", "ESM / ChemBERTa checkpoints"],
+      "venues": ["Digital Discovery", "Nature Machine Intelligence", "NeurIPS / ICML workshops"],
+      "baselines": [
+        "fingerprint MLP",
+        "GNN of similar size",
+        "frozen pretrained encoder + linear probe"
+      ]
+    },
+    {
+      "id": "llm-agent",
+      "label": { "tr": "LLM ve Ajanlar", "en": "LLMs & Agents" },
+      "short": { "tr": "LLM/Ajan", "en": "LLM/Agent" },
+      "points": 12,
+      "terms": [
+        {
+          "re": "large language models?|language agents?|agentic|LLM[- ]?(?:based|powered|agents?|driven)|AI agents?|autonomous agents?|multi[- ]agent (?:system|framework)s?",
+          "w": 1
+        },
+        {
+          "re": "\\bLLMs?\\b|\\bGPT-?\\d(?:\\.\\d)?o?\\b|ChatGPT|\\bLlama[- ]?\\d|\\bQwen|DeepSeek",
+          "w": 1,
+          "cs": true
+        },
+        {
+          "re": "retrieval[- ]augmented|\\bRAG\\b|prompt(?:ing| engineering)|in[- ]context learning|chain[- ]of[- ]thought|tool[- ](?:use|calling|augmented)",
+          "w": 0.9
+        },
+        { "re": "natural language (?:interface|instructions|queries)", "w": 0.6 }
+      ],
+      "stack": ["Ollama", "vLLM", "LangGraph", "LlamaIndex"],
+      "venues": [
+        "Digital Discovery",
+        "Nature Machine Intelligence",
+        "ACL / NeurIPS AI4Science workshops"
+      ],
+      "baselines": ["zero-shot prompting", "retrieval-only baseline", "expert chemist panel"]
+    },
+    {
+      "id": "generative",
+      "label": {
+        "tr": "Üretken Modeller ve Ters Tasarım",
+        "en": "Generative Models & Inverse Design"
+      },
+      "short": { "tr": "Üretken", "en": "Generative" },
+      "points": 12,
+      "terms": [
+        {
+          "re": "generative (?:models?|AI|design|adversarial|pre[- ]?trained)|variational autoencoders?|autoencoders?",
+          "w": 1
+        },
+        { "re": "\\b(?:GANs?|VAEs?)\\b", "w": 0.9, "cs": true },
+        {
+          "re": "diffusion models?|denoising diffusion|score[- ]based (?:generative|model)|flow matching|normali[sz]ing flows?",
+          "w": 1
+        },
+        {
+          "re": "de novo (?:design|generation|molecular)|inverse design|(?:molecule|molecular|crystal|structure|protein) generation|generat(?:e|es|ing|ion of) (?:novel |new )?(?:molecules|structures|materials|crystals|proteins|candidates)",
+          "w": 1
+        }
+      ],
+      "stack": ["PyTorch", "REINVENT 4", "DiffDock / MatterGen-style code"],
+      "venues": ["Digital Discovery", "Nature Computational Science", "ICLR / NeurIPS"],
+      "baselines": [
+        "random/enumeration from a library",
+        "genetic algorithm (e.g. GB-GA)",
+        "REINVENT"
+      ]
+    },
+    {
+      "id": "bayesian-opt",
+      "label": { "tr": "Bayesçi Optimizasyon", "en": "Bayesian Optimization" },
+      "short": { "tr": "Bayesçi Opt.", "en": "Bayes. opt." },
+      "points": 12,
+      "terms": [
+        {
+          "re": "bayesian optimi[sz]ation|gaussian process(?:es)?(?: regression)?|acquisition functions?|expected improvement|upper confidence bound",
+          "w": 1
+        },
+        { "re": "\\b(?:GPR|BO)\\b", "w": 0.7, "cs": true },
+        {
+          "re": "multi[- ]objective optimi[sz]ation|pareto (?:front|optimal)|design of experiments|\\bDoE\\b|surrogate[- ]based optimi[sz]ation|sequential (?:design|optimi[sz]ation)",
+          "w": 0.8
+        },
+        { "re": "\\bbayesian\\b", "w": 0.5 }
+      ],
+      "stack": ["BoTorch", "Ax", "GPyTorch", "Summit"],
+      "venues": ["Digital Discovery", "Reaction Chemistry & Engineering", "Chemical Science"],
+      "baselines": ["random search", "Latin hypercube / grid", "one-factor-at-a-time"]
+    },
+    {
+      "id": "active-learning",
+      "label": { "tr": "Aktif Öğrenme ve Belirsizlik", "en": "Active Learning & Uncertainty" },
+      "short": { "tr": "Aktif öğr.", "en": "Active learn." },
+      "points": 12,
+      "terms": [
+        {
+          "re": "active learning|uncertainty sampling|query strategy|adaptive sampling|on[- ]the[- ]fly (?:learning|training)",
+          "w": 1
+        },
+        {
+          "re": "closed[- ]loop (?:optimi[sz]ation|discovery|experiment|workflow|campaign|learning)",
+          "w": 0.9
+        },
+        {
+          "re": "uncertainty quantification|epistemic uncertainty|ensemble uncertainty|conformal prediction|calibrat(?:ed|ion) (?:uncertaint|of uncertaint)",
+          "w": 0.8
+        },
+        { "re": "\\bUQ\\b", "w": 0.7, "cs": true }
+      ],
+      "stack": ["modAL", "BoTorch", "MAPIE (conformal)"],
+      "venues": [
+        "Digital Discovery",
+        "npj Computational Materials",
+        "Machine Learning: Science and Technology"
+      ],
+      "baselines": [
+        "random acquisition",
+        "greedy (exploit-only) acquisition",
+        "full-data upper bound"
+      ]
+    },
+    {
+      "id": "rl",
+      "label": { "tr": "Pekiştirmeli Öğrenme", "en": "Reinforcement Learning" },
+      "short": { "tr": "RL", "en": "RL" },
+      "points": 12,
+      "terms": [
+        {
+          "re": "reinforcement learning|policy gradient|q[- ]learning|reward (?:function|model|shaping)|monte carlo tree search|markov decision",
+          "w": 1
+        },
+        { "re": "\\b(?:RL|MCTS|PPO|DQN|MDP)\\b", "w": 0.8, "cs": true }
+      ],
+      "stack": ["Stable-Baselines3", "Gymnasium", "PyTorch"],
+      "venues": ["Digital Discovery", "Journal of Chemical Information and Modeling", "NeurIPS"],
+      "baselines": ["random policy", "greedy heuristic", "Bayesian optimization"]
+    },
+    {
+      "id": "simulation",
+      "label": { "tr": "Simülasyon ve ML Potansiyelleri", "en": "Simulation & ML Potentials" },
+      "short": { "tr": "Simülasyon", "en": "Simulation" },
+      "points": 10,
+      "terms": [
+        {
+          "re": "machine[- ]learn(?:ed|ing) (?:interatomic )?potentials?|machine[- ]learn(?:ed|ing) force fields?|neural network potentials?|interatomic potentials?|universal (?:interatomic )?potentials?",
+          "w": 1
+        },
+        { "re": "\\b(?:MLIPs?|MLFFs?|NNPs?)\\b", "w": 1, "cs": true },
+        {
+          "re": "surrogate models?|multiscale model|coarse[- ]grain|enhanced sampling|metadynamics|kinetic monte carlo|microkinetic model",
+          "w": 0.8
+        },
+        {
+          "re": "molecular dynamics|finite element|computational fluid dynamics|\\bCFD\\b|monte carlo",
+          "w": 0.6
+        },
+        { "re": "\\bsimulations?\\b", "w": 0.4 }
+      ],
+      "stack": ["ASE", "LAMMPS", "OpenMM", "MACE / NequIP"],
+      "venues": [
+        "Journal of Chemical Theory and Computation",
+        "npj Computational Materials",
+        "Digital Discovery"
+      ],
+      "baselines": ["DFT reference", "classical force field", "universal MLIP without fine-tuning"]
+    },
+    {
+      "id": "hpc",
+      "label": { "tr": "HPC ve GPU Hızlandırma", "en": "HPC & GPU Acceleration" },
+      "short": { "tr": "HPC", "en": "HPC" },
+      "points": 8,
+      "terms": [
+        {
+          "re": "high[- ]performance computing|supercomput|exascale|GPU[- ](?:accelerat|based|parallel)|parallel(?:ization|ized| computing| implementation)|distributed (?:computing|training)",
+          "w": 1
+        },
+        { "re": "\\b(?:HPC|GPUs?|CUDA|JAX|MPI)\\b", "w": 0.8, "cs": true },
+        {
+          "re": "high[- ]throughput (?:computation|calculations|DFT|computational screening|virtual screening|workflow)|workflow (?:management|engine)|\\bAiiDA\\b|FireWorks|atomate",
+          "w": 0.8
+        },
+        { "re": "scalab(?:le|ility)|speed[- ]?up of|orders of magnitude faster", "w": 0.5 }
+      ],
+      "stack": ["JAX", "CUDA / CuPy", "mpi4py", "AiiDA"],
+      "venues": [
+        "Journal of Chemical Theory and Computation",
+        "SC / ISC proceedings",
+        "Computer Physics Communications"
+      ],
+      "baselines": ["single-node CPU reference implementation", "existing package defaults"]
+    },
+    {
+      "id": "robotics",
+      "label": { "tr": "Robotik ve Otonom Laboratuvar", "en": "Robotics & Self-Driving Labs" },
+      "short": { "tr": "Robotik/SDL", "en": "Robotics/SDL" },
+      "points": 12,
+      "terms": [
+        {
+          "re": "self[- ]driving lab|autonomous (?:lab|laborator|experiment|platform|chemist|synthesis|discovery|workflow)|robotic (?:platform|chemist|synthesis|arm|system|workflow)|\\brobots?\\b",
+          "w": 1
+        },
+        {
+          "re": "laboratory automation|lab automation|automated (?:synthesis|experimentation|platform|workflow|laboratory|reactor|characteri[sz]ation)|liquid[- ]handling|cloud lab",
+          "w": 1
+        },
+        { "re": "\\b(?:Opentrons|Chemspeed|PyLabRobot)\\b", "w": 1, "cs": true },
+        { "re": "closed[- ]loop|high[- ]throughput experimentation|\\bHTE\\b", "w": 0.6 }
+      ],
+      "stack": ["Opentrons Python API", "PyLabRobot", "BoTorch", "ROS 2"],
+      "venues": ["Digital Discovery", "Matter", "Nature Chemical Engineering"],
+      "baselines": [
+        "manual expert campaign",
+        "grid of conditions",
+        "random sampling with the same budget"
+      ]
+    },
+    {
+      "id": "knowledge-graph",
+      "label": { "tr": "Bilgi Grafı ve Metin Madenciliği", "en": "Knowledge Graphs & Text Mining" },
+      "short": { "tr": "Bilgi grafı", "en": "Knowledge graph" },
+      "points": 10,
+      "terms": [
+        { "re": "knowledge graphs?|knowledge bases?|link prediction|graph database", "w": 1 },
+        {
+          "re": "text mining|literature mining|named entity recognition|information extraction|natural language processing|data extraction from (?:the )?literature|relation extraction",
+          "w": 1
+        },
+        { "re": "\\b(?:NER|NLP)\\b", "w": 0.8, "cs": true }
+      ],
+      "stack": ["ChemDataExtractor", "spaCy", "RDFLib", "Neo4j Community"],
+      "venues": [
+        "Journal of Chemical Information and Modeling",
+        "Scientific Data",
+        "Digital Discovery"
+      ],
+      "baselines": ["regex/rule-based extraction", "keyword search", "zero-shot LLM extraction"]
+    },
+    {
+      "id": "vision-spectra",
+      "label": { "tr": "Görüntü ve Spektrum Analizi", "en": "Imaging & Spectral Analysis" },
+      "short": { "tr": "Görüntü/Spektrum", "en": "Vision/Spectra" },
+      "points": 10,
+      "terms": [
+        {
+          "re": "computer vision|image (?:analysis|processing|recognition|segmentation|classification)|convolutional neural|object detection|vision transformer|image[- ]based",
+          "w": 1
+        },
+        { "re": "\\b(?:CNNs?|ViT|U-Net)\\b", "w": 0.9, "cs": true },
+        {
+          "re": "spectral (?:analysis|deconvolution|interpretation|unmixing|libraries)|spectr(?:um|a) (?:prediction|interpretation|matching)|peak (?:picking|identification|assignment|detection)|chemometric|principal component",
+          "w": 0.9
+        },
+        { "re": "\\b(?:PCA|PLS(?:-DA)?)\\b", "w": 0.7, "cs": true },
+        {
+          "re": "(?:microscopy|SEM|TEM|AFM) images?|imaging data|hyperspectral|signal processing",
+          "w": 0.8
+        }
+      ],
+      "stack": ["scikit-image", "OpenCV", "PyTorch", "nmrglue"],
+      "venues": [
+        "Analytical Chemistry",
+        "Digital Discovery",
+        "Chemometrics and Intelligent Laboratory Systems"
+      ],
+      "baselines": [
+        "expert manual interpretation",
+        "library/database matching",
+        "PCA + linear model"
+      ]
+    },
+    {
+      "id": "quantum-computing",
+      "label": { "tr": "Kuantum Hesaplama", "en": "Quantum Computing" },
+      "short": { "tr": "Kuantum hes.", "en": "Quantum comp." },
+      "points": 10,
+      "terms": [
+        {
+          "re": "quantum comput|quantum algorithms?|qubits?\\b|qudits?\\b|quantum circuits?|variational quantum|quantum phase estimation|quantum annealing|fault[- ]tolerant quantum|quantum machine learning|quantum hardware|quantum simulation of",
+          "w": 1
+        },
+        { "re": "\\b(?:VQE|NISQ|QPE|QAOA)\\b", "w": 1, "cs": true }
+      ],
+      "stack": ["Qiskit", "PennyLane", "OpenFermion", "PySCF"],
+      "venues": [
+        "Journal of Chemical Theory and Computation",
+        "PRX Quantum",
+        "npj Quantum Information"
+      ],
+      "baselines": ["classical CCSD(T) / DMRG", "exact diagonalisation for small systems"]
+    },
+    {
+      "id": "digital-twin",
+      "label": {
+        "tr": "Dijital İkiz ve Süreç Modelleme",
+        "en": "Digital Twins & Process Modelling"
+      },
+      "short": { "tr": "Dijital ikiz", "en": "Digital twin" },
+      "points": 10,
+      "terms": [
+        {
+          "re": "digital twins?|soft sensors?|model predictive control|physics[- ]informed|hybrid (?:physics|mechanistic)[- ]?(?:ml|machine|data|model)|state estimation|kalman filter|battery management system",
+          "w": 1
+        },
+        {
+          "re": "process (?:model(?:l)?ing|simulation|control|optimi[sz]ation|systems engineering|intensification)|reactor (?:model(?:l)?ing|design|simulation)|scale[- ]up",
+          "w": 0.8
+        },
+        { "re": "\\b(?:MPC|PINNs?|BMS)\\b", "w": 0.8, "cs": true }
+      ],
+      "stack": ["PyBaMM", "CasADi", "do-mpc", "DeepXDE (PINNs)"],
+      "venues": [
+        "Computers & Chemical Engineering",
+        "Reaction Chemistry & Engineering",
+        "Digital Discovery"
+      ],
+      "baselines": ["mechanistic model alone", "purely data-driven model", "PID control"]
+    },
+    {
+      "id": "data-standards",
+      "label": { "tr": "Veri Standartları ve Ontolojiler", "en": "Data Standards & Ontologies" },
+      "short": { "tr": "Veri std.", "en": "Data std." },
+      "points": 8,
+      "terms": [
+        {
+          "re": "ontolog(?:y|ies)|data standards?|metadata (?:schema|standard)|interoperab|electronic lab(?:oratory)? notebooks?|data infrastructure|research data management|data repositor(?:y|ies)|provenance",
+          "w": 1
+        },
+        { "re": "\\b(?:FAIR|ELNs?|LIMS|OPTIMADE|NOMAD|JSON-LD)\\b", "w": 1, "cs": true },
+        {
+          "re": "benchmark (?:datasets?|suite)|open (?:database|dataset)|reproducib(?:le|ility)|standardi[sz]ed (?:data|format|reporting)",
+          "w": 0.7
+        }
+      ],
+      "stack": ["LinkML", "OPTIMADE", "NOMAD", "pydantic"],
+      "venues": ["Scientific Data", "Digital Discovery", "Journal of Cheminformatics"],
+      "baselines": ["current ad-hoc spreadsheets/SI files", "existing community schema"]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "Development",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doi": {
+      "type": "string"
+    },
+    "arxivId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "abstract": {
+      "type": "string"
+    },
+    "abstractIsExcerpt": {
+      "type": "boolean"
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "publishedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "preprint",
+        "article",
+        "news"
+      ]
+    },
+    "venue": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "license": {
+      "type": "string"
+    },
+    "primarySource": {
+      "type": "string"
+    },
+    "sources": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "nativeId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fetchedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "nativeId",
+          "url",
+          "fetchedAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "code",
+              "data",
+              "model"
+            ]
+          },
+          "host": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "kind",
+          "host"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "chemistrySource": {
+      "type": "boolean"
+    },
+    "ingestedAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "abstract",
+    "abstractIsExcerpt",
+    "authors",
+    "publishedAt",
+    "type",
+    "venue",
+    "url",
+    "primarySource",
+    "sources",
+    "topics",
+    "keywords",
+    "links",
+    "chemistrySource",
+    "ingestedAt"
+  ],
+  "additionalProperties": false
+}
