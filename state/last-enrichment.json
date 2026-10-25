@@ -1,0 +1,23 @@
+{
+  "openalex": {
+    "lookups": 10,
+    "hits": 0
+  },
+  "semanticscholar": {
+    "lookups": 10,
+    "hits": 0,
+    "skipped": "HTTP 429 from https://api.semanticscholar.org/graph/v1/paper/batch?fields=url,tldr,citationCount: {\"message\": \"Too Many Requests. Please wait and try again or a"
+  },
+  "pubchem": {
+    "lookups": 3,
+    "hits": 1
+  },
+  "github": {
+    "lookups": 60,
+    "hits": 60
+  },
+  "hn": {
+    "lookups": 120,
+    "hits": 41
+  }
+}

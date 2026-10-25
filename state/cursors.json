@@ -1,0 +1,26 @@
+{
+  "arxiv": {
+    "lastSuccessTo": "2026-11-07",
+    "lastRunAt": "2026-11-07T11:13:23.474Z"
+  },
+  "chemrxiv": {
+    "lastSuccessTo": "2026-11-07",
+    "lastRunAt": "2026-11-07T11:13:23.474Z"
+  },
+  "biorxiv": {
+    "lastSuccessTo": "2026-11-07",
+    "lastRunAt": "2026-11-07T11:13:23.474Z"
+  },
+  "europepmc": {
+    "lastSuccessTo": "2026-11-07",
+    "lastRunAt": "2026-11-07T11:13:23.474Z"
+  },
+  "crossref-journals": {
+    "lastSuccessTo": "2026-11-07",
+    "lastRunAt": "2026-11-07T11:13:23.474Z"
+  },
+  "rss": {
+    "lastSuccessTo": "2026-11-07",
+    "lastRunAt": "2026-11-07T11:13:23.474Z"
+  }
+}
