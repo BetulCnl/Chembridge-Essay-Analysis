@@ -1,0 +1,86 @@
+[
+  {
+    "source": "arxiv",
+    "ok": true,
+    "fetched": 232,
+    "normalized": 232,
+    "notModified": false,
+    "requests": 2,
+    "durationMs": 3483,
+    "window": {
+      "from": "2026-11-17",
+      "to": "2026-11-21"
+    },
+    "finishedAt": "2026-11-21T12:51:50.770Z"
+  },
+  {
+    "source": "chemrxiv",
+    "ok": true,
+    "fetched": 231,
+    "normalized": 231,
+    "notModified": false,
+    "requests": 1,
+    "durationMs": 359,
+    "window": {
+      "from": "2026-11-17",
+      "to": "2026-11-21"
+    },
+    "finishedAt": "2026-11-21T12:51:51.129Z"
+  },
+  {
+    "source": "biorxiv",
+    "ok": true,
+    "fetched": 122,
+    "normalized": 94,
+    "notModified": false,
+    "requests": 6,
+    "durationMs": 6949,
+    "window": {
+      "from": "2026-11-17",
+      "to": "2026-11-21"
+    },
+    "finishedAt": "2026-11-21T12:51:58.078Z"
+  },
+  {
+    "source": "europepmc",
+    "ok": true,
+    "fetched": 123,
+    "normalized": 123,
+    "notModified": false,
+    "requests": 1,
+    "durationMs": 10507,
+    "window": {
+      "from": "2026-11-17",
+      "to": "2026-11-21"
+    },
+    "finishedAt": "2026-11-21T12:52:08.585Z"
+  },
+  {
+    "source": "crossref-journals",
+    "ok": true,
+    "fetched": 221,
+    "normalized": 212,
+    "notModified": false,
+    "requests": 12,
+    "durationMs": 4598,
+    "window": {
+      "from": "2026-11-17",
+      "to": "2026-11-21"
+    },
+    "finishedAt": "2026-11-21T12:52:13.183Z"
+  },
+  {
+    "source": "rss",
+    "ok": true,
+    "fetched": 465,
+    "normalized": 74,
+    "notModified": false,
+    "requests": 7,
+    "durationMs": 10843,
+    "window": {
+      "from": "2026-11-17",
+      "to": "2026-11-21"
+    },
+    "finishedAt": "2026-11-21T12:52:24.026Z"
+  }
+]
