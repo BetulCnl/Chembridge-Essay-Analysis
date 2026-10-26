@@ -273,6 +273,9 @@ export const tr = {
   'feed.chip.from': '{d} ve sonrası',
   'feed.chip.to': '{d} ve öncesi',
   'feed.chip.inferred': 'Potansiyel dahil',
+  'feed.untried': 'Yalnızca henüz denenmemiş',
+  'feed.untriedHint':
+    'Seçtiğin yöntemi henüz kullanmayan ama verisi ve problemi bu yönteme uygun çalışmalar. Yöntem seçmezsen hiçbir bilgisayar bilimi yöntemi kullanmayanlar listelenir.',
   'feed.removeFilter': 'Kaldır: {f}',
   'feed.emptyTitle': 'Sonuç bulunamadı',
   'item.back': 'Keşfet’e dön',
@@ -580,6 +583,9 @@ export const en: Record<StringKey, string> = {
   'feed.chip.from': 'From {d}',
   'feed.chip.to': 'Until {d}',
   'feed.chip.inferred': 'Potential included',
+  'feed.untried': 'Only untried',
+  'feed.untriedHint':
+    'Work that does not use the selected method yet, although its data and problem suit it. With no method selected, lists work that uses no computer-science method at all.',
   'feed.removeFilter': 'Remove: {f}',
   'feed.emptyTitle': 'No results',
   'item.back': 'Back to Discover',

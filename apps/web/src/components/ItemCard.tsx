@@ -7,13 +7,17 @@ import { ChemChip, CsChip, ScoreBadge, TypeLabel } from './common.tsx';
 
 /**
  * One row of a result list (render inside <ol className="result-list">). The whole row is
- * clickable through the title link.
+ * clickable through the title link. `prefer` lists method ids to show first among the
+ * potential ones.
  */
-export function ItemCard({ item }: { item: IndexEntry }) {
+export function ItemCard({ item, prefer = [] }: { item: IndexEntry; prefer?: string[] }) {
   const { t, formatDate } = useI18n();
   const headingId = `card-${item.id}`;
   const venue = item.venue || sourceName(item.source);
-  const potential = item.csInferred.slice(0, item.cs.length ? 1 : 2);
+  // Potential methods the user filtered for come first, so they are always visible.
+  const potential = [...item.csInferred]
+    .sort((a, b) => Number(prefer.includes(b)) - Number(prefer.includes(a)))
+    .slice(0, item.cs.length ? 1 : 2);
   return (
     <li>
       <article className="result" aria-labelledby={headingId}>

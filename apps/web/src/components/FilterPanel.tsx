@@ -1,5 +1,5 @@
 import type { DevelopmentType, IndexEntry } from '@chembridge/core';
-import { ChevronDown, SlidersHorizontal, X } from 'lucide-react';
+import { ChevronDown, FlaskConical, SlidersHorizontal, X } from 'lucide-react';
 import { useMemo, type ReactNode } from 'react';
 import { useI18n } from '../i18n/index.tsx';
 import { DEFAULT_FILTERS, isoDaysAgo, type FeedFilters, type SortKey } from '../lib/filters.ts';
@@ -89,11 +89,15 @@ export function FilterBar({ filters: f, onChange, rows, sorts }: Props) {
       const g = sourceGroup(r.source);
       src.set(g, (src.get(g) ?? 0) + 1);
       for (const c of r.chem) chem.set(c, (chem.get(c) ?? 0) + 1);
-      for (const c of f.inferred ? [...r.cs, ...r.csInferred] : r.cs)
-        cs.set(c, (cs.get(c) ?? 0) + 1);
+      const pool = f.untried
+        ? r.csInferred.filter((c) => !r.cs.includes(c))
+        : f.inferred
+          ? [...r.cs, ...r.csInferred]
+          : r.cs;
+      for (const c of pool) cs.set(c, (cs.get(c) ?? 0) + 1);
     }
     return { src, chem, cs };
-  }, [rows, f.inferred]);
+  }, [rows, f.inferred, f.untried]);
 
   const sources = [...counts.src.entries()].sort((a, b) => b[1] - a[1]);
   const chemIds = CHEM_IDS.filter((c) => counts.chem.get(c) || f.chem.includes(c)).sort(
@@ -207,14 +211,30 @@ export function FilterBar({ filters: f, onChange, rows, sorts }: Props) {
               ))}
             </div>
             <div className="popover-section">
-              <CheckOption checked={f.inferred} onChange={() => set({ inferred: !f.inferred })}>
-                {t('feed.includeInferred')}
-              </CheckOption>
+              {f.untried ? (
+                <p className="field-hint">{t('feed.untriedHint')}</p>
+              ) : (
+                <CheckOption checked={f.inferred} onChange={() => set({ inferred: !f.inferred })}>
+                  {t('feed.includeInferred')}
+                </CheckOption>
+              )}
             </div>
             <Footer onClear={() => set({ cs: [], inferred: false })} close={close} />
           </>
         )}
       </Popover>
+
+      <button
+        type="button"
+        className="filter-trigger"
+        data-active={f.untried}
+        aria-pressed={f.untried}
+        title={t('feed.untriedHint')}
+        onClick={() => set({ untried: !f.untried, inferred: false })}
+      >
+        <FlaskConical size={14} aria-hidden="true" />
+        {t('feed.untried')}
+      </button>
 
       <Popover
         label={t('feed.source')}
@@ -352,7 +372,13 @@ export function ActiveFilters({
       label: pick(csShort(c)),
       remove: () => set({ cs: f.cs.filter((x) => x !== c) }),
     });
-  if (f.inferred)
+  if (f.untried)
+    chips.push({
+      key: 'untried',
+      label: t('feed.untried'),
+      remove: () => set({ untried: false }),
+    });
+  if (f.inferred && !f.untried)
     chips.push({
       key: 'inferred',
       label: t('feed.chip.inferred'),

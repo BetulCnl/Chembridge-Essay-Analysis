@@ -16,6 +16,11 @@ export interface FeedFilters {
   chem: string[];
   cs: string[];
   inferred: boolean;
+  /**
+   * Only work that has not tried the method yet: with methods selected, items where they are
+   * potential but unused; with none selected, items that use no CS method at all.
+   */
+  untried: boolean;
   minScore: number;
   code: boolean;
   data: boolean;
@@ -31,6 +36,7 @@ export const DEFAULT_FILTERS: FeedFilters = {
   chem: [],
   cs: [],
   inferred: false,
+  untried: false,
   minScore: 0,
   code: false,
   data: false,
@@ -54,6 +60,7 @@ export function parseFilters(sp: URLSearchParams): FeedFilters {
     chem: list(sp.get('chem')),
     cs: list(sp.get('cs')),
     inferred: sp.get('inferred') === '1',
+    untried: sp.get('untried') === '1',
     minScore: Number.isFinite(min) ? Math.max(0, Math.min(100, min)) : 0,
     code: sp.get('code') === '1',
     data: sp.get('data') === '1',
@@ -71,6 +78,7 @@ export function serializeFilters(f: FeedFilters): URLSearchParams {
   if (f.chem.length) sp.set('chem', f.chem.join(','));
   if (f.cs.length) sp.set('cs', f.cs.join(','));
   if (f.inferred) sp.set('inferred', '1');
+  if (f.untried) sp.set('untried', '1');
   if (f.minScore) sp.set('min', String(f.minScore));
   if (f.code) sp.set('code', '1');
   if (f.data) sp.set('data', '1');
@@ -85,6 +93,7 @@ export function activeFilterCount(f: FeedFilters): number {
     Number(f.types.length > 0) +
     Number(f.chem.length > 0) +
     Number(f.cs.length > 0) +
+    Number(f.untried) +
     Number(f.minScore > 0) +
     Number(f.code) +
     Number(f.data)
@@ -97,7 +106,8 @@ function matchesCells(e: IndexEntry, f: FeedFilters): boolean {
   const existing = new Set(e.cs);
   return e.cells.some((cell) => {
     const [c, s] = cell.split('|') as [string, string];
-    return chemSet.has(c) && csSet.has(s) && (f.inferred || existing.has(s));
+    if (!chemSet.has(c) || !csSet.has(s)) return false;
+    return f.untried ? !existing.has(s) : f.inferred || existing.has(s);
   });
 }
 
@@ -118,10 +128,15 @@ export function applyFilters(
     if (e.score < f.minScore) return false;
     if (f.code && !e.code) return false;
     if (f.data && !e.data) return false;
+    if (f.untried && !f.cs.length && e.cs.length) return false;
     if (f.chem.length && f.cs.length) return matchesCells(e, f);
     if (f.chem.length && !e.chem.some((c) => f.chem.includes(c))) return false;
     if (f.cs.length) {
-      const pool = f.inferred ? [...e.cs, ...e.csInferred] : e.cs;
+      const pool = f.untried
+        ? e.csInferred.filter((c) => !e.cs.includes(c))
+        : f.inferred
+          ? [...e.cs, ...e.csInferred]
+          : e.cs;
       if (!pool.some((c) => f.cs.includes(c))) return false;
     }
     return true;

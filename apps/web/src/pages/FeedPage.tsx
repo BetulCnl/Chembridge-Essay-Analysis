@@ -152,7 +152,7 @@ function Feed({ rows, meta }: { rows: IndexEntry[]; meta: Meta }) {
           <>
             <ol className="result-list" style={{ listStyle: 'none' }}>
               {results.slice(0, limit).map((r) => (
-                <ItemCard key={r.id} item={r} />
+                <ItemCard key={r.id} item={r} prefer={filters.cs} />
               ))}
             </ol>
             {results.length > limit && (

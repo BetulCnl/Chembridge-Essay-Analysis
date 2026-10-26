@@ -91,6 +91,16 @@ describe('feed filters', () => {
     expect(applyFilters(rows, { ...cell, inferred: true }).map((r) => r.id)).toEqual(['a', 'b']);
   });
 
+  it('keeps only work that has not tried the method yet', () => {
+    const untried = { ...DEFAULT_FILTERS, untried: true };
+    expect(applyFilters(rows, { ...untried, cs: ['gnn'] }).map((r) => r.id)).toEqual(['b']);
+    expect(
+      applyFilters(rows, { ...untried, chem: ['catalysis'], cs: ['gnn'] }).map((r) => r.id),
+    ).toEqual(['b']);
+    expect(applyFilters(rows, untried).map((r) => r.id)).toEqual(['b']);
+    expect(parseFilters(serializeFilters(untried)).untried).toBe(true);
+  });
+
   it('filters by source group, type, score, code and date, and sorts', () => {
     expect(applyFilters(rows, { ...DEFAULT_FILTERS, sources: ['rss'] }).map((r) => r.id)).toEqual([
       'b',
