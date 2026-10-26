@@ -1,7 +1,8 @@
 import type { IndexEntry, Trends } from '@chembridge/core';
 import { useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Async, ScoreBadge } from '../components/common.tsx';
+import { ArrowRight, MousePointerClick } from 'lucide-react';
+import { Async, EmptyState, ScoreBadge } from '../components/common.tsx';
 import { useI18n } from '../i18n/index.tsx';
 import { loadIndex, loadTrends, useAsync } from '../lib/data.ts';
 import { CHEM_IDS, chemLabel, chemShort, CS_IDS, csLabel, csShort } from '../lib/labels.ts';
@@ -36,7 +37,7 @@ function aggregate(rows: IndexEntry[]): Map<string, CellAgg> {
 }
 
 function Matrix({ rows, trends }: { rows: IndexEntry[]; trends: Trends }) {
-  const { t, pick, formatNumber } = useI18n();
+  const { t, pick, formatNumber, formatDate } = useI18n();
   const [metric, setMetric] = useState<Metric>('count');
   const [withInferred, setWithInferred] = useState(true);
   const [selected, setSelected] = useState<string | undefined>();
@@ -108,9 +109,11 @@ function Matrix({ rows, trends }: { rows: IndexEntry[]; trends: Trends }) {
 
   return (
     <>
-      <h1>{t('matrix.title')}</h1>
-      <p className="muted">{t('matrix.intro')}</p>
-      <div className="toolbar">
+      <header className="page-head">
+        <h1>{t('matrix.title')}</h1>
+        <p className="lead">{t('matrix.intro')}</p>
+      </header>
+      <div className="matrix-controls">
         <div className="segmented" role="group" aria-label={t('matrix.metric')}>
           {(['count', 'avgScore'] as Metric[]).map((m) => (
             <button key={m} type="button" aria-pressed={metric === m} onClick={() => setMetric(m)}>
@@ -127,99 +130,95 @@ function Matrix({ rows, trends }: { rows: IndexEntry[]; trends: Trends }) {
           {t('matrix.includeInferred')}
         </label>
         <span className="legend" aria-hidden="true">
-          <span>{metric === 'count' ? '1' : min.toFixed(0)}</span>
-          <span
-            className="legend-ramp"
-            style={{
-              background: `linear-gradient(90deg, ${Array.from({ length: STEPS }, (_, k) => `var(--heat-${k + 1})`).join(', ')})`,
-            }}
-          />
-          <span>{fmt(max)}</span>
+          <span className="num">{metric === 'count' ? '1' : min.toFixed(0)}</span>
+          <span className="legend-ramp">
+            {Array.from({ length: STEPS }, (_, k) => (
+              <i key={k} style={{ background: `var(--heat-${k + 1})` }} />
+            ))}
+          </span>
+          <span className="num">{fmt(max)}</span>
         </span>
-        <span className="small muted">{t('matrix.markers')}</span>
+        <span className="legend">{t('matrix.markers')}</span>
       </div>
-      <p className="small muted">{t('matrix.keyboard')}</p>
       <div className="matrix-layout">
-        <div className="matrix-wrap" style={{ position: 'relative' }}>
-          <table className="matrix" ref={gridRef} aria-label={t('matrix.title')}>
-            <thead>
-              <tr>
-                <th scope="col">
-                  <span className="sr-only">{t('feed.chem')}</span>
-                </th>
-                {CS_IDS.map((cs) => (
-                  <th key={cs} scope="col" title={pick(csLabel(cs))}>
-                    <span>{pick(csShort(cs))}</span>
+        <div className="card" style={{ overflow: 'hidden' }}>
+          <div className="matrix-wrap">
+            <table className="matrix" ref={gridRef} aria-label={t('matrix.title')}>
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span className="sr-only">{t('feed.chem')}</span>
                   </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {chemRows.map((ch, r) => (
-                <tr key={ch}>
-                  <th scope="row" title={pick(chemLabel(ch))}>
-                    {pick(chemShort(ch))}
-                  </th>
-                  {CS_IDS.map((cs, c) => {
-                    const key = `${ch}|${cs}`;
-                    const agg = cells.get(key);
-                    const v = valueOf(agg);
-                    const s = step(v);
-                    const f = flags.get(key);
-                    const mark = f?.rising ? '▲' : f?.quietPromising ? '◆' : '';
-                    const count = items(agg).length;
-                    const avg = count ? items(agg).reduce((a, x) => a + x.score, 0) / count : 0;
-                    return (
-                      <td key={cs}>
-                        <button
-                          type="button"
-                          className="heat-cell"
-                          data-pos={`${r}-${c}`}
-                          tabIndex={focus[0] === r && focus[1] === c ? 0 : -1}
-                          aria-pressed={selected === key}
-                          aria-label={
-                            t('matrix.cellAria', {
-                              chem: pick(chemLabel(ch)),
-                              cs: pick(csLabel(cs)),
-                              count,
-                              avg: avg.toFixed(0),
-                            }) +
-                            (f?.rising ? `, ${t('matrix.rising')}` : '') +
-                            (f?.quietPromising ? `, ${t('matrix.quiet')}` : '')
-                          }
-                          style={{
-                            background: s ? `var(--heat-${s})` : 'var(--heat-empty)',
-                            color: s ? `var(--heat-ink-${s})` : 'var(--text-muted)',
-                          }}
-                          onClick={() => {
-                            setSelected(selected === key ? undefined : key);
-                            setFocus([r, c]);
-                          }}
-                          onKeyDown={(e) => onKeyDown(e, r, c)}
-                          onFocus={() => setHover(key)}
-                          onBlur={() => setHover(undefined)}
-                          onPointerEnter={() => setHover(key)}
-                          onPointerLeave={() => setHover(undefined)}
-                        >
-                          {v > 0 ? fmt(v) : ''}
-                          {mark && (
-                            <span className="mark" aria-hidden="true">
-                              {mark}
-                            </span>
-                          )}
-                        </button>
-                      </td>
-                    );
-                  })}
+                  {CS_IDS.map((cs) => (
+                    <th key={cs} scope="col" title={pick(csLabel(cs))}>
+                      <span>{pick(csShort(cs))}</span>
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div
-            className="small"
-            role="status"
-            style={{ padding: '6px 10px', borderTop: '1px solid var(--border)', minHeight: 34 }}
-          >
+              </thead>
+              <tbody>
+                {chemRows.map((ch, r) => (
+                  <tr key={ch}>
+                    <th scope="row" title={pick(chemLabel(ch))}>
+                      {pick(chemShort(ch))}
+                    </th>
+                    {CS_IDS.map((cs, c) => {
+                      const key = `${ch}|${cs}`;
+                      const agg = cells.get(key);
+                      const v = valueOf(agg);
+                      const s = step(v);
+                      const f = flags.get(key);
+                      const mark = f?.rising ? '▲' : f?.quietPromising ? '◆' : '';
+                      const count = items(agg).length;
+                      const avg = count ? items(agg).reduce((a, x) => a + x.score, 0) / count : 0;
+                      return (
+                        <td key={cs}>
+                          <button
+                            type="button"
+                            className="heat-cell"
+                            data-pos={`${r}-${c}`}
+                            tabIndex={focus[0] === r && focus[1] === c ? 0 : -1}
+                            aria-pressed={selected === key}
+                            aria-label={
+                              t('matrix.cellAria', {
+                                chem: pick(chemLabel(ch)),
+                                cs: pick(csLabel(cs)),
+                                count,
+                                avg: avg.toFixed(0),
+                              }) +
+                              (f?.rising ? `, ${t('matrix.rising')}` : '') +
+                              (f?.quietPromising ? `, ${t('matrix.quiet')}` : '')
+                            }
+                            style={{
+                              background: s ? `var(--heat-${s})` : 'var(--heat-0)',
+                              color: s ? `var(--heat-ink-${s})` : 'var(--text-2)',
+                            }}
+                            onClick={() => {
+                              setSelected(selected === key ? undefined : key);
+                              setFocus([r, c]);
+                            }}
+                            onKeyDown={(e) => onKeyDown(e, r, c)}
+                            onFocus={() => setHover(key)}
+                            onBlur={() => setHover(undefined)}
+                            onPointerEnter={() => setHover(key)}
+                            onPointerLeave={() => setHover(undefined)}
+                          >
+                            {v > 0 ? fmt(v) : ''}
+                            {mark && (
+                              <span className="mark" aria-hidden="true">
+                                {mark}
+                              </span>
+                            )}
+                          </button>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="matrix-status" role="status">
             {hover && hoverCell ? (
               <>
                 <strong>
@@ -238,51 +237,60 @@ function Matrix({ rows, trends }: { rows: IndexEntry[]; trends: Trends }) {
                 )}
               </>
             ) : (
-              <span className="muted">{t('matrix.selectCell')}</span>
+              <span className="muted">{t('matrix.keyboard')}</span>
             )}
           </div>
         </div>
 
-        <aside className="panel" aria-live="polite" aria-label={t('matrix.title')}>
+        <aside
+          className="card card-pad matrix-aside"
+          aria-live="polite"
+          aria-label={t('matrix.title')}
+        >
           {sel && selected ? (
             <>
-              <h2>
+              <p className="eyebrow">
+                {pick(chemLabel(selChem))} × {pick(csLabel(selCs))}
+              </p>
+              <h2 style={{ marginTop: 4 }}>
                 {pick(chemShort(selChem))} × {pick(csShort(selCs))}
               </h2>
-              <p className="small muted">
+              <p className="small muted" style={{ marginTop: 4 }}>
                 {t('matrix.existing', { n: sel.existing.length })} ·{' '}
                 {t('matrix.inferredCount', { n: sel.inferred.length })}
               </p>
-              <p>
-                <Link
-                  className="btn btn-sm btn-primary"
-                  to={`/?chem=${selChem}&cs=${selCs}${withInferred ? '&inferred=1' : ''}`}
-                >
-                  {t('matrix.showInFeed')} →
-                </Link>
-              </p>
+              <Link
+                className="btn btn-sm btn-primary"
+                style={{ margin: '14px 0 18px' }}
+                to={`/?chem=${selChem}&cs=${selCs}${withInferred ? '&inferred=1' : ''}`}
+              >
+                {t('matrix.showInFeed')}
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
               {selItems.length === 0 ? (
                 <p className="muted">{t('matrix.emptyCell')}</p>
               ) : (
-                <ul className="related-list">
-                  {selItems.slice(0, 12).map((it) => (
+                <ul className="mini-list">
+                  {selItems.slice(0, 8).map((it) => (
                     <li key={it.id}>
-                      <ScoreBadge score={it.score} label={false} />
                       <span>
                         <Link to={`/item/${it.id}`}>{it.title}</Link>
-                        <br />
-                        <span className="small muted">
-                          {it.venue} · {it.date}
+                        <span className="sub">
+                          {it.venue} · {formatDate(it.date)}
                           {!it.cs.includes(selCs) && ` · ${t('common.potential')}`}
                         </span>
                       </span>
+                      <ScoreBadge score={it.score} />
                     </li>
                   ))}
                 </ul>
               )}
             </>
           ) : (
-            <p className="muted">{t('matrix.selectCell')}</p>
+            <EmptyState
+              title={t('matrix.selectCell')}
+              icon={<MousePointerClick size={24} strokeWidth={1.5} aria-hidden="true" />}
+            />
           )}
         </aside>
       </div>

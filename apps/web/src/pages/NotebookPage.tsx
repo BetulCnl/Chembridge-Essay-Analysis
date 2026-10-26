@@ -1,5 +1,7 @@
+import { BookmarkPlus, Download, Trash2, Upload } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { EmptyState } from '../components/common.tsx';
 import { useI18n } from '../i18n/index.tsx';
 import { chemShort, csShort } from '../lib/labels.ts';
 import {
@@ -34,9 +36,12 @@ export default function NotebookPage() {
 
   return (
     <>
-      <div className="section-title">
-        <h1>{t('notebook.title')}</h1>
-        <div className="card-actions">
+      <header className="page-head page-head-row">
+        <div>
+          <h1>{t('notebook.title')}</h1>
+          <p className="lead">{t('notebook.intro')}</p>
+        </div>
+        <div className="btn-row">
           <button
             type="button"
             className="btn btn-sm"
@@ -48,9 +53,11 @@ export default function NotebookPage() {
               )
             }
           >
+            <Download size={14} aria-hidden="true" />
             {t('notebook.export')}
           </button>
           <label className="btn btn-sm">
+            <Upload size={14} aria-hidden="true" />
             {t('notebook.import')}
             <input
               ref={fileRef}
@@ -61,35 +68,57 @@ export default function NotebookPage() {
             />
           </label>
         </div>
-      </div>
-      <p className="muted">{t('notebook.intro')}</p>
+      </header>
       {!storageAvailable() && (
-        <p className="notice notice-warn small">{t('notebook.storageWarning')}</p>
+        <p className="notice notice-warn" style={{ marginBottom: 16 }}>
+          {t('notebook.storageWarning')}
+        </p>
       )}
       {message && (
-        <p className={`notice small ${message.ok ? '' : 'notice-warn'}`} role="status">
+        <p
+          className={`notice ${message.ok ? 'notice-ok' : 'notice-warn'}`}
+          role="status"
+          style={{ marginBottom: 16 }}
+        >
           {message.text}
         </p>
       )}
-      {entries.length > 0 && (
-        <div
-          className="segmented"
-          role="group"
-          aria-label={t('notebook.status')}
-          style={{ marginBottom: 12 }}
-        >
-          {(['all', ...STATUSES] as const).map((s) => (
-            <button key={s} type="button" aria-pressed={filter === s} onClick={() => setFilter(s)}>
-              {s === 'all' ? t('common.all') : t(`notebook.status.${s}`)} (
-              {s === 'all' ? entries.length : entries.filter((e) => e.status === s).length})
-            </button>
-          ))}
-        </div>
-      )}
       {entries.length === 0 ? (
-        <p className="notice">{t('notebook.empty')}</p>
+        <EmptyState
+          title={t('notebook.emptyTitle')}
+          icon={<BookmarkPlus size={28} strokeWidth={1.5} aria-hidden="true" />}
+        >
+          <p className="small">{t('notebook.empty')}</p>
+          <Link className="btn btn-sm btn-primary" to="/">
+            {t('notebook.browse')}
+          </Link>
+        </EmptyState>
       ) : (
-        shown.map((e) => <Entry key={e.id} entry={e} />)
+        <>
+          <div
+            className="segmented"
+            role="group"
+            aria-label={t('notebook.status')}
+            style={{ marginBottom: 16 }}
+          >
+            {(['all', ...STATUSES] as const).map((s) => (
+              <button
+                key={s}
+                type="button"
+                aria-pressed={filter === s}
+                onClick={() => setFilter(s)}
+              >
+                {s === 'all' ? t('common.all') : t(`notebook.status.${s}`)}{' '}
+                <span className="num muted">
+                  {s === 'all' ? entries.length : entries.filter((e) => e.status === s).length}
+                </span>
+              </button>
+            ))}
+          </div>
+          {shown.map((e) => (
+            <Entry key={e.id} entry={e} />
+          ))}
+        </>
       )}
     </>
   );
@@ -100,27 +129,23 @@ function Entry({ entry }: { entry: NotebookEntry }) {
   const [note, setNote] = useState(entry.note);
   const idea = entry.idea;
   return (
-    <article className="card note-entry" aria-labelledby={`n-${entry.id}`}>
+    <article className="card note" aria-labelledby={`n-${entry.id}`}>
       <div className="note-head">
-        <div>
-          <div className="chips" style={{ marginBottom: 6 }}>
-            <span className="chip">{t('idea.layer', { l: idea.layer })}</span>
-            <span className="chip chip-chem">
-              {pick(chemShort(idea.cell.chem))} × {pick(csShort(idea.cell.cs))}
-            </span>
-          </div>
-          <h2 id={`n-${entry.id}`} style={{ fontSize: '1.05rem' }}>
-            {pick(idea.title)}
-          </h2>
-          <p className="small muted" style={{ margin: 0 }}>
-            <Link to={`/item/${entry.itemId}`}>{entry.itemTitle}</Link> ·{' '}
+        <div style={{ minWidth: 0, flex: '1 1 320px' }}>
+          <p className="idea-kicker" style={{ marginBottom: 4 }}>
+            {pick(chemShort(idea.cell.chem))} × {pick(csShort(idea.cell.cs))}
+            {idea.layer !== 'A' && <span>· {t('idea.layer', { l: idea.layer })}</span>}
+          </p>
+          <h2 id={`n-${entry.id}`}>{pick(idea.title)}</h2>
+          <p className="note-source">
+            <Link to={`/item/${entry.itemId}#ideas`}>{entry.itemTitle}</Link> ·{' '}
             {t('notebook.savedAt', { date: formatDate(entry.savedAt) })}
           </p>
         </div>
-        <label className="field" style={{ minWidth: 160 }}>
-          <span>{t('notebook.status')}</span>
+        <label>
+          <span className="sr-only">{t('notebook.status')}</span>
           <select
-            className="input"
+            className="input status-select"
             value={entry.status}
             onChange={(e) => notebook.update(entry.id, { status: e.target.value as NoteStatus })}
           >
@@ -132,14 +157,17 @@ function Entry({ entry }: { entry: NotebookEntry }) {
           </select>
         </label>
       </div>
-      <p>{pick(idea.summary)}</p>
-      {pick(idea.researchQuestion) && (
-        <p className="small">
-          <strong>{t('idea.rq')}:</strong> {pick(idea.researchQuestion)}
-        </p>
-      )}
-      <label className="field">
-        <span>{t('notebook.note')}</span>
+      <div className="note-body">
+        <p>{pick(idea.summary)}</p>
+        {pick(idea.researchQuestion) && (
+          <div className="idea-rq">
+            <strong>{t('idea.rq')}</strong>
+            {pick(idea.researchQuestion)}
+          </div>
+        )}
+      </div>
+      <label className="field" style={{ marginTop: 14 }}>
+        <span className="field-label">{t('notebook.note')}</span>
         <textarea
           className="input"
           value={note}
@@ -147,15 +175,14 @@ function Entry({ entry }: { entry: NotebookEntry }) {
           onBlur={() => note !== entry.note && notebook.update(entry.id, { note })}
         />
       </label>
-      <div className="card-actions">
-        <Link className="btn btn-sm" to={`/item/${entry.itemId}#ideas`}>
-          {t('notebook.openItem')}
-        </Link>
+      <div className="note-foot">
+        <span />
         <button
           type="button"
-          className="btn btn-sm btn-danger"
+          className="btn btn-sm btn-quiet btn-danger"
           onClick={() => window.confirm(t('notebook.deleteConfirm')) && notebook.remove(entry.id)}
         >
+          <Trash2 size={14} aria-hidden="true" />
           {t('common.delete')}
         </button>
       </div>

@@ -9,45 +9,73 @@ export default function AboutPage() {
   const state = useAsync(loadMeta, []);
   return (
     <>
-      <h1>{t('about.title')}</h1>
-      <p style={{ maxWidth: '72ch' }}>{t('about.what')}</p>
-      <section className="section panel" aria-labelledby="score-h">
-        <h2 id="score-h">{t('about.score')}</h2>
-        <p style={{ maxWidth: '72ch' }}>{t('about.scoreText')}</p>
-      </section>
+      <header className="page-head">
+        <h1>{t('about.title')}</h1>
+        <p className="lead">{t('about.what')}</p>
+      </header>
+      <Async state={state}>{(meta) => <Stats meta={meta} />}</Async>
+      <div className="grid-2 section">
+        <section aria-labelledby="score-h">
+          <h2 id="score-h">{t('about.score')}</h2>
+          <p className="prose muted" style={{ marginTop: 8 }}>
+            {t('about.scoreText')}
+          </p>
+        </section>
+        <section aria-labelledby="priv-h">
+          <h2 id="priv-h">{t('about.privacy')}</h2>
+          <p className="prose muted" style={{ marginTop: 8 }}>
+            {t('about.privacyText')}
+          </p>
+        </section>
+      </div>
       <Async state={state}>{(meta) => <Status meta={meta} />}</Async>
-      <section className="section panel" aria-labelledby="lic-h">
+      <section className="section" aria-labelledby="lic-h">
         <h2 id="lic-h">{t('about.licensing')}</h2>
-        <p style={{ maxWidth: '72ch' }}>{t('about.licensingText')}</p>
-      </section>
-      <section className="section panel" aria-labelledby="priv-h">
-        <h2 id="priv-h">{t('about.privacy')}</h2>
-        <p style={{ maxWidth: '72ch' }}>{t('about.privacyText')}</p>
+        <p className="prose muted" style={{ marginTop: 8 }}>
+          {t('about.licensingText')}
+        </p>
       </section>
     </>
+  );
+}
+
+function Stats({ meta }: { meta: Meta }) {
+  const { t, formatDate, formatNumber } = useI18n();
+  const stats = [
+    { label: t('about.stat.corpus'), value: formatNumber(meta.counts.corpus) },
+    { label: t('about.stat.published'), value: formatNumber(meta.counts.published) },
+    { label: t('about.stat.sources'), value: formatNumber(meta.sources.length) },
+    { label: t('about.stat.updated'), value: formatDate(meta.generatedAt) },
+  ];
+  return (
+    <div className="stat-row">
+      {stats.map((s) => (
+        <div key={s.label} className="stat">
+          <span className="value">{s.value}</span>
+          <span className="label">{s.label}</span>
+        </div>
+      ))}
+    </div>
   );
 }
 
 function Status({ meta }: { meta: Meta }) {
   const { t, formatDate, formatNumber } = useI18n();
   return (
-    <section className="section panel" aria-labelledby="src-h">
-      <h2 id="src-h">{t('about.sources')}</h2>
-      <p className="small muted">
-        {t('about.counts', {
-          c: formatNumber(meta.counts.corpus),
-          p: formatNumber(meta.counts.published),
-        })}{' '}
-        · {t('about.embeddings', { m: meta.embeddings })} · {t('common.updated')}:{' '}
-        {formatDate(meta.generatedAt)}
-      </p>
-      <div className="table-wrap">
+    <section className="section" aria-labelledby="src-h">
+      <div className="section-head">
+        <h2 id="src-h">{t('about.sources')}</h2>
+        <p>{t('about.embeddings', { m: meta.embeddings })}</p>
+      </div>
+      <div className="card table-wrap">
         <table className="data">
           <thead>
             <tr>
               <th scope="col">{t('about.source')}</th>
               <th scope="col">{t('about.status')}</th>
-              <th scope="col">{t('about.fetched')}</th>
+              <th scope="col" style={{ textAlign: 'right' }}>
+                {t('about.fetched')}
+              </th>
               <th scope="col">{t('about.window')}</th>
               <th scope="col">{t('about.finished')}</th>
             </tr>
@@ -57,8 +85,8 @@ function Status({ meta }: { meta: Meta }) {
               <tr key={s.source}>
                 <th scope="row">{sourceName(s.source)}</th>
                 <td>
-                  <span className={s.ok ? 'status-ok' : 'status-fail'}>
-                    {s.ok ? `✓ ${t('about.ok')}` : `✕ ${t('about.failed')}`}
+                  <span className={`status-dot${s.ok ? '' : ' fail'}`}>
+                    {s.ok ? t('about.ok') : t('about.failed')}
                   </span>
                   {s.error && (
                     <div
@@ -69,9 +97,11 @@ function Status({ meta }: { meta: Meta }) {
                     </div>
                   )}
                 </td>
-                <td style={{ fontVariantNumeric: 'tabular-nums' }}>{formatNumber(s.fetched)}</td>
-                <td className="small">{s.window ? `${s.window.from} → ${s.window.to}` : '—'}</td>
-                <td className="small">{formatDate(s.finishedAt)}</td>
+                <td className="num" style={{ textAlign: 'right' }}>
+                  {formatNumber(s.fetched)}
+                </td>
+                <td className="muted">{s.window ? `${s.window.from} → ${s.window.to}` : '—'}</td>
+                <td className="muted">{formatDate(s.finishedAt)}</td>
               </tr>
             ))}
           </tbody>
@@ -79,17 +109,17 @@ function Status({ meta }: { meta: Meta }) {
       </div>
       {meta.enrichment && (
         <>
-          <h3 style={{ marginTop: 16 }}>{t('about.enrichment')}</h3>
-          <div className="table-wrap">
+          <h3 style={{ margin: '28px 0 12px', fontSize: '0.875rem' }}>{t('about.enrichment')}</h3>
+          <div className="card table-wrap">
             <table className="data">
               <tbody>
                 {Object.entries(meta.enrichment).map(([k, v]) => (
                   <tr key={k}>
                     <th scope="row">{sourceName(k)}</th>
-                    <td style={{ fontVariantNumeric: 'tabular-nums' }}>
+                    <td className="num" style={{ textAlign: 'right' }}>
                       {v.hits}/{v.lookups}
                     </td>
-                    <td className="small muted" style={{ overflowWrap: 'anywhere' }}>
+                    <td className="muted" style={{ overflowWrap: 'anywhere' }}>
                       {v.skipped ?? ''}
                     </td>
                   </tr>

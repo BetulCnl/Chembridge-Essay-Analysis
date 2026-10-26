@@ -1,53 +1,65 @@
 import type { IndexEntry } from '@chembridge/core';
+import { Code2, Database } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../i18n/index.tsx';
 import { sourceName } from '../lib/labels.ts';
 import { ChemChip, CsChip, ScoreBadge, TypeLabel } from './common.tsx';
 
+/**
+ * One row of a result list (render inside <ol className="result-list">). The whole row is
+ * clickable through the title link.
+ */
 export function ItemCard({ item }: { item: IndexEntry }) {
   const { t, formatDate } = useI18n();
   const headingId = `card-${item.id}`;
+  const venue = item.venue || sourceName(item.source);
+  const potential = item.csInferred.slice(0, item.cs.length ? 1 : 2);
   return (
-    <article className="card item-card" aria-labelledby={headingId}>
-      <div>
-        <h3 id={headingId}>
-          <Link to={`/item/${item.id}`}>{item.title}</Link>
-        </h3>
-        <div className="item-meta">
-          <span>{item.venue || sourceName(item.source)}</span>
-          <span aria-hidden="true">·</span>
-          <time dateTime={item.date}>{formatDate(item.date)}</time>
-          <span aria-hidden="true">·</span>
-          <span>
+    <li>
+      <article className="result" aria-labelledby={headingId}>
+        <div>
+          <h3 className="result-title" id={headingId}>
+            <Link to={`/item/${item.id}`}>{item.title}</Link>
+          </h3>
+          <p className="result-meta">
+            <span>{venue}</span>
+            <span className="sep" aria-hidden="true">
+              ·
+            </span>
+            <time dateTime={item.date}>{formatDate(item.date)}</time>
+            <span className="sep" aria-hidden="true">
+              ·
+            </span>
             <TypeLabel type={item.type} />
-          </span>
-          {item.source !== item.venue && sourceName(item.source) !== item.venue && (
-            <>
-              <span aria-hidden="true">·</span>
-              <span>{sourceName(item.source)}</span>
-            </>
+          </p>
+        </div>
+        <div className="result-score">
+          <ScoreBadge score={item.score} />
+        </div>
+        <div className="result-tags">
+          {item.chem.slice(0, 2).map((c) => (
+            <ChemChip key={c} id={c} />
+          ))}
+          {item.cs.slice(0, 3).map((c) => (
+            <CsChip key={c} id={c} />
+          ))}
+          {potential.map((c) => (
+            <CsChip key={c} id={c} potential />
+          ))}
+          {item.code && (
+            <span className="tag tag-flag">
+              <Code2 size={14} aria-hidden="true" />
+              {t('common.code')}
+            </span>
+          )}
+          {item.data && (
+            <span className="tag tag-flag">
+              <Database size={13} aria-hidden="true" />
+              {t('common.data')}
+            </span>
           )}
         </div>
-      </div>
-      <ScoreBadge score={item.score} />
-      <div className="chips">
-        {item.chem.map((c) => (
-          <ChemChip key={c} id={c} />
-        ))}
-        {item.cs.map((c) => (
-          <CsChip key={c} id={c} />
-        ))}
-        {item.csInferred.slice(0, item.cs.length ? 1 : 2).map((c) => (
-          <CsChip key={c} id={c} potential />
-        ))}
-        {item.code && <span className="chip chip-flag">{t('common.code')}</span>}
-        {item.data && <span className="chip chip-flag">{t('common.data')}</span>}
-      </div>
-      <div className="card-actions">
-        <Link className="btn btn-sm btn-primary" to={`/item/${item.id}#ideas`}>
-          {t('common.viewIdeas')}
-        </Link>
-      </div>
-    </article>
+      </article>
+    </li>
   );
 }

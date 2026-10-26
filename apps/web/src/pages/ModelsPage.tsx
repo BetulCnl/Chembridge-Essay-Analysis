@@ -1,3 +1,4 @@
+import { CircleAlert, CircleCheck, Info } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useI18n } from '../i18n/index.tsx';
 import { loadWebLlm, ollamaModels, webLlmModelSize } from '../ai/providers.ts';
@@ -10,38 +11,71 @@ import {
   type ByokProvider,
 } from '../ai/settings.ts';
 
+const OPTIONS: ActiveProvider[] = ['none', 'webllm', 'ollama', 'byok'];
+
+/** "Qwen2.5-3B-Instruct-q4f16_1-MLC" → "Qwen2.5 3B" */
+function modelName(id: string): string {
+  const [family = id, size = ''] = id
+    .replace(/-(Instruct|it|instruct).*$/, '')
+    .split(/-(?=[\d.]+B$|mini$)/);
+  return `${family.replace(/^gemma/, 'Gemma').replace(/-/g, ' ')} ${size.replace(/b$/, 'B')}`.trim();
+}
+
 export default function ModelsPage() {
   const { t } = useI18n();
   const s = useAiSettings();
-  const actives: ActiveProvider[] = ['none', 'webllm', 'ollama', 'byok'];
   return (
     <>
-      <h1>{t('models.title')}</h1>
-      <p className="muted" style={{ maxWidth: '72ch' }}>
-        {t('models.intro')}
+      <header className="page-head">
+        <h1>{t('models.title')}</h1>
+      </header>
+      <p className="notice prose" style={{ marginBottom: 32 }}>
+        <Info size={18} aria-hidden="true" />
+        <span>{t('models.intro')}</span>
       </p>
-      <fieldset className="panel section" style={{ border: '1px solid var(--border)' }}>
-        <legend className="field-label" style={{ padding: '0 6px' }}>
-          {t('models.active')}
+
+      <fieldset style={{ border: 0, margin: 0, padding: 0, minWidth: 0 }}>
+        <legend className="section-head" style={{ padding: 0 }}>
+          <h2>{t('models.choose')}</h2>
         </legend>
-        {actives.map((a) => (
-          <label key={a} className="check">
-            <input
-              type="radio"
-              name="active"
-              checked={s.active === a}
-              onChange={() => aiSettings.set({ active: a })}
-            />
-            {t(`models.active.${a}`)}
-          </label>
-        ))}
+        <div className="choice-grid">
+          {OPTIONS.map((o) => (
+            <label key={o} className="choice">
+              <input
+                type="radio"
+                name="ai-provider"
+                checked={s.active === o}
+                onChange={() => aiSettings.set({ active: o })}
+              />
+              <strong>{t(`models.opt.${o}`)}</strong>
+              <span className="desc">{t(`models.opt.${o}.desc`)}</span>
+              {o !== 'byok' && <span className="pill pill-ok">{t('models.pill.free')}</span>}
+            </label>
+          ))}
+        </div>
       </fieldset>
-      <div className="grid-2">
-        <WebLlmSection />
-        <OllamaSection />
-      </div>
-      <ByokSection />
+
+      {s.active === 'webllm' && <WebLlmSection />}
+      {s.active === 'ollama' && <OllamaSection />}
+      {s.active === 'byok' && <ByokSection />}
     </>
+  );
+}
+
+function Status({ ok, children }: { ok: boolean; children: string }) {
+  return (
+    <p
+      className={`notice ${ok ? 'notice-ok' : 'notice-warn'}`}
+      role="status"
+      style={{ marginTop: 16 }}
+    >
+      {ok ? (
+        <CircleCheck size={18} aria-hidden="true" />
+      ) : (
+        <CircleAlert size={18} aria-hidden="true" />
+      )}
+      <span style={{ overflowWrap: 'anywhere' }}>{children}</span>
+    </p>
   );
 }
 
@@ -72,7 +106,6 @@ function WebLlmSection() {
         setProgress({ text, ...(f !== undefined ? { f } : {}) }),
       );
       setStatus('ready');
-      aiSettings.set({ active: 'webllm' });
     } catch (e) {
       setStatus('error');
       setError(e instanceof Error ? e.message : String(e));
@@ -80,36 +113,48 @@ function WebLlmSection() {
   };
 
   return (
-    <section className="panel section" aria-labelledby="webllm-h">
-      <h2 id="webllm-h">{t('models.layerB')}</h2>
-      <h3>{t('models.webllm')}</h3>
-      <p className="small muted">{t('models.webllmHint')}</p>
-      {!gpu && <p className="notice notice-warn small">{t('models.webgpuMissing')}</p>}
-      <label className="field">
-        <span>{t('models.model')}</span>
+    <section className="card config-card" aria-labelledby="webllm-h">
+      <h2 id="webllm-h">{t('models.webllm')}</h2>
+      <p>{t('models.webllmHint')}</p>
+      {!gpu && (
+        <p className="notice notice-warn" style={{ marginBottom: 16 }}>
+          <CircleAlert size={18} aria-hidden="true" />
+          <span>{t('models.webgpuMissing')}</span>
+        </p>
+      )}
+      <label className="field" style={{ maxWidth: 420 }}>
+        <span className="field-label">{t('models.model')}</span>
         <select
           className="input"
           value={s.webllmModel}
-          onChange={(e) => aiSettings.set({ webllmModel: e.target.value })}
+          onChange={(e) => {
+            aiSettings.set({ webllmModel: e.target.value });
+            setStatus('idle');
+          }}
         >
           {WEBLLM_MODELS.map((m) => (
             <option key={m} value={m}>
-              {m}
+              {modelName(m)}
             </option>
           ))}
         </select>
+        <span className="field-hint">
+          {size !== undefined && `${t('models.size', { n: (size / 1024).toFixed(1) })} · `}
+          {t('models.webllm.note')}
+        </span>
       </label>
-      {size !== undefined && <p className="small muted">VRAM ≈ {(size / 1024).toFixed(1)} GB</p>}
-      <button
-        type="button"
-        className="btn btn-primary"
-        disabled={!gpu || status === 'loading'}
-        onClick={load}
-      >
-        {status === 'ready' ? `✓ ${t('models.loaded')}` : t('models.load')}
-      </button>
+      <div className="btn-row" style={{ marginTop: 18 }}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          disabled={!gpu || status === 'loading' || status === 'ready'}
+          onClick={load}
+        >
+          {status === 'ready' ? t('models.loaded') : t('models.load')}
+        </button>
+      </div>
       {status === 'loading' && progress && (
-        <div style={{ marginTop: 10 }} aria-live="polite">
+        <div aria-live="polite">
           <div
             className="progress"
             role="progressbar"
@@ -119,12 +164,12 @@ function WebLlmSection() {
           >
             <span style={{ width: `${Math.round((progress.f ?? 0) * 100)}%` }} />
           </div>
-          <p className="small muted">{progress.text}</p>
+          <p className="small muted" style={{ marginTop: 8 }}>
+            {progress.text}
+          </p>
         </div>
       )}
-      {status === 'error' && (
-        <p className="notice notice-warn small">{t('models.testFail', { e: error })}</p>
-      )}
+      {status === 'error' && <Status ok={false}>{t('models.testFail', { e: error })}</Status>}
     </section>
   );
 }
@@ -134,6 +179,7 @@ function OllamaSection() {
   const s = useAiSettings();
   const [result, setResult] = useState<{ ok: boolean; text: string } | undefined>();
   const [models, setModels] = useState<string[]>([]);
+  const origin = typeof location !== 'undefined' ? location.origin : '';
   const test = async () => {
     try {
       const list = await ollamaModels(s.ollamaUrl, AbortSignal.timeout(8000));
@@ -147,46 +193,42 @@ function OllamaSection() {
     }
   };
   return (
-    <section className="panel section" aria-labelledby="ollama-h">
-      <h2 id="ollama-h">{t('models.layerB')}</h2>
-      <h3>{t('models.ollama')}</h3>
-      <p className="small muted">
-        {t('models.ollamaHint', { origin: typeof location !== 'undefined' ? location.origin : '' })}
+    <section className="card config-card" aria-labelledby="ollama-h">
+      <h2 id="ollama-h">{t('models.ollama')}</h2>
+      <p>
+        {t('models.ollamaHint')}
+        <code className="code-line">OLLAMA_ORIGINS="{origin}" ollama serve</code>
       </p>
-      <label className="field">
-        <span>{t('models.ollamaUrl')}</span>
-        <input
-          className="input"
-          value={s.ollamaUrl}
-          onChange={(e) => aiSettings.set({ ollamaUrl: e.target.value })}
-        />
-      </label>
-      <label className="field">
-        <span>{t('models.ollamaModel')}</span>
-        <input
-          className="input"
-          list="ollama-models"
-          value={s.ollamaModel}
-          onChange={(e) => aiSettings.set({ ollamaModel: e.target.value })}
-        />
-        <datalist id="ollama-models">
-          {models.map((m) => (
-            <option key={m} value={m} />
-          ))}
-        </datalist>
-      </label>
-      <button type="button" className="btn" onClick={test}>
-        {t('models.test')}
-      </button>
-      {result && (
-        <p
-          className={`notice small ${result.ok ? '' : 'notice-warn'}`}
-          role="status"
-          style={{ marginTop: 10 }}
-        >
-          {result.text}
-        </p>
-      )}
+      <div className="form-grid cols-2">
+        <label className="field">
+          <span className="field-label">{t('models.ollamaUrl')}</span>
+          <input
+            className="input"
+            value={s.ollamaUrl}
+            onChange={(e) => aiSettings.set({ ollamaUrl: e.target.value })}
+          />
+        </label>
+        <label className="field">
+          <span className="field-label">{t('models.ollamaModel')}</span>
+          <input
+            className="input"
+            list="ollama-models"
+            value={s.ollamaModel}
+            onChange={(e) => aiSettings.set({ ollamaModel: e.target.value })}
+          />
+          <datalist id="ollama-models">
+            {models.map((m) => (
+              <option key={m} value={m} />
+            ))}
+          </datalist>
+        </label>
+      </div>
+      <div className="btn-row" style={{ marginTop: 18 }}>
+        <button type="button" className="btn" onClick={test}>
+          {t('models.test')}
+        </button>
+      </div>
+      {result && <Status ok={result.ok}>{result.text}</Status>}
     </section>
   );
 }
@@ -198,14 +240,12 @@ function ByokSection() {
   const [saved, setSaved] = useState(false);
   const providers: ByokProvider[] = ['openai', 'gemini'];
   return (
-    <section className="panel section" aria-labelledby="byok-h">
-      <h2 id="byok-h">{t('models.layerC')}</h2>
-      <p className="small muted" style={{ maxWidth: '72ch' }}>
-        {t('models.layerCHint')}
-      </p>
-      <div className="grid-2">
+    <section className="card config-card" aria-labelledby="byok-h">
+      <h2 id="byok-h">{t('models.opt.byok')}</h2>
+      <p>{t('models.layerCHint')}</p>
+      <div className="form-grid cols-2">
         <label className="field">
-          <span>{t('models.provider')}</span>
+          <span className="field-label">{t('models.provider')}</span>
           <select
             className="input"
             value={s.byokProvider}
@@ -225,7 +265,7 @@ function ByokSection() {
           </select>
         </label>
         <label className="field">
-          <span>{t('models.model')}</span>
+          <span className="field-label">{t('models.model')}</span>
           <input
             className="input"
             value={s.byokModel}
@@ -235,7 +275,7 @@ function ByokSection() {
         </label>
         {s.byokProvider === 'openai' && (
           <label className="field">
-            <span>{t('models.baseUrl')}</span>
+            <span className="field-label">{t('models.baseUrl')}</span>
             <input
               className="input"
               value={s.byokBaseUrl}
@@ -244,7 +284,7 @@ function ByokSection() {
           </label>
         )}
         <label className="field">
-          <span>{t('models.apiKey')}</span>
+          <span className="field-label">{t('models.apiKey')}</span>
           <input
             className="input"
             type="password"
@@ -258,7 +298,7 @@ function ByokSection() {
           />
         </label>
       </div>
-      <div className="card-actions">
+      <div className="btn-row" style={{ marginTop: 18 }}>
         <button
           type="button"
           className="btn btn-primary"
@@ -272,7 +312,7 @@ function ByokSection() {
         </button>
         <button
           type="button"
-          className="btn"
+          className="btn btn-quiet"
           disabled={!s.byokKey}
           onClick={() => {
             aiSettings.clearKey();
@@ -282,12 +322,8 @@ function ByokSection() {
         >
           {t('models.clearKey')}
         </button>
-        {saved && (
-          <span className="small status-ok" role="status">
-            {t('models.keySaved')}
-          </span>
-        )}
       </div>
+      {saved && <Status ok>{t('models.keySaved')}</Status>}
     </section>
   );
 }

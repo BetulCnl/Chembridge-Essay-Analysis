@@ -10,11 +10,11 @@ kimya × CS kesişim matrisine yerleştirir ve her biri için **akademik araşt�
 - **Çevrimdışı fikirler:** Katman A şablon tabanlıdır ve tarayıcıda çalışır. İsteğe bağlı olarak
   Katman B (tarayıcıda WebLLM veya yerel Ollama) ya da Katman C (kendi ücretsiz anahtarın) kullanılabilir.
 
-| Akış                               | Detay ve skor açıklaması            | Kesişim matrisi                        |
-| ---------------------------------- | ----------------------------------- | -------------------------------------- |
-| ![Akış](docs/screenshots/feed.png) | ![Detay](docs/screenshots/item.png) | ![Matris](docs/screenshots/matrix.png) |
+| Keşfet                               | Detay ve skor açıklaması            | Kesişim haritası                       |
+| ------------------------------------ | ----------------------------------- | -------------------------------------- |
+| ![Keşfet](docs/screenshots/feed.png) | ![Detay](docs/screenshots/item.png) | ![Harita](docs/screenshots/matrix.png) |
 
-Mobil ve koyu tema: <img src="docs/screenshots/mobile-dark.png" alt="Mobil, koyu tema, İngilizce arayüz" width="260">
+Mobil ve koyu tema: <img src="docs/screenshots/mobile-dark.png" alt="Mobil, koyu tema" width="260">
 
 ## Mimari
 
@@ -36,7 +36,7 @@ flowchart LR
 | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`packages/core`](packages/core)         | Domain şeması (Zod → JSON Schema), kimlik normalizasyonu, taksonomi eşleme, skor motoru, Katman A fikir üretimi, trendler, benzerlik. Kurallar [`rules/*.json`](packages/core/rules) dosyalarında. Node ve tarayıcıda çalışır.                |
 | [`packages/pipeline`](packages/pipeline) | HTTP politikası (zaman aşımı, yeniden deneme, üstel geri çekilme, `Retry-After`, host başına hız sınırı, ETag/Last-Modified, robots.txt, bot korumasını tanıma), bağlayıcılar, dedup, zenginleştirme, embedding (Transformers.js), yayınlama. |
-| [`apps/web`](apps/web)                   | React 18 + TypeScript + Vite. Akış/filtreler, detay, ısı haritası, trendler, haftalık özet, fikir defteri, model ayarları. TR/EN arayüz, açık/koyu tema, klavye ile kullanılabilir.                                                           |
+| [`apps/web`](apps/web)                   | React 18 + TypeScript + Vite. Keşfet (arama + filtre çubuğu), detay, kesişim haritası, trendler ve haftalık özet, defter, yapay zeka ayarları. TR/EN arayüz, açık/koyu tema, klavye ile kullanılabilir.                                       |
 
 Ayrıntılar ve Seçenek A/B karşılaştırması: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 

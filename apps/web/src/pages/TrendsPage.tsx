@@ -1,38 +1,69 @@
 import type { CellStat, IndexEntry, Trends } from '@chembridge/core';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { MiniBars, Sparkline } from '../components/charts.tsx';
 import { Async } from '../components/common.tsx';
 import { useI18n } from '../i18n/index.tsx';
 import { loadIndexById, loadTrends, useAsync } from '../lib/data.ts';
 import { chemLabel, chemShort, csShort, csLabel } from '../lib/labels.ts';
 
-export default function TrendsPage() {
-  const state = useAsync(() => Promise.all([loadTrends(), loadIndexById()]), []);
+/** Shared header for the Trends section (overview and weekly digest). */
+export function TrendsHeader({ intro }: { intro: string }) {
+  const { t } = useI18n();
   return (
-    <Async state={state}>{([trends, byId]) => <TrendsView trends={trends} byId={byId} />}</Async>
+    <>
+      <header className="page-head">
+        <h1>{t('trends.title')}</h1>
+        <p className="lead">{intro}</p>
+      </header>
+      <nav className="tabs" aria-label={t('trends.title')}>
+        <NavLink to="/trends" className={({ isActive }) => (isActive ? 'active' : '')}>
+          {t('trends.tab.overview')}
+        </NavLink>
+        <NavLink to="/weekly" className={({ isActive }) => (isActive ? 'active' : '')}>
+          {t('trends.tab.weekly')}
+        </NavLink>
+      </nav>
+    </>
   );
 }
 
-function CellRow({ c, trends, right }: { c: CellStat; trends: Trends; right: string }) {
+export default function TrendsPage() {
+  const state = useAsync(() => Promise.all([loadTrends(), loadIndexById()]), []);
+  const { t } = useI18n();
+  return (
+    <>
+      <Async state={state}>
+        {([trends, byId]) => (
+          <>
+            <TrendsHeader intro={t('trends.intro', { weeks: trends.recentWeeks })} />
+            <TrendsView trends={trends} byId={byId} />
+          </>
+        )}
+      </Async>
+    </>
+  );
+}
+
+function CellRow({ c, trends, metric }: { c: CellStat; trends: Trends; metric: string }) {
   const { pick, t } = useI18n();
   const label = `${pick(chemShort(c.chem))} × ${pick(csShort(c.cs))}`;
   return (
     <li>
-      <span>
-        <Link to={`/?chem=${c.chem}&cs=${c.cs}&inferred=1`}>
-          <strong>{label}</strong>
+      <span style={{ minWidth: 0 }}>
+        <Link className="label" to={`/?chem=${c.chem}&cs=${c.cs}&inferred=1`}>
+          {label}
         </Link>
-        <br />
-        <span className="small muted">
-          {pick(chemLabel(c.chem))} × {pick(csLabel(c.cs))} · {t('trends.count', { n: c.count })} ·{' '}
-          {t('trends.avg', { n: c.avgScore.toFixed(0) })}
+        <span className="sub">
+          {pick(chemLabel(c.chem))} × {pick(csLabel(c.cs))} · {t('trends.count', { n: c.count })}
         </span>
       </span>
-      <span style={{ textAlign: 'right' }}>
-        <strong className="small">{right}</strong>
+      <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span className="metric">{metric}</span>
         <Sparkline
           values={c.weekly}
           labels={trends.weeks}
+          width={96}
+          height={28}
           ariaLabel={`${label}: ${t('trends.recent', { weeks: trends.recentWeeks, n: c.recent })}`}
         />
       </span>
@@ -45,11 +76,11 @@ function TrendsView({ trends, byId }: { trends: Trends; byId: Map<string, IndexE
   const rising = trends.cells
     .filter((c) => c.rising)
     .sort((a, b) => b.growth - a.growth || b.recent - a.recent)
-    .slice(0, 12);
+    .slice(0, 10);
   const quiet = trends.cells
     .filter((c) => c.quietPromising)
     .sort((a, b) => b.avgScore - a.avgScore)
-    .slice(0, 12);
+    .slice(0, 10);
   const monthlyOf = (prefix: 'chem' | 'cs') =>
     Object.entries(trends.monthly)
       .filter(([k]) => k.startsWith(`${prefix}:`))
@@ -57,40 +88,43 @@ function TrendsView({ trends, byId }: { trends: Trends; byId: Map<string, IndexE
       .sort((a, b) => b.total - a.total);
   return (
     <>
-      <h1>{t('trends.title')}</h1>
-      <p className="muted">{t('trends.intro', { weeks: trends.recentWeeks })}</p>
-      <div className="grid-2 section">
-        <section className="panel" aria-labelledby="rising-h">
-          <h2 id="rising-h">{t('trends.rising')}</h2>
+      <div className="grid-2">
+        <section className="card card-pad" aria-labelledby="rising-h">
+          <div className="section-head" style={{ display: 'block' }}>
+            <h2 id="rising-h">{t('trends.rising')}</h2>
+            <p style={{ marginTop: 4 }}>{t('trends.risingHint')}</p>
+          </div>
           {rising.length ? (
-            <ul className="trend-list">
+            <ol className="rank-list">
               {rising.map((c) => (
                 <CellRow
                   key={`${c.chem}|${c.cs}`}
                   c={c}
                   trends={trends}
-                  right={`${t('trends.growth', { g: c.growth.toFixed(1) })} · ${c.recent}`}
+                  metric={t('trends.growth', { g: c.growth.toFixed(1) })}
                 />
               ))}
-            </ul>
+            </ol>
           ) : (
             <p className="muted">{t('trends.risingEmpty')}</p>
           )}
         </section>
-        <section className="panel" aria-labelledby="quiet-h">
-          <h2 id="quiet-h">{t('trends.quiet')}</h2>
-          <p className="small muted">{t('trends.quietHint')}</p>
+        <section className="card card-pad" aria-labelledby="quiet-h">
+          <div className="section-head" style={{ display: 'block' }}>
+            <h2 id="quiet-h">{t('trends.quiet')}</h2>
+            <p style={{ marginTop: 4 }}>{t('trends.quietHint')}</p>
+          </div>
           {quiet.length ? (
-            <ul className="trend-list">
+            <ol className="rank-list">
               {quiet.map((c) => (
                 <CellRow
                   key={`${c.chem}|${c.cs}`}
                   c={c}
                   trends={trends}
-                  right={t('trends.avg', { n: c.avgScore.toFixed(0) })}
+                  metric={t('trends.avg', { n: c.avgScore.toFixed(0) })}
                 />
               ))}
-            </ul>
+            </ol>
           ) : (
             <p className="muted">{t('trends.quietEmpty')}</p>
           )}
@@ -98,21 +132,20 @@ function TrendsView({ trends, byId }: { trends: Trends; byId: Map<string, IndexE
       </div>
 
       <section className="section" aria-labelledby="clusters-h">
-        <h2 id="clusters-h">{t('trends.clusters')}</h2>
-        <p className="small muted">{t('trends.clustersHint')}</p>
-        <div
-          className="small-multiples"
-          style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}
-        >
-          {trends.clusters.slice(0, 24).map((cl) => (
-            <div key={cl.id}>
-              <strong>{cl.label.join(' · ')}</strong>
-              <p className="small muted" style={{ margin: '2px 0 6px' }}>
+        <div className="section-head">
+          <h2 id="clusters-h">{t('trends.clusters')}</h2>
+          <p>{t('trends.clustersHint')}</p>
+        </div>
+        <div className="cluster-grid">
+          {trends.clusters.slice(0, 12).map((cl) => (
+            <div key={cl.id} className="card cluster">
+              <h3>{cl.label.join(' · ')}</h3>
+              <p className="sub">
                 {t('trends.count', { n: cl.size })} ·{' '}
                 {t('trends.avg', { n: cl.avgScore.toFixed(0) })} ·{' '}
                 {t('trends.recent', { weeks: 4, n: cl.recent })}
               </p>
-              <ul className="small" style={{ margin: 0, paddingLeft: '1.1rem' }}>
+              <ul>
                 {cl.topIds.slice(0, 3).map((id) => {
                   const e = byId.get(id);
                   return e ? (
@@ -131,25 +164,25 @@ function TrendsView({ trends, byId }: { trends: Trends; byId: Map<string, IndexE
 
       {(['chem', 'cs'] as const).map((kind) => (
         <section key={kind} className="section" aria-labelledby={`monthly-${kind}`}>
-          <h2 id={`monthly-${kind}`}>
-            {kind === 'chem' ? t('trends.monthlyChem') : t('trends.monthlyCs')}
-          </h2>
+          <div className="section-head">
+            <h2 id={`monthly-${kind}`}>
+              {kind === 'chem' ? t('trends.monthlyChem') : t('trends.monthlyCs')}
+            </h2>
+          </div>
           <div className="small-multiples">
             {monthlyOf(kind).map((m) => {
               const label = pick(kind === 'chem' ? chemShort(m.id) : csShort(m.id));
               return (
                 <div key={m.id}>
-                  <Link to={kind === 'chem' ? `/?chem=${m.id}` : `/?cs=${m.id}`}>
-                    <strong className="small">{label}</strong>
-                  </Link>{' '}
-                  <span className="small muted">{m.total}</span>
-                  <div>
-                    <MiniBars
-                      values={m.v}
-                      labels={trends.months}
-                      ariaLabel={`${label}: ${trends.months.map((mo, i) => `${mo} ${m.v[i]}`).join(', ')}`}
-                    />
+                  <div className="head">
+                    <Link to={kind === 'chem' ? `/?chem=${m.id}` : `/?cs=${m.id}`}>{label}</Link>
+                    <span className="muted num">{m.total}</span>
                   </div>
+                  <MiniBars
+                    values={m.v}
+                    labels={trends.months}
+                    ariaLabel={`${label}: ${trends.months.map((mo, i) => `${mo} ${m.v[i]}`).join(', ')}`}
+                  />
                 </div>
               );
             })}

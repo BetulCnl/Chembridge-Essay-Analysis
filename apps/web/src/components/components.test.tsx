@@ -41,8 +41,12 @@ describe('i18n', () => {
 });
 
 describe('ItemCard', () => {
-  it('renders title link, score, taxonomy chips and the ideas button', () => {
-    wrap(<ItemCard item={item} />);
+  it('renders title link, score and taxonomy tags', () => {
+    wrap(
+      <ol>
+        <ItemCard item={item} />
+      </ol>,
+    );
     expect(screen.getByRole('link', { name: item.title })).toHaveProperty(
       'href',
       expect.stringContaining('/item/abc'),
@@ -52,12 +56,17 @@ describe('ItemCard', () => {
     expect(screen.getByText('GNN')).toBeTruthy();
     expect(screen.getByText('(potansiyel)', { exact: false })).toBeTruthy();
     expect(screen.getByText('Açık kod')).toBeTruthy();
-    expect(screen.getByRole('link', { name: 'Fikirleri gör' })).toBeTruthy();
   });
 
   it('switches language', () => {
-    wrap(<ItemCard item={item} />, 'en');
-    expect(screen.getByRole('link', { name: 'See ideas' })).toBeTruthy();
+    wrap(
+      <ol>
+        <ItemCard item={item} />
+      </ol>,
+      'en',
+    );
+    expect(screen.getByLabelText('Suitability: 72/100')).toBeTruthy();
+    expect(screen.getByText('Open code')).toBeTruthy();
     expect(screen.getByText('Catalysis')).toBeTruthy();
   });
 });

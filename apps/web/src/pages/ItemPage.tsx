@@ -1,8 +1,16 @@
 import { generateIdeas, type DetailEntry, type IndexEntry, type Trends } from '@chembridge/core';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { IdeaGenerator } from '../ai/IdeaGenerator.tsx';
-import { Async, ChemChip, CsChip, ScoreBadge, TypeLabel } from '../components/common.tsx';
+import {
+  Async,
+  ChemChip,
+  CsChip,
+  EmptyState,
+  ScoreBadge,
+  TypeLabel,
+} from '../components/common.tsx';
 import { IdeaCard } from '../components/IdeaCard.tsx';
 import { ScoreBreakdown } from '../components/ScoreBreakdown.tsx';
 import { useI18n } from '../i18n/index.tsx';
@@ -29,10 +37,11 @@ export default function ItemPage() {
         detail ? (
           <Detail item={detail} byId={byId} trends={trends} />
         ) : (
-          <div className="notice">
-            <p>{t('item.notFound')}</p>
-            <Link to="/">{t('common.back')}</Link>
-          </div>
+          <EmptyState title={t('item.notFound')}>
+            <Link className="btn btn-sm" to="/">
+              {t('item.back')}
+            </Link>
+          </EmptyState>
         )
       }
     </Async>
@@ -54,6 +63,7 @@ function Detail({
   useEffect(() => {
     document.title = `${item.title} · ChemBridge`;
     if (location.hash === '#ideas') document.getElementById('ideas')?.scrollIntoView();
+    else window.scrollTo(0, 0);
     return () => {
       document.title = 'ChemBridge';
     };
@@ -76,21 +86,25 @@ function Detail({
   }, [item, trends, related]);
 
   const authors =
-    item.authors.length > 8
-      ? `${item.authors.slice(0, 8).join(', ')} ${t('item.etAl')}`
+    item.authors.length > 6
+      ? `${item.authors.slice(0, 6).join(', ')} ${t('item.etAl')}`
       : item.authors.join(', ');
   const e = item.enrichment;
   const primary = sourceName(item.primarySource);
+  const hasEnrichment = Boolean(
+    e.compounds?.length || e.github?.repos.length || e.hn?.stories.length || e.openalex?.topic,
+  );
 
   return (
     <article>
-      <p className="small">
-        <Link to="/">← {t('nav.feed')}</Link>
-      </p>
-      <div className="detail-grid">
+      <Link className="back-link" to="/">
+        <ArrowLeft size={16} aria-hidden="true" /> {t('item.back')}
+      </Link>
+
+      <div className="detail">
         <div>
-          <header className="detail-head section">
-            <div className="chips" style={{ marginBottom: 10 }}>
+          <header className="detail-head">
+            <div className="eyebrow-row">
               {item.chem.map((c) => (
                 <ChemChip key={c.id} id={c.id} linked />
               ))}
@@ -98,8 +112,8 @@ function Detail({
                 <CsChip key={c.id} id={c.id} potential={c.inferred} />
               ))}
             </div>
-            <h1>{item.title}</h1>
-            <p className="item-meta">
+            <h1 className="detail-title">{item.title}</h1>
+            <p className="detail-meta">
               <span>{item.venue}</span>
               <span aria-hidden="true">·</span>
               <time dateTime={item.publishedAt}>{formatDate(item.publishedAt)}</time>
@@ -107,18 +121,20 @@ function Detail({
               <TypeLabel type={item.type} />
             </p>
             {authors && (
-              <p className="small">
-                <span className="muted">{t('item.authors')}:</span> {authors}
+              <p className="detail-authors">
+                <span className="sr-only">{t('item.authors')}: </span>
+                {authors}
               </p>
             )}
-            <div className="card-actions">
+            <div className="btn-row detail-actions">
               <a
                 className="btn btn-primary"
                 href={item.url}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {t('common.goToSource')} ↗
+                {t('common.goToSource')}
+                <ExternalLink size={15} aria-hidden="true" />
               </a>
               {item.doi && (
                 <a
@@ -137,166 +153,131 @@ function Detail({
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  arXiv:{item.arxivId}
+                  arXiv
                 </a>
               )}
             </div>
           </header>
 
-          <section className="section panel" aria-labelledby="abstract-heading">
-            <h2 id="abstract-heading">{t('item.abstract')}</h2>
+          <section className="section" aria-labelledby="abstract-heading">
+            <div className="section-head">
+              <h2 id="abstract-heading">{t('item.abstract')}</h2>
+            </div>
             {item.abstractExcerpt ? (
-              <p lang="en">{item.abstractExcerpt}</p>
+              <p className="abstract prose" lang="en">
+                {item.abstractExcerpt}
+              </p>
             ) : (
               <p className="muted">—</p>
             )}
-            <p className="small muted">{t('item.abstractNote')}</p>
             {e.s2?.tldr && (
-              <div className="notice" style={{ marginTop: 10 }}>
-                <p className="small" style={{ marginBottom: 4 }}>
-                  <strong>{t('item.tldr')}</strong>
+              <div className="tldr prose">
+                <p className="eyebrow" style={{ marginBottom: 4 }}>
+                  {t('item.tldr')}
                 </p>
-                <p lang="en" style={{ marginBottom: 4 }}>
-                  {e.s2.tldr}
-                </p>
-                <p className="small muted" style={{ margin: 0 }}>
+                <p lang="en">{e.s2.tldr}</p>
+                <p className="small" style={{ marginTop: 6 }}>
                   <a href={`${e.s2.url}?utm_source=api`} target="_blank" rel="noreferrer noopener">
                     {t('item.tldrAttribution')}
                   </a>
                 </p>
               </div>
             )}
+            <p className="small muted" style={{ marginTop: 12 }}>
+              {t('item.abstractNote')}
+            </p>
           </section>
 
           <section id="ideas" className="section" aria-labelledby="ideas-heading" tabIndex={-1}>
-            <h2 id="ideas-heading">{t('item.ideas')}</h2>
-            <p className="small muted">{t('item.ideasIntro')}</p>
-            {ideas.map((idea) => (
-              <IdeaCard key={idea.id} idea={idea} itemTitle={item.title} />
-            ))}
+            <div className="section-head">
+              <h2 id="ideas-heading">{t('item.ideas')}</h2>
+              <p>{t('item.ideasIntro')}</p>
+            </div>
+            <div className="ideas">
+              {ideas.map((idea) => (
+                <IdeaCard key={idea.id} idea={idea} itemTitle={item.title} />
+              ))}
+            </div>
             <IdeaGenerator item={item} seedIdeas={ideas} />
           </section>
         </div>
 
-        <aside aria-label={t('item.taxonomy')}>
-          <ScoreBreakdown score={item.score} />
+        <aside className="detail-aside" aria-label={t('item.taxonomy')}>
+          <div className="side-block">
+            <ScoreBreakdown score={item.score} />
+          </div>
 
-          <section className="panel section" aria-labelledby="tax-heading">
+          <section className="side-block" aria-labelledby="tax-heading">
             <h2 id="tax-heading">{t('item.taxonomy')}</h2>
-            <h3 className="small muted">{t('item.chemFields')}</h3>
-            <ul className="reasons" style={{ marginBottom: 12 }}>
-              {item.chem.map((c) => (
-                <li key={c.id}>
-                  <span>
-                    <strong>{pick(chemLabel(c.id))}</strong>
-                    {c.evidence.length > 0 && (
-                      <span className="small muted"> — {c.evidence.slice(0, 4).join(', ')}</span>
-                    )}
-                  </span>
-                  <span className="pts">{c.confidence}</span>
-                </li>
-              ))}
-            </ul>
-            <h3 className="small muted">{t('item.csFields')}</h3>
-            <ul className="reasons">
-              {item.cs.map((c) => (
-                <li key={c.id}>
-                  <span>
-                    <strong>{pick(csLabel(c.id))}</strong>{' '}
-                    {c.inferred && (
-                      <span className="chip chip-potential">{t('common.potential')}</span>
-                    )}
-                    {c.evidence.length > 0 && !c.inferred && (
-                      <span className="small muted"> — “{c.evidence[0]}”</span>
-                    )}
-                  </span>
-                  <span className="pts">{c.confidence}</span>
-                </li>
-              ))}
-            </ul>
+            <dl className="kv">
+              <dt>{t('item.chemFields')}</dt>
+              <dd>{item.chem.map((c) => pick(chemLabel(c.id))).join(', ') || '—'}</dd>
+              <dt>{t('item.csFields')}</dt>
+              <dd>
+                {item.cs
+                  .map(
+                    (c) => pick(csLabel(c.id)) + (c.inferred ? ` (${t('common.potential')})` : ''),
+                  )
+                  .join(', ') || '—'}
+              </dd>
+              {e.openalex?.topic && (
+                <>
+                  <dt>{t('item.openalex')}</dt>
+                  <dd>{e.openalex.topic}</dd>
+                </>
+              )}
+            </dl>
           </section>
 
-          {Boolean(
-            e.compounds?.length ||
-            e.github?.repos.length ||
-            e.hn?.stories.length ||
-            e.openalex?.topic,
-          ) && (
-            <section className="panel section" aria-labelledby="enrich-heading">
-              <h2 id="enrich-heading">{t('item.enrichment')}</h2>
-              {e.openalex?.topic && (
-                <p className="small">
-                  <span className="muted">{t('item.openalex')}:</span> {e.openalex.topic}
-                  {e.openalex.subfield && <span className="muted"> ({e.openalex.subfield})</span>}
-                </p>
-              )}
-              {e.compounds && e.compounds.length > 0 && (
-                <>
-                  <h3 className="small muted">{t('item.compounds')}</h3>
-                  <ul className="small">
-                    {e.compounds.map((c) => (
-                      <li key={c.cid}>
-                        <a href={c.url} target="_blank" rel="noreferrer noopener">
-                          {c.title ?? c.name}
-                        </a>{' '}
-                        {c.formula && <span className="mono">{c.formula}</span>}{' '}
-                        <span className="muted">CID {c.cid}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-              {e.github && e.github.repos.length > 0 && (
-                <>
-                  <h3 className="small muted">{t('item.github')}</h3>
-                  <p className="small muted">
-                    {t('item.githubQuery', { q: e.github.query, n: e.github.total })}
-                  </p>
-                  <ul className="small">
-                    {e.github.repos.slice(0, 4).map((r) => (
-                      <li key={r.url}>
-                        <a href={r.url} target="_blank" rel="noreferrer noopener">
-                          {r.name}
-                        </a>{' '}
-                        <span className="muted">★{r.stars}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-              {e.hn && e.hn.stories.length > 0 && (
-                <>
-                  <h3 className="small muted">{t('item.hn')}</h3>
-                  <ul className="small">
-                    {e.hn.stories.slice(0, 3).map((s) => (
-                      <li key={s.hnUrl}>
-                        <a href={s.hnUrl} target="_blank" rel="noreferrer noopener">
-                          {s.title}
-                        </a>{' '}
-                        <span className="muted">
-                          {s.points} pts · {s.comments}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
+          {related.length > 0 && (
+            <section className="side-block" aria-labelledby="related-heading">
+              <h2 id="related-heading">{t('item.related')}</h2>
+              <ul className="mini-list">
+                {related.slice(0, 5).map((r) => (
+                  <li key={r.id}>
+                    <span>
+                      <Link to={`/item/${r.id}`}>{r.title}</Link>
+                      <span className="sub">
+                        {r.venue} · {formatDate(r.date)}
+                      </span>
+                    </span>
+                    <ScoreBadge score={r.score} />
+                  </li>
+                ))}
+              </ul>
             </section>
           )}
 
-          {related.length > 0 && (
-            <section className="panel section" aria-labelledby="related-heading">
-              <h2 id="related-heading">{t('item.related')}</h2>
-              <ul className="related-list">
-                {related.map((r) => (
-                  <li key={r.id}>
-                    <ScoreBadge score={r.score} label={false} />
-                    <span>
-                      <Link to={`/item/${r.id}`}>{r.title}</Link>
-                      <br />
-                      <span className="small muted">
-                        {r.venue} · {formatDate(r.date)}
-                      </span>
+          {hasEnrichment && (
+            <section className="side-block" aria-labelledby="enrich-heading">
+              <h2 id="enrich-heading">{t('item.enrichment')}</h2>
+              <ul className="link-list">
+                {e.compounds?.map((c) => (
+                  <li key={c.cid}>
+                    <a href={c.url} target="_blank" rel="noreferrer noopener">
+                      {c.title ?? c.name}
+                    </a>
+                    <span className="sub">
+                      PubChem · CID {c.cid}
+                      {c.formula && ` · ${c.formula}`}
+                    </span>
+                  </li>
+                ))}
+                {e.github?.repos.slice(0, 3).map((r) => (
+                  <li key={r.url}>
+                    <a href={r.url} target="_blank" rel="noreferrer noopener">
+                      {r.name}
+                    </a>
+                    <span className="sub">GitHub · ★{r.stars}</span>
+                  </li>
+                ))}
+                {e.hn?.stories.slice(0, 2).map((s) => (
+                  <li key={s.hnUrl}>
+                    <a href={s.hnUrl} target="_blank" rel="noreferrer noopener">
+                      {s.title}
+                    </a>
+                    <span className="sub">
+                      Hacker News · {s.points} pts · {s.comments}
                     </span>
                   </li>
                 ))}
@@ -304,31 +285,35 @@ function Detail({
             </section>
           )}
 
-          <section className="panel section" aria-labelledby="sources-heading">
+          <section className="side-block" aria-labelledby="sources-heading">
             <h2 id="sources-heading">{t('item.sources')}</h2>
-            <ul className="small">
+            <dl className="kv">
               {item.sources.map((s) => (
-                <li key={`${s.source}-${s.nativeId}`}>
-                  {sourceName(s.source)}{' '}
-                  <span className="mono muted">
-                    {s.nativeId.length > 60 ? s.nativeId.slice(0, 60) + '…' : s.nativeId}
-                  </span>
-                </li>
+                <div key={`${s.source}-${s.nativeId}`} style={{ display: 'contents' }}>
+                  <dt>{sourceName(s.source)}</dt>
+                  <dd className="mono">
+                    {s.nativeId.length > 48 ? s.nativeId.slice(0, 48) + '…' : s.nativeId}
+                  </dd>
+                </div>
               ))}
-            </ul>
-            {item.license && (
-              <p className="small">
-                <span className="muted">{t('item.license')}:</span>{' '}
-                {item.license.startsWith('http') ? (
-                  <a href={item.license} target="_blank" rel="noreferrer noopener">
-                    {item.license.replace(/^https?:\/\/(www\.)?/, '')}
-                  </a>
-                ) : (
-                  item.license
-                )}
-              </p>
-            )}
-            <p className="small muted">{t('item.attribution', { source: primary })}</p>
+              {item.license && (
+                <>
+                  <dt>{t('item.license')}</dt>
+                  <dd>
+                    {item.license.startsWith('http') ? (
+                      <a href={item.license} target="_blank" rel="noreferrer noopener">
+                        {item.license.replace(/^https?:\/\/(www\.)?/, '')}
+                      </a>
+                    ) : (
+                      item.license
+                    )}
+                  </dd>
+                </>
+              )}
+            </dl>
+            <p className="small muted" style={{ marginTop: 12 }}>
+              {t('item.attribution', { source: primary })}
+            </p>
           </section>
         </aside>
       </div>

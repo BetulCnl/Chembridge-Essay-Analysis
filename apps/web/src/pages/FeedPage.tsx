@@ -1,14 +1,16 @@
 import type { IndexEntry, Meta } from '@chembridge/core';
+import { Search, SearchX, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Async } from '../components/common.tsx';
-import { FilterPanel } from '../components/FilterPanel.tsx';
+import { Async, EmptyState } from '../components/common.tsx';
+import { ActiveFilters, FilterBar } from '../components/FilterPanel.tsx';
 import { ItemCard } from '../components/ItemCard.tsx';
 import { useI18n } from '../i18n/index.tsx';
 import { loadIndex, loadMeta, useAsync } from '../lib/data.ts';
 import {
   activeFilterCount,
   applyFilters,
+  DEFAULT_FILTERS,
   parseFilters,
   serializeFilters,
   type FeedFilters,
@@ -31,7 +33,6 @@ function Feed({ rows, meta }: { rows: IndexEntry[]; meta: Meta }) {
   const [query, setQuery] = useState(filters.q);
   const [found, setFound] = useState<{ q: string; hits: Map<string, number> } | undefined>();
   const [limit, setLimit] = useState(PAGE);
-  const [showFilters, setShowFilters] = useState(false);
   const typing = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const update = (f: FeedFilters) => {
@@ -40,17 +41,18 @@ function Feed({ rows, meta }: { rows: IndexEntry[]; meta: Meta }) {
   };
 
   // The query goes into the URL after a short pause in typing; relevance sort follows it.
+  const commitQuery = (value: string) => {
+    const q = value.trim();
+    update({
+      ...filters,
+      q,
+      sort: q ? 'relevance' : filters.sort === 'relevance' ? 'score' : filters.sort,
+    });
+  };
   const onQuery = (value: string) => {
     setQuery(value);
     clearTimeout(typing.current);
-    typing.current = setTimeout(() => {
-      const q = value.trim();
-      update({
-        ...filters,
-        q,
-        sort: q ? 'relevance' : filters.sort === 'relevance' ? 'score' : filters.sort,
-      });
-    }, 250);
+    typing.current = setTimeout(() => commitQuery(value), 250);
   };
   useEffect(() => () => clearTimeout(typing.current), []);
 
@@ -76,92 +78,96 @@ function Feed({ rows, meta }: { rows: IndexEntry[]; meta: Meta }) {
 
   return (
     <>
-      <div className="section-title">
+      <header className="page-head">
         <h1>{t('feed.title')}</h1>
-        <p className="muted small">
-          {t('common.items', { n: formatNumber(meta.counts.published) })} · {t('common.updated')}:{' '}
-          {formatDate(meta.generatedAt)}
-        </p>
-      </div>
-      <div className="feed-layout">
-        <FilterPanel
-          id="feed-filters"
-          filters={filters}
-          onChange={update}
-          rows={rows}
-          hidden={!showFilters}
-        />
-        <section aria-labelledby="results-heading">
-          <div className="toolbar">
-            <label className="search">
-              <span className="sr-only">{t('feed.searchLabel')}</span>
-              <input
-                className="input"
-                type="search"
-                placeholder={t('feed.search')}
-                value={query}
-                onChange={(e) => onQuery(e.target.value)}
-              />
-            </label>
+        <p className="lead">{t('feed.lead', { n: formatNumber(meta.counts.published) })}</p>
+      </header>
+
+      <div role="search">
+        <label className="search-field">
+          <span className="sr-only">{t('feed.searchLabel')}</span>
+          <Search size={18} aria-hidden="true" />
+          <input
+            type="search"
+            placeholder={t('feed.search')}
+            value={query}
+            onChange={(e) => onQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                clearTimeout(typing.current);
+                commitQuery(query);
+              }
+            }}
+          />
+          {query && (
             <button
               type="button"
-              className="btn filters-toggle"
-              aria-expanded={showFilters}
-              aria-controls="feed-filters"
-              onClick={() => setShowFilters((s) => !s)}
+              className="btn btn-quiet btn-icon btn-sm clear"
+              aria-label={t('feed.searchClear')}
+              onClick={() => {
+                clearTimeout(typing.current);
+                setQuery('');
+                commitQuery('');
+              }}
             >
-              {showFilters ? t('feed.filters.hide') : t('feed.filters.show')}
-              {active > 0 && ` (${active})`}
+              <X size={16} aria-hidden="true" />
             </button>
-            <label className="field" style={{ margin: 0 }}>
-              <span className="sr-only">{t('feed.sort')}</span>
-              <select
-                className="input"
-                value={filters.sort}
-                onChange={(e) => update({ ...filters, sort: e.target.value as SortKey })}
-              >
-                {sorts.map((s) => (
-                  <option key={s} value={s}>
-                    {t('feed.sort')}: {t(`feed.sort.${s}`)}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <h2 id="results-heading" className="small muted" aria-live="polite">
+          )}
+        </label>
+        <FilterBar filters={filters} onChange={update} rows={rows} sorts={sorts} />
+        <ActiveFilters filters={filters} onChange={update} />
+      </div>
+
+      <section aria-labelledby="results-heading">
+        <div className="results-summary">
+          <h2 id="results-heading" className="small" style={{ fontWeight: 500 }} aria-live="polite">
             {searching
               ? t('feed.searching')
               : t('feed.results', { n: formatNumber(results.length) })}
           </h2>
-          {results.length === 0 && !searching ? (
-            <div className="notice">
-              <p>{t('feed.empty')}</p>
-              {active > 0 && (
-                <button
-                  type="button"
-                  className="btn btn-sm"
-                  onClick={() => update({ ...parseFilters(new URLSearchParams()), q: filters.q })}
-                >
-                  {t('feed.clear')}
-                </button>
-              )}
-            </div>
-          ) : (
-            <>
+          <span>
+            {t('common.updated')}: {formatDate(meta.generatedAt)}
+          </span>
+        </div>
+        {results.length === 0 && !searching ? (
+          <EmptyState
+            title={t('feed.emptyTitle')}
+            icon={<SearchX size={28} strokeWidth={1.5} aria-hidden="true" />}
+          >
+            <p className="small">{t('feed.empty')}</p>
+            {(active > 0 || filters.q) && (
+              <button
+                type="button"
+                className="btn btn-sm"
+                onClick={() => {
+                  setQuery('');
+                  update(DEFAULT_FILTERS);
+                }}
+              >
+                {t('feed.clear')}
+              </button>
+            )}
+          </EmptyState>
+        ) : (
+          <>
+            <ol className="result-list" style={{ listStyle: 'none' }}>
               {results.slice(0, limit).map((r) => (
                 <ItemCard key={r.id} item={r} />
               ))}
-              {results.length > limit && (
-                <p style={{ textAlign: 'center', marginTop: 16 }}>
-                  <button type="button" className="btn" onClick={() => setLimit((l) => l + PAGE)}>
-                    {t('common.showMore')} ({formatNumber(results.length - limit)})
-                  </button>
-                </p>
-              )}
-            </>
-          )}
-        </section>
-      </div>
+            </ol>
+            {results.length > limit && (
+              <div className="load-more">
+                <button type="button" className="btn" onClick={() => setLimit((l) => l + PAGE)}>
+                  {t('common.showMore')}
+                  <span className="muted num">
+                    {formatNumber(limit)} / {formatNumber(results.length)}
+                  </span>
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </section>
     </>
   );
 }
