@@ -9,6 +9,7 @@
  *   pnpm pipeline probe               # one live request per endpoint, prints a table
  *   pnpm pipeline fixtures:record     # probe and store trimmed responses as test fixtures
  *   pnpm pipeline stats               # corpus statistics
+ *   pnpm pipeline topics [--out=DIR]  # local-only topic statistics (never published)
  *
  * Common flags: --data-dir=<dir> (default: $CHEMBRIDGE_DATA_DIR or ./.data), --no-raw
  */
@@ -93,6 +94,18 @@ const COMMANDS: Record<string, (rt: Runtime, args: Args) => Promise<number>> = {
   async 'fixtures:record'(rt) {
     const rows = await probe(rt, { recordFixtures: true });
     console.table(rows);
+    return 0;
+  },
+  async topics(rt, args) {
+    const { topics } = await lazy(() => import('./stages/topics.ts'));
+    const days = num(args.window);
+    const min = num(args.min);
+    const stats = await topics(rt, {
+      ...(typeof args.out === 'string' ? { outDir: args.out } : {}),
+      ...(days !== undefined ? { windowDays: days } : {}),
+      ...(min !== undefined ? { minDocs: min } : {}),
+    });
+    console.log(`${stats.length} topics`);
     return 0;
   },
   async stats(rt) {
